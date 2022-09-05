@@ -1,6 +1,8 @@
 # Finanies
 
 > um simples sistema de cadastro em RestAPI usando Lumen, com jwt para autenticação. 
+<br>
+> Sistema online em: https://finanies.tk/
 
 ## 💻 Pré-requisitos
 
