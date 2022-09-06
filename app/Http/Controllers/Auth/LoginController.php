@@ -44,10 +44,7 @@ class LoginController extends Controller
             return response(
                 array("success" => false, "data" => array(), "erros" => $validator->errors()),
                 400
-            )->header('Content-Type', 'application/json; charset=UTF-8')
-                ->header('Access-Control-Allow-Methods', '*')
-                ->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding')
-                ->header('Access-Control-Allow-Origin', '*');
+            );
         }
         $credentials = $request->only('credential', 'password');
         $user = User::query()->where('email', $credentials["credential"])->orWhere(
@@ -65,19 +62,13 @@ class LoginController extends Controller
                     ), "erros" => array()
                 ),
                 200
-            )->header('Access-Control-Allow-Origin', '*')
-                ->header('Content-Type', 'application/json; charset=UTF-8')
-                ->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
-                ->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding');
+            );
         }
         return  response()->json(
             array(
                 "success" => false, "data" => array(), "erros" => array("message" => "invalid user or password")
             ),
             401
-        )->header('Content-Type', 'application/json; charset=UTF-8')
-            ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
-            ->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding');
+        );
     }
 }
