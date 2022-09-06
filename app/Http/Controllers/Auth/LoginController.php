@@ -44,7 +44,9 @@ class LoginController extends Controller
             return response(
                 array("success" => false, "data" => array(), "erros" => $validator->errors()),
                 400
-            );
+            )->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
+            ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
+            ->header('Access-Control-Allow-Origin', '*');
         }
         $credentials = $request->only('credential', 'password');
         $user = User::query()->where('email', $credentials["credential"])->orWhere(
@@ -62,13 +64,17 @@ class LoginController extends Controller
                     ), "erros" => array()
                 ),
                 200
-            );
+            )->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
+            ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
+            ->header('Access-Control-Allow-Origin', '*');
         }
         return  response()->json(
             array(
                 "success" => false, "data" => array(), "erros" => array("message" => "invalid user or password")
             ),
             401
-        );
+        )->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
+        ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
+        ->header('Access-Control-Allow-Origin', '*');
     }
 }
