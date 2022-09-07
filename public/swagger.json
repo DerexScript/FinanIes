@@ -1,0 +1,86 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "FinanIes",
+        "license": {
+            "name": "MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://finanies.tk/",
+            "description": "API server"
+        }
+    ],
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "operationId": "cf0107ca98bf97dff3e93f168af744c9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "credential": {
+                                        "description": "Email address or user.",
+                                        "type": "string",
+                                        "default": "admin@admin.com"
+                                    },
+                                    "password": {
+                                        "description": "password",
+                                        "type": "string",
+                                        "default": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/api/v1/product": {
+            "get": {
+                "operationId": "762b1b6a61ebf2b15b92df46929674d2",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "title": "Product",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Class Product",
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

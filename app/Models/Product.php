@@ -9,6 +9,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
+/**
+ * Class Product
+ * @property string $title
+ * @property string $body
+ * @package App\ViewModels
+ * @OA\Schema(
+ *     schema="Product",
+ *     type="object",
+ *     title="Product",
+ *     required={"title", "body"},
+ *     properties={
+ *         @OA\Property(property="title", type="string"),
+ *         @OA\Property(property="body", type="string")
+ *     },
+ * )
+ */
 class Product extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;

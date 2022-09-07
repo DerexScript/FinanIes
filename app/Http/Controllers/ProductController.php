@@ -23,6 +23,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Get(
+     *     path="/api/v1/product",
+     *     @OA\Response(response="200", description="An example resource"),
+     *     security={{"bearerAuth": {}}}
+     * )
+     */
     public function index()
     {
         $products = Product::all();

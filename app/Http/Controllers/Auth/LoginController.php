@@ -23,6 +23,33 @@ class LoginController extends Controller
         $this->middleware('auth:api', ['except' => ['verifyLogin']]);
     }
 
+    /**
+     * @OA\Post(
+     *   path="/api/v1/login",
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="credential",
+     *           description="Email address or user.",
+     *           type="string",
+     *           default="admin@admin.com",
+     *         ),
+     *         @OA\Property(
+     *           property="password",
+     *           description="password",
+     *           type="string",
+     *           default="password123",
+     *         ),
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(response="200", description="An example resource")
+     * )
+     */
+
     public function verifyLogin(Request $request)
     {
         $rules = [
@@ -45,8 +72,8 @@ class LoginController extends Controller
                 array("success" => false, "data" => array(), "erros" => $validator->errors()),
                 400
             )->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
-            ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
-            ->header('Access-Control-Allow-Origin', '*');
+                ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
+                ->header('Access-Control-Allow-Origin', '*');
         }
         $credentials = $request->only('credential', 'password');
         $user = User::query()->where('email', $credentials["credential"])->orWhere(
@@ -65,8 +92,8 @@ class LoginController extends Controller
                 ),
                 200
             )->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
-            ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
-            ->header('Access-Control-Allow-Origin', '*');
+                ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
+                ->header('Access-Control-Allow-Origin', '*');
         }
         return  response()->json(
             array(
@@ -74,7 +101,7 @@ class LoginController extends Controller
             ),
             401
         )->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE')
-        ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
-        ->header('Access-Control-Allow-Origin', '*');
+            ->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'))
+            ->header('Access-Control-Allow-Origin', '*');
     }
 }
