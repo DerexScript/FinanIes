@@ -25,6 +25,7 @@ class LoginController extends Controller
 
     /**
      * @OA\Post(
+     *   tags={"Auth"},
      *   path="/api/v1/login",
      *   @OA\RequestBody(
      *     required=true,

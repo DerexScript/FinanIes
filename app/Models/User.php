@@ -54,6 +54,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
+    public function roles()
+    {
+        return $this->hasMany('App\Models\Role');
+    }
+
+    public function rolesAsUser()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

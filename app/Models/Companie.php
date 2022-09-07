@@ -15,27 +15,25 @@ use Laravel\Lumen\Auth\Authorizable;
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Product",
+ *     schema="Companie",
  *     type="object",
- *     title="Product",
- *     required={"name", "description", "quantity"},
+ *     title="Companie",
+ *     required={"name", "title"},
  *     properties={
- *         @OA\Property(property="name", type="string"),
- *         @OA\Property(property="description", type="string"),
- *         @OA\Property(property="quantity", type="string")
+ *         @OA\Property(property="role_id", type="string"),
+ *         @OA\Property(property="user_id", type="string")
  *     },
  * )
  */
-class Product extends Model implements AuthenticatableContract, AuthorizableContract
+class Companie extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
-        'name', 'description', 'quantity',
+        'name', 'title'
     ];
 }

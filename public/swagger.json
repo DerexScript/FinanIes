@@ -9,11 +9,11 @@
     },
     "servers": [
         {
-            "url": "https://finanies.tk/",
+            "url": "https://localhost:8000/",
             "description": "API server"
         },
         {
-            "url": "http://finanies.tk",
+            "url": "http://localhost:8000",
             "description": "API server http",
             "variables": {
                 "schema": {
@@ -21,7 +21,7 @@
                         "https",
                         "http"
                     ],
-                    "default": "https"
+                    "default": "http"
                 }
             }
         }
@@ -29,6 +29,9 @@
     "paths": {
         "/api/v1/login": {
             "post": {
+                "tags": [
+                    "Auth"
+                ],
                 "operationId": "cf0107ca98bf97dff3e93f168af744c9",
                 "requestBody": {
                     "required": true,
@@ -59,9 +62,268 @@
                 }
             }
         },
-        "/api/v1/product": {
+        "/api/v1/companie": {
             "get": {
-                "operationId": "762b1b6a61ebf2b15b92df46929674d2",
+                "tags": [
+                    "Companie"
+                ],
+                "operationId": "c1e8de26308c7d65a87ca6b141419f91",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Companie"
+                ],
+                "operationId": "d68f7d6276ef7628782c753c611755fc",
+                "parameters": [
+                    {
+                        "name": "companie",
+                        "in": "query",
+                        "description": "company identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "companie name",
+                                        "type": "string",
+                                        "default": "conpanie one"
+                                    },
+                                    "title": {
+                                        "description": "title companie",
+                                        "type": "string",
+                                        "default": "title companie"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Companie"
+                ],
+                "operationId": "93201d9112c651bd079fde493582360f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "companie name",
+                                        "type": "string",
+                                        "default": "conpanie one"
+                                    },
+                                    "title": {
+                                        "description": "title companie",
+                                        "type": "string",
+                                        "default": "title companie"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Companie"
+                ],
+                "operationId": "edbcd8b541a49f218f4ab5f60395550f",
+                "parameters": [
+                    {
+                        "name": "companie",
+                        "in": "query",
+                        "description": "company identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/role": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "operationId": "4cebb0ba7da6403f5178d7221945b6cb",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "operationId": "1ea99a969effa1f3088415e342c9f114",
+                "parameters": [
+                    {
+                        "name": "companie",
+                        "in": "query",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "role name",
+                                        "type": "string",
+                                        "default": "role-one"
+                                    },
+                                    "title": {
+                                        "description": "title role",
+                                        "type": "string",
+                                        "default": "title-role"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "operationId": "ebf680c8b7a8d46aeefccc7548183022",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "role name",
+                                        "type": "string",
+                                        "default": "role-one"
+                                    },
+                                    "view": {
+                                        "description": "view role",
+                                        "type": "boolean",
+                                        "default": "true"
+                                    },
+                                    "edit": {
+                                        "description": "edit role",
+                                        "type": "boolean",
+                                        "default": "true"
+                                    },
+                                    "delete": {
+                                        "description": "delete role",
+                                        "type": "boolean",
+                                        "default": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "operationId": "dc58af37bc644241b3f5bd47910c66d5",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "An example resource"
@@ -77,23 +339,36 @@
     },
     "components": {
         "schemas": {
-            "Product": {
-                "title": "Product",
+            "Companie": {
+                "title": "Companie",
                 "required": [
                     "name",
-                    "description",
-                    "quantity"
+                    "title"
                 ],
                 "properties": {
-                    "name": {
+                    "role_id": {
                         "description": "Class Product",
                         "type": "string"
                     },
-                    "description": {
+                    "user_id": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Role": {
+                "title": "Role",
+                "required": [
+                    "role_id",
+                    "user_id"
+                ],
+                "properties": {
+                    "role_id": {
+                        "description": "Class Product",
+                        "type": "integer"
                     },
-                    "quantity": {
-                        "type": "string"
+                    "user_id": {
+                        "type": "integer"
                     }
                 },
                 "type": "object"
