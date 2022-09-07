@@ -11,6 +11,27 @@ use Laravel\Lumen\Auth\Authorizable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * Class Product
+ * @property string $title
+ * @property string $body
+ * @package App\Models
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     title="User",
+ *     required={"name", "surname", "email", "username", "email_verified_at", "password", "is_admin"},
+ *     properties={
+ *         @OA\Property(property="name", type="string"),
+ *         @OA\Property(property="surname", type="string"),
+ *         @OA\Property(property="email", type="string"),
+ *         @OA\Property(property="username", type="string"),
+ *         @OA\Property(property="email_verified_at", type="timestamp"),
+ *         @OA\Property(property="password", type="string"),
+ *         @OA\Property(property="is_admin", type="tinyint")
+ *     },
+ * )
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
     use Authenticatable, Authorizable, HasFactory;

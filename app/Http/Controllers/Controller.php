@@ -17,6 +17,23 @@ use OpenApi\Annotations as OA;
  *     @OA\Server(
  *         description="API server",
  *         url="https://finanies.tk/",
+ *     ),
+ *     @OA\Components(
+ *         @OA\SecurityScheme(
+ *         securityScheme="bearerAuth",
+ *         type="http",
+ *             scheme="Bearer",
+ *         ),
+ *         @OA\Attachable
+ *     ),
+ *     @OA\Server(
+ *     url="http://finanies.tk",
+ *     description="API server http",
+ *         @OA\ServerVariable(
+ *             serverVariable="schema",
+ *             enum={"https", "http"},
+ *             default="https"
+ *         )
  *     )
  * )
  */

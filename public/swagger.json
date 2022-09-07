@@ -11,6 +11,19 @@
         {
             "url": "https://finanies.tk/",
             "description": "API server"
+        },
+        {
+            "url": "http://finanies.tk",
+            "description": "API server http",
+            "variables": {
+                "schema": {
+                    "enum": [
+                        "https",
+                        "http"
+                    ],
+                    "default": "https"
+                }
+            }
         }
     ],
     "paths": {
@@ -67,19 +80,66 @@
             "Product": {
                 "title": "Product",
                 "required": [
-                    "title",
-                    "body"
+                    "name",
+                    "description",
+                    "quantity"
                 ],
                 "properties": {
-                    "title": {
+                    "name": {
                         "description": "Class Product",
                         "type": "string"
                     },
-                    "body": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "quantity": {
                         "type": "string"
                     }
                 },
                 "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "required": [
+                    "name",
+                    "surname",
+                    "email",
+                    "username",
+                    "email_verified_at",
+                    "password",
+                    "is_admin"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Product",
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "email_verified_at": {
+                        "type": "timestamp"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "is_admin": {
+                        "type": "tinyint"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "Bearer"
             }
         }
     }

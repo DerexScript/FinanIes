@@ -19,6 +19,12 @@ Para usar Finanies, siga estas etapas:
 * suba o projeto localmente: 'php -S localhost:8000 -t public'
 ```
 
+## Anotações
+Execute o seguinte comando para atualizar documentação swagger
+```
+./vendor/bin/openapi app -o public/swagger.json
+```
+
 Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
 
 ## 📫 Contribuindo para Finanies

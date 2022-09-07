@@ -13,15 +13,16 @@ use Laravel\Lumen\Auth\Authorizable;
  * Class Product
  * @property string $title
  * @property string $body
- * @package App\ViewModels
+ * @package App\Models
  * @OA\Schema(
  *     schema="Product",
  *     type="object",
  *     title="Product",
- *     required={"title", "body"},
+ *     required={"name", "description", "quantity"},
  *     properties={
- *         @OA\Property(property="title", type="string"),
- *         @OA\Property(property="body", type="string")
+ *         @OA\Property(property="name", type="string"),
+ *         @OA\Property(property="description", type="string"),
+ *         @OA\Property(property="quantity", type="string")
  *     },
  * )
  */
