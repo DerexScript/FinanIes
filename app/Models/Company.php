@@ -15,9 +15,9 @@ use Laravel\Lumen\Auth\Authorizable;
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Companie",
+ *     schema="Company",
  *     type="object",
- *     title="Companie",
+ *     title="Company",
  *     required={"name", "title"},
  *     properties={
  *         @OA\Property(property="role_id", type="string"),
@@ -25,7 +25,7 @@ use Laravel\Lumen\Auth\Authorizable;
  *     },
  * )
  */
-class Companie extends Model implements AuthenticatableContract, AuthorizableContract
+class Company extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
     /**

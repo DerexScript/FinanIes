@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\CompanieController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +25,10 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->put('/{role}', ['uses' => 'RoleController@update', 'as' => 'role.update']);
         $router->delete('/{role}', ['uses' => 'RoleController@destroy', 'as' => 'role.destroy']);
     });
-    $router->group(['prefix' => 'companie', 'middleware' => 'auth:api'], function () use ($router) {
-        $router->get('/', ['uses' => 'CompanieController@index', 'as' => 'companie.index']);
-        $router->post('/', ['uses' => 'CompanieController@store', 'as' => 'companie.store']);
-        $router->put('/{companie}', ['uses' => 'CompanieController@update', 'as' => 'companie.update']);
-        $router->delete('/{companie}', ['uses' => 'CompanieController@destroy', 'as' => 'companie.destroy']);
+    $router->group(['prefix' => 'company', 'middleware' => 'auth:api'], function () use ($router) {
+        $router->get('/', ['uses' => 'CompanyController@index', 'as' => 'company.index']);
+        $router->post('/', ['uses' => 'CompanyController@store', 'as' => 'company.store']);
+        $router->put('/{company}', ['uses' => 'CompanyController@update', 'as' => 'company.update']);
+        $router->delete('/{company}', ['uses' => 'CompanyController@destroy', 'as' => 'company.destroy']);
     });
 });

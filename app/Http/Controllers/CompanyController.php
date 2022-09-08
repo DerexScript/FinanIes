@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Companie;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CompanieController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,15 +25,15 @@ class CompanieController extends Controller
      */
     /**
      * @OA\Get(
-     *   tags={"Companie"},
-     *   path="/api/v1/companie",
+     *   tags={"Company"},
+     *   path="/api/v1/company",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource")
      * )
      */
     public function index()
     {
-        return Companie::all();
+        return Company::all();
     }
 
     /**
@@ -54,8 +54,8 @@ class CompanieController extends Controller
      */
     /**
      * @OA\Post(
-     *   tags={"Companie"},
-     *   path="/api/v1/companie",
+     *   tags={"Company"},
+     *   path="/api/v1/company",
      *   security={{"bearerAuth": {}}},
      *   @OA\RequestBody(
      *     required=true,
@@ -96,7 +96,7 @@ class CompanieController extends Controller
             );
         }
         $fields = $request->only(["name", "title"]);
-        $companie = new Companie();
+        $companie = new Company();
         $companie->forceFill([
             "name" => $fields["name"],
             "title" => $fields["title"],
@@ -116,10 +116,10 @@ class CompanieController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Companie  $companie
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Companie $companie)
+    public function show(Company $company)
     {
         //
     }
@@ -127,10 +127,10 @@ class CompanieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Companie  $companie
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Companie $companie)
+    public function edit(Company $company)
     {
         //
     }
@@ -139,18 +139,18 @@ class CompanieController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Companie  $companie
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Put(
-     *   tags={"Companie"},
-     *   path="/api/v1/companie",
+     *   tags={"Company"},
+     *   path="/api/v1/company",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="companie",
+     *       name="company",
      *       description="company identification",
      *       in="query",
      *       @OA\Schema(type="integer"),
@@ -177,7 +177,7 @@ class CompanieController extends Controller
      *  ),
      * ),
      */
-    public function update(Request $request, Companie $companie)
+    public function update(Request $request, Company $company)
     {
         $rules = [
             'name' => 'required',
@@ -193,7 +193,7 @@ class CompanieController extends Controller
             );
         }
         $fields = $request->only(['name', 'title']);
-        if ($companie->update($fields)) {
+        if ($company->update($fields)) {
             return response(
                 array("success" => true, "data" => array("message" => "company successfully updated"), "erros" => array()),
                 200
@@ -208,13 +208,13 @@ class CompanieController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Companie  $companie
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *   tags={"Companie"},
-     *   path="/api/v1/companie",
+     *   tags={"Company"},
+     *   path="/api/v1/company",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -226,9 +226,9 @@ class CompanieController extends Controller
      *   ),
      * ),
      */
-    public function destroy(Companie $companie)
+    public function destroy(Company $company)
     {
-        if ($companie->delete()) {
+        if ($company->delete()) {
             return response(
                 array("success" => true, "data" => array("message" => "company successfully deleted"), "erros" => array()),
                 200

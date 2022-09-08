@@ -9,11 +9,11 @@
     },
     "servers": [
         {
-            "url": "https://localhost:8000/",
+            "url": "https://finanies.tk/",
             "description": "API server"
         },
         {
-            "url": "http://localhost:8000",
+            "url": "http://finanies.tk",
             "description": "API server http",
             "variables": {
                 "schema": {
@@ -21,7 +21,7 @@
                         "https",
                         "http"
                     ],
-                    "default": "http"
+                    "default": "https"
                 }
             }
         }
@@ -62,12 +62,12 @@
                 }
             }
         },
-        "/api/v1/companie": {
+        "/api/v1/company": {
             "get": {
                 "tags": [
-                    "Companie"
+                    "Company"
                 ],
-                "operationId": "c1e8de26308c7d65a87ca6b141419f91",
+                "operationId": "e09a177de9205b901d0c546dafede205",
                 "responses": {
                     "200": {
                         "description": "An example resource"
@@ -81,9 +81,9 @@
             },
             "put": {
                 "tags": [
-                    "Companie"
+                    "Company"
                 ],
-                "operationId": "d68f7d6276ef7628782c753c611755fc",
+                "operationId": "6d07902996eba7aad243758a82de1fba",
                 "parameters": [
                     {
                         "name": "companie",
@@ -130,9 +130,9 @@
             },
             "post": {
                 "tags": [
-                    "Companie"
+                    "Company"
                 ],
-                "operationId": "93201d9112c651bd079fde493582360f",
+                "operationId": "d5834f135441d2027f02cd07d64e8b38",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -168,9 +168,9 @@
             },
             "delete": {
                 "tags": [
-                    "Companie"
+                    "Company"
                 ],
-                "operationId": "edbcd8b541a49f218f4ab5f60395550f",
+                "operationId": "cc8b087d4637c59a7298a4a84b3fb8a3",
                 "parameters": [
                     {
                         "name": "companie",
@@ -339,8 +339,8 @@
     },
     "components": {
         "schemas": {
-            "Companie": {
-                "title": "Companie",
+            "Company": {
+                "title": "Company",
                 "required": [
                     "name",
                     "title"
