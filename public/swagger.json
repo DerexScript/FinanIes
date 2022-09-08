@@ -9,11 +9,11 @@
     },
     "servers": [
         {
-            "url": "https://finanies.tk/",
+            "url": "https://api.finanies.tk/",
             "description": "API server"
         },
         {
-            "url": "http://finanies.tk",
+            "url": "http://api.finanies.tk/",
             "description": "API server http",
             "variables": {
                 "schema": {
@@ -86,7 +86,7 @@
                 "operationId": "6d07902996eba7aad243758a82de1fba",
                 "parameters": [
                     {
-                        "name": "companie",
+                        "name": "company",
                         "in": "query",
                         "description": "company identification",
                         "required": true,

@@ -16,7 +16,7 @@ use OpenApi\Annotations as OA;
  *     ),
  *     @OA\Server(
  *         description="API server",
- *         url="https://finanies.tk/",
+ *         url="https://api.finanies.tk/",
  *     ),
  *     @OA\Components(
  *         @OA\SecurityScheme(
@@ -27,7 +27,7 @@ use OpenApi\Annotations as OA;
  *         @OA\Attachable
  *     ),
  *     @OA\Server(
- *     url="http://finanies.tk",
+ *     url="http://api.finanies.tk/",
  *     description="API server http",
  *         @OA\ServerVariable(
  *             serverVariable="schema",
