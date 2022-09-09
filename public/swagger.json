@@ -79,11 +79,51 @@
                     }
                 ]
             },
+            "post": {
+                "tags": [
+                    "Company"
+                ],
+                "operationId": "d5834f135441d2027f02cd07d64e8b38",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "companie name",
+                                        "type": "string",
+                                        "default": "conpanie one"
+                                    },
+                                    "title": {
+                                        "description": "title companie",
+                                        "type": "string",
+                                        "default": "title companie"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/company/{company}": {
             "put": {
                 "tags": [
                     "Company"
                 ],
-                "operationId": "6d07902996eba7aad243758a82de1fba",
+                "operationId": "87d0cc858990ac078136be8b2cf91c2a",
                 "parameters": [
                     {
                         "name": "company",
@@ -128,53 +168,15 @@
                     }
                 ]
             },
-            "post": {
-                "tags": [
-                    "Company"
-                ],
-                "operationId": "d5834f135441d2027f02cd07d64e8b38",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "companie name",
-                                        "type": "string",
-                                        "default": "conpanie one"
-                                    },
-                                    "title": {
-                                        "description": "title companie",
-                                        "type": "string",
-                                        "default": "title companie"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
             "delete": {
                 "tags": [
                     "Company"
                 ],
-                "operationId": "cc8b087d4637c59a7298a4a84b3fb8a3",
+                "operationId": "754c1ce69e2c40d1a1bdd3b0a4e17b02",
                 "parameters": [
                     {
                         "name": "companie",
-                        "in": "query",
+                        "in": "path",
                         "description": "company identification",
                         "required": true,
                         "schema": {
@@ -200,55 +202,6 @@
                     "Role"
                 ],
                 "operationId": "4cebb0ba7da6403f5178d7221945b6cb",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Role"
-                ],
-                "operationId": "1ea99a969effa1f3088415e342c9f114",
-                "parameters": [
-                    {
-                        "name": "companie",
-                        "in": "query",
-                        "description": "role identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "role name",
-                                        "type": "string",
-                                        "default": "role-one"
-                                    },
-                                    "title": {
-                                        "description": "title role",
-                                        "type": "string",
-                                        "default": "title-role"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "An example resource"
@@ -307,16 +260,77 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/v1/role/{role}": {
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "operationId": "c372dd042b40886c79bda66af366bfe6",
+                "parameters": [
+                    {
+                        "name": "companie",
+                        "in": "query",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "role name",
+                                        "type": "string",
+                                        "default": "role-one"
+                                    },
+                                    "view": {
+                                        "description": "permission to see",
+                                        "type": "boolean",
+                                        "default": "true"
+                                    },
+                                    "edit": {
+                                        "description": "permission to edit",
+                                        "type": "boolean",
+                                        "default": "true"
+                                    },
+                                    "delete": {
+                                        "description": "permission to delete",
+                                        "type": "boolean",
+                                        "default": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
                     "Role"
                 ],
-                "operationId": "dc58af37bc644241b3f5bd47910c66d5",
+                "operationId": "037e57dadac0cd83fd5d0511dc93e220",
                 "parameters": [
                     {
                         "name": "role",
-                        "in": "query",
+                        "in": "path",
                         "description": "role identification",
                         "required": true,
                         "schema": {

@@ -164,7 +164,7 @@ class RoleController extends Controller
     /**
      * @OA\Put(
      *   tags={"Role"},
-     *   path="/api/v1/role",
+     *   path="/api/v1/role/{role}",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -186,23 +186,35 @@ class RoleController extends Controller
      *           default="role-one",
      *         ),
      *         @OA\Property(
-     *           property="title",
-     *           description="title role",
-     *           type="string",
-     *           default="title-role",
+     *           property="view",
+     *           description="permission to see",
+     *           type="boolean",
+     *           default="true",
+     *         ),
+     *         @OA\Property(
+     *           property="edit",
+     *           description="permission to edit",
+     *           type="boolean",
+     *           default="true",
+     *         ),
+     *         @OA\Property(
+     *           property="delete",
+     *           description="permission to delete",
+     *           type="boolean",
+     *           default="true",
      *         ),
      *       ),
      *     ),
      *  ),
      * ),
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $role)
     {
         $rules = [
             'name' => 'required',
-            'view' => 'required',
-            'edit' => 'required',
-            'delete' => 'required',
+            'view' => 'required|boolean',
+            'edit' => 'required|boolean',
+            'delete' => 'required|boolean',
         ];
         $messages = [];
         $customAttributes = [];
@@ -214,7 +226,8 @@ class RoleController extends Controller
             );
         }
         $fields = $request->only(["name", "view", "edit", "delete"]);
-        if ($role->update($fields)) {
+        $role = Role::find($role);
+        if ($role && $role->update($fields)) {
             return response(
                 array("success" => true, "data" => array("message" => "role successfully updated"), "erros" => array()),
                 200
@@ -235,25 +248,31 @@ class RoleController extends Controller
     /**
      * @OA\Delete(
      *   tags={"Role"},
-     *   path="/api/v1/role",
+     *   path="/api/v1/role/{role}",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
      *       name="role",
      *       description="role identification",
-     *       in="query",
+     *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
      * ),
      */
-    public function destroy(Role $role)
+    public function destroy($role)
     {
-        if ($role->delete()) {
+        $role = Role::find($role);
+        if ($role) {
+            $role->delete();
             return response(
-                array("success" => true, "data" => array("message" => "role successfully deleted"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "function successfully deleted"), "erros" => array()),
                 200
             );
         }
+        return response(
+            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the function")),
+            404
+        );
     }
 }

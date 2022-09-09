@@ -148,7 +148,7 @@ class CompanyController extends Controller
     /**
      * @OA\Put(
      *   tags={"Company"},
-     *   path="/api/v1/company",
+     *   path="/api/v1/company/{company}",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -180,7 +180,7 @@ class CompanyController extends Controller
      *  ),
      * ),
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $company)
     {
         $rules = [
             'name' => 'required',
@@ -196,7 +196,8 @@ class CompanyController extends Controller
             );
         }
         $fields = $request->only(['name', 'title']);
-        if ($company->update($fields)) {
+        $company = Company::find($company);
+        if ($company && $company->update($fields)) {
             return response(
                 array("success" => true, "data" => array("message" => "company successfully updated"), "erros" => array()),
                 200
@@ -217,25 +218,31 @@ class CompanyController extends Controller
     /**
      * @OA\Delete(
      *   tags={"Company"},
-     *   path="/api/v1/company",
+     *   path="/api/v1/company/{company}",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
      *       name="companie",
      *       description="company identification",
-     *       in="query",
+     *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
      * ),
      */
-    public function destroy(Company $company)
+    public function destroy($company)
     {
-        if ($company->delete()) {
+        $company = Company::find($company);
+        if ($company) {
+            $company->delete();
             return response(
                 array("success" => true, "data" => array("message" => "company successfully deleted"), "erros" => array()),
                 200
             );
         }
+        return response(
+            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the company")),
+            404
+        );
     }
 }
