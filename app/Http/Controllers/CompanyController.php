@@ -33,7 +33,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return Company::all();
+        return response(
+            array("success" => true, "data" => Company::all(), "erros" => array()),
+            200
+        );
     }
 
     /**

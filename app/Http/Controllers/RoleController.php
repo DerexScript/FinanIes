@@ -33,7 +33,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Role::all();
+        return response(
+            array("success" => true, "data" => Role::all(), "erros" => array()),
+            200
+        );
     }
 
     /**
