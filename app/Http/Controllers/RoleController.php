@@ -161,53 +161,7 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    /**
-     * @OA\Put(
-     *   tags={"Role"},
-     *   path="/api/v1/role/{role}/",
-     *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource"),
-     *   @OA\Parameter(
-     *       required=true,
-     *       name="companie",
-     *       description="role identification",
-     *       in="query",
-     *       @OA\Schema(type="integer"),
-     *   ),
-     *  @OA\RequestBody(
-     *     required=true,
-     *     @OA\MediaType(
-     *       mediaType="application/json",
-     *       @OA\Schema(
-     *         @OA\Property(
-     *           property="name",
-     *           description="role name",
-     *           type="string",
-     *           default="role-one",
-     *         ),
-     *         @OA\Property(
-     *           property="view",
-     *           description="permission to see",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *         @OA\Property(
-     *           property="edit",
-     *           description="permission to edit",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *         @OA\Property(
-     *           property="delete",
-     *           description="permission to delete",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *       ),
-     *     ),
-     *  ),
-     * ),
-     */
+
     public function update(Request $request, $role)
     {
         $rules = [
@@ -245,7 +199,21 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-
+    /**
+     * @OA\Delete(
+     *   tags={"Role"},
+     *   path="/api/v1/role/{role}",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="role",
+     *       description="role identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     * ),
+     */
     public function destroy($role)
     {
         $role = Role::find($role);
