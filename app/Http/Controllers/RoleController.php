@@ -245,21 +245,7 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    /**
-     * @OA\Delete(
-     *   tags={"Role"},
-     *   path="/api/v1/role/{role}/",
-     *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource"),
-     *   @OA\Parameter(
-     *       required=true,
-     *       name="role",
-     *       description="role identification",
-     *       in="path",
-     *       @OA\Schema(type="integer"),
-     *   ),
-     * ),
-     */
+
     public function destroy($role)
     {
         $role = Role::find($role);

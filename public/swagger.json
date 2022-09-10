@@ -118,12 +118,12 @@
                 ]
             }
         },
-        "/api/v1/company/{company}/": {
+        "/api/v1/company/{company}": {
             "put": {
                 "tags": [
                     "Company"
                 ],
-                "operationId": "0707d605125fa447f15486047f82a40e",
+                "operationId": "87d0cc858990ac078136be8b2cf91c2a",
                 "parameters": [
                     {
                         "name": "company",
@@ -172,7 +172,7 @@
                 "tags": [
                     "Company"
                 ],
-                "operationId": "ae580e08cf7c184d5ed48348ae9766d8",
+                "operationId": "754c1ce69e2c40d1a1bdd3b0a4e17b02",
                 "parameters": [
                     {
                         "name": "companie",
@@ -311,33 +311,6 @@
                         }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Role"
-                ],
-                "operationId": "a3603814e41f559d5e094c1e0652de57",
-                "parameters": [
-                    {
-                        "name": "role",
-                        "in": "path",
-                        "description": "role identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "An example resource"
