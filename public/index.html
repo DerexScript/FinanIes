@@ -13,15 +13,21 @@
 <script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
 <script>
     (function () {
-        SwaggerUIBundle({
+    const ui = SwaggerUIBundle({
             url: "swagger.json",
             dom_id: '#swagger-ui',
             presets: [
                 SwaggerUIBundle.presets.apis,
                 SwaggerUIStandalonePreset
             ],
-            layout: "StandaloneLayout"
+            layout: "StandaloneLayout",
+            onComplete: function() {
+                const token = localStorage.getItem("token_swagger");
+                token && ui.preauthorizeApiKey("bearerAuth", token);
+                
+            }
         });
+        
     })();
 </script>
 </body>

@@ -26,6 +26,8 @@ class CompanyController extends Controller
     /**
      * @OA\Get(
      *   tags={"Company"},
+     *   description="get all company",
+     *   summary="get all company",
      *   path="/api/v1/company",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource")
@@ -59,6 +61,8 @@ class CompanyController extends Controller
      * @OA\Post(
      *   tags={"Company"},
      *   path="/api/v1/company",
+     *   description="register a new company",
+     *   summary="register a new company",
      *   security={{"bearerAuth": {}}},
      *   @OA\RequestBody(
      *     required=true,
@@ -149,13 +153,16 @@ class CompanyController extends Controller
      * @OA\Put(
      *   tags={"Company"},
      *   path="/api/v1/company/{company}",
+     *   description="update a company by id",
+     *   summary="update a company by id",
+     *   operationId="updateCompany",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
      *       name="company",
      *       description="company identification",
-     *       in="query",
+     *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
      *  @OA\RequestBody(
@@ -219,11 +226,14 @@ class CompanyController extends Controller
      * @OA\Delete(
      *   tags={"Company"},
      *   path="/api/v1/company/{company}",
+     *   description="delete a company by id",
+     *   summary="delete a company by id",
+     *   operationId="deleteCompany",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="companie",
+     *       name="company",
      *       description="company identification",
      *       in="path",
      *       @OA\Schema(type="integer"),

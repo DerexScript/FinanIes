@@ -2,6 +2,9 @@
     "openapi": "3.0.0",
     "info": {
         "title": "FinanIes",
+        "contact": {
+            "email": "derex@outlook.com.br"
+        },
         "license": {
             "name": "MIT"
         },
@@ -9,21 +12,8 @@
     },
     "servers": [
         {
-            "url": "https://api.finanies.tk/",
+            "url": "http://localhost:8000",
             "description": "API server"
-        },
-        {
-            "url": "http://api.finanies.tk/",
-            "description": "API server http",
-            "variables": {
-                "schema": {
-                    "enum": [
-                        "https",
-                        "http"
-                    ],
-                    "default": "https"
-                }
-            }
         }
     ],
     "paths": {
@@ -32,6 +22,8 @@
                 "tags": [
                     "Auth"
                 ],
+                "summary": "login and get authorization key",
+                "description": "login and get authorization key",
                 "operationId": "cf0107ca98bf97dff3e93f168af744c9",
                 "requestBody": {
                     "required": true,
@@ -67,6 +59,8 @@
                 "tags": [
                     "Company"
                 ],
+                "summary": "get all company",
+                "description": "get all company",
                 "operationId": "e09a177de9205b901d0c546dafede205",
                 "responses": {
                     "200": {
@@ -83,6 +77,8 @@
                 "tags": [
                     "Company"
                 ],
+                "summary": "register a new company",
+                "description": "register a new company",
                 "operationId": "d5834f135441d2027f02cd07d64e8b38",
                 "requestBody": {
                     "required": true,
@@ -123,11 +119,13 @@
                 "tags": [
                     "Company"
                 ],
-                "operationId": "87d0cc858990ac078136be8b2cf91c2a",
+                "summary": "update a company by id",
+                "description": "update a company by id",
+                "operationId": "updateCompany",
                 "parameters": [
                     {
                         "name": "company",
-                        "in": "query",
+                        "in": "path",
                         "description": "company identification",
                         "required": true,
                         "schema": {
@@ -172,10 +170,12 @@
                 "tags": [
                     "Company"
                 ],
-                "operationId": "754c1ce69e2c40d1a1bdd3b0a4e17b02",
+                "summary": "delete a company by id",
+                "description": "delete a company by id",
+                "operationId": "deleteCompany",
                 "parameters": [
                     {
-                        "name": "companie",
+                        "name": "company",
                         "in": "path",
                         "description": "company identification",
                         "required": true,
@@ -196,11 +196,28 @@
                 ]
             }
         },
+        "/api/v1/helpers/version": {
+            "get": {
+                "tags": [
+                    "Helpers"
+                ],
+                "summary": "get framework version",
+                "description": "get framework version",
+                "operationId": "4d42025e8715fa41eef8550946ab357e",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
         "/api/v1/role": {
             "get": {
                 "tags": [
                     "Role"
                 ],
+                "summary": "get all roles",
+                "description": "get all roles",
                 "operationId": "4cebb0ba7da6403f5178d7221945b6cb",
                 "responses": {
                     "200": {
@@ -217,6 +234,8 @@
                 "tags": [
                     "Role"
                 ],
+                "summary": "register a new role",
+                "description": "register a new role",
                 "operationId": "ebf680c8b7a8d46aeefccc7548183022",
                 "requestBody": {
                     "required": true,
@@ -262,16 +281,18 @@
                 ]
             }
         },
-        "/api/v1/role/{role}/": {
+        "/api/v1/role/{role}": {
             "put": {
                 "tags": [
                     "Role"
                 ],
-                "operationId": "eda724d8e2587fb1bffd47a2a0108201",
+                "summary": "update a role by id",
+                "description": "update a role by id",
+                "operationId": "updateRole",
                 "parameters": [
                     {
-                        "name": "companie",
-                        "in": "query",
+                        "name": "role",
+                        "in": "path",
                         "description": "role identification",
                         "required": true,
                         "schema": {
@@ -311,6 +332,35 @@
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "delete a role by id",
+                "description": "delete a role by id",
+                "operationId": "deleteRole",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "An example resource"

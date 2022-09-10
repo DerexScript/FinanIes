@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\CompanyController;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,9 +9,12 @@ use App\Http\Controllers\CompanyController;
 | It is a breeze. Simply tell Lumen the URIs it should respond to
 | and give it the Closure to call when that URI is requested.
 |
-*/
+ */
 
 $router->group(['prefix' => '/api/v1/'], function () use ($router) {
+    $router->group(['prefix' => 'helpers'], function () use ($router) {
+        $router->get('/version', ['uses' => 'HelperController@version']);
+    });
     $router->group(['prefix' => 'login', 'namespace' => 'Auth'], function () use ($router) {
         $router->post('/', ['uses' => 'LoginController@verifyLogin', 'as' => 'login']);
     });

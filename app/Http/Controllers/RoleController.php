@@ -26,6 +26,8 @@ class RoleController extends Controller
     /**
      * @OA\Get(
      *   tags={"Role"},
+     *   description="get all roles",
+     *   summary="get all roles",
      *   path="/api/v1/role",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource")
@@ -59,6 +61,8 @@ class RoleController extends Controller
      * @OA\Post(
      *   tags={"Role"},
      *   path="/api/v1/role",
+     *   description="register a new role",
+     *   summary="register a new role",
      *   security={{"bearerAuth": {}}},
      *   @OA\RequestBody(
      *     required=true,
@@ -161,7 +165,58 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-
+    /**
+     * @OA\Put(
+     *   tags={"Role"},
+     *   path="/api/v1/role/{role}",
+     *   description="update a role by id",
+     *   summary="update a role by id",
+     *   operationId="updateRole",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="role",
+     *       description="role identification",
+     *       in="path",
+     *       @OA\Schema(
+     *         type="integer"
+     *      ),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="name",
+     *           description="role name",
+     *           type="string",
+     *           default="role-one",
+     *         ),
+     *         @OA\Property(
+     *           property="view",
+     *           description="permission to see",
+     *           type="boolean",
+     *           default="true",
+     *         ),
+     *         @OA\Property(
+     *           property="edit",
+     *           description="permission to edit",
+     *           type="boolean",
+     *           default="true",
+     *         ),
+     *         @OA\Property(
+     *           property="delete",
+     *           description="permission to delete",
+     *           type="boolean",
+     *           default="true",
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
     public function update(Request $request, $role)
     {
         $rules = [
@@ -203,6 +258,9 @@ class RoleController extends Controller
      * @OA\Delete(
      *   tags={"Role"},
      *   path="/api/v1/role/{role}",
+     *   description="delete a role by id",
+     *   summary="delete a role by id",
+     *   operationId="deleteRole",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -210,7 +268,9 @@ class RoleController extends Controller
      *       name="role",
      *       description="role identification",
      *       in="path",
-     *       @OA\Schema(type="integer"),
+     *       @OA\Schema(
+     *         type="integer"
+     *      ),
      *   ),
      * ),
      */
@@ -220,12 +280,12 @@ class RoleController extends Controller
         if ($role) {
             $role->delete();
             return response(
-                array("success" => true, "data" => array("message" => "function successfully deleted"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "role successfully deleted"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the function")),
+            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the role")),
             404
         );
     }

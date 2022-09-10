@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use OpenApi\Annotations as OA;
 
+define("API_HOST", preg_match("/user/i", __DIR__) ? 'http://localhost:8000' : 'https://finanies.tk');
 /**
  * Class Controller
  * @package App\Http\Controllers
@@ -12,11 +13,11 @@ use OpenApi\Annotations as OA;
  *     @OA\Info(
  *         version="1.0.0",
  *         title="FinanIes",
- *         @OA\License(name="MIT")
- *     ),
- *     @OA\Server(
- *         description="API server",
- *         url="https://api.finanies.tk/",
+ *         @OA\License(name="MIT"),
+ *         @OA\Contact(
+ *             email="derex@outlook.com.br"
+ *         ),
+ *
  *     ),
  *     @OA\Components(
  *         @OA\SecurityScheme(
@@ -27,18 +28,12 @@ use OpenApi\Annotations as OA;
  *         @OA\Attachable
  *     ),
  *     @OA\Server(
- *     url="http://api.finanies.tk/",
- *     description="API server http",
- *         @OA\ServerVariable(
- *             serverVariable="schema",
- *             enum={"https", "http"},
- *             default="https"
- *         )
+ *        url=API_HOST,
+ *        description="API server",
  *     )
  * )
  */
 
 class Controller extends BaseController
 {
-    //
 }

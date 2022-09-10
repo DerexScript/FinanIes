@@ -26,6 +26,8 @@ class LoginController extends Controller
     /**
      * @OA\Post(
      *   tags={"Auth"},
+     *   description="login and get authorization key",
+     *   summary="login and get authorization key",
      *   path="/api/v1/login",
      *   @OA\RequestBody(
      *     required=true,
