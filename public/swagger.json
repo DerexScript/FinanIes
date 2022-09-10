@@ -118,12 +118,12 @@
                 ]
             }
         },
-        "/api/v1/company/{company}": {
+        "/api/v1/company/{company}/": {
             "put": {
                 "tags": [
                     "Company"
                 ],
-                "operationId": "87d0cc858990ac078136be8b2cf91c2a",
+                "operationId": "0707d605125fa447f15486047f82a40e",
                 "parameters": [
                     {
                         "name": "company",
@@ -172,7 +172,7 @@
                 "tags": [
                     "Company"
                 ],
-                "operationId": "754c1ce69e2c40d1a1bdd3b0a4e17b02",
+                "operationId": "ae580e08cf7c184d5ed48348ae9766d8",
                 "parameters": [
                     {
                         "name": "companie",
@@ -262,12 +262,12 @@
                 ]
             }
         },
-        "/api/v1/role/{role}": {
+        "/api/v1/role/{role}/": {
             "put": {
                 "tags": [
                     "Role"
                 ],
-                "operationId": "c372dd042b40886c79bda66af366bfe6",
+                "operationId": "eda724d8e2587fb1bffd47a2a0108201",
                 "parameters": [
                     {
                         "name": "companie",
@@ -326,7 +326,7 @@
                 "tags": [
                     "Role"
                 ],
-                "operationId": "037e57dadac0cd83fd5d0511dc93e220",
+                "operationId": "a3603814e41f559d5e094c1e0652de57",
                 "parameters": [
                     {
                         "name": "role",

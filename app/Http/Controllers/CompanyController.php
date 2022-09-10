@@ -148,7 +148,7 @@ class CompanyController extends Controller
     /**
      * @OA\Put(
      *   tags={"Company"},
-     *   path="/api/v1/company/{company}",
+     *   path="/api/v1/company/{company}/",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -218,7 +218,7 @@ class CompanyController extends Controller
     /**
      * @OA\Delete(
      *   tags={"Company"},
-     *   path="/api/v1/company/{company}",
+     *   path="/api/v1/company/{company}/",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(

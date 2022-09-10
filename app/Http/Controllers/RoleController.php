@@ -164,7 +164,7 @@ class RoleController extends Controller
     /**
      * @OA\Put(
      *   tags={"Role"},
-     *   path="/api/v1/role/{role}",
+     *   path="/api/v1/role/{role}/",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -248,7 +248,7 @@ class RoleController extends Controller
     /**
      * @OA\Delete(
      *   tags={"Role"},
-     *   path="/api/v1/role/{role}",
+     *   path="/api/v1/role/{role}/",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
