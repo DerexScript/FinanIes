@@ -211,6 +211,305 @@
                 }
             }
         },
+        "/api/v1/helpers/routes": {
+            "get": {
+                "tags": [
+                    "Helpers"
+                ],
+                "summary": "get all routes",
+                "description": "get all routes",
+                "operationId": "6ae45de70a45c80311e4591433beee5a",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/api/v1/permission": {
+            "get": {
+                "tags": [
+                    "Permission"
+                ],
+                "summary": "get all permissions",
+                "description": "get all permissions",
+                "operationId": "550d293092d8f45fe8379222bb165be6",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Permission"
+                ],
+                "summary": "register a new permission",
+                "description": "register a new permission",
+                "operationId": "7ba7bb2d9c5e353725c90f6ca637f156",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "permission name",
+                                        "type": "string",
+                                        "default": "permission one"
+                                    },
+                                    "title": {
+                                        "description": "title permission",
+                                        "type": "string",
+                                        "default": "title permission"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/permission/{permission}": {
+            "put": {
+                "tags": [
+                    "Permission"
+                ],
+                "summary": "update a permission by id",
+                "description": "update a permission by id",
+                "operationId": "updatePermission",
+                "parameters": [
+                    {
+                        "name": "permission",
+                        "in": "path",
+                        "description": "permission identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "permission name",
+                                        "type": "string",
+                                        "default": "permission one"
+                                    },
+                                    "title": {
+                                        "description": "title permission",
+                                        "type": "string",
+                                        "default": "title permission"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Permission"
+                ],
+                "summary": "delete a permission by id",
+                "description": "delete a permission by id",
+                "operationId": "deletePermission",
+                "parameters": [
+                    {
+                        "name": "permission",
+                        "in": "path",
+                        "description": "permission identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release": {
+            "get": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "get all release",
+                "description": "get all release",
+                "operationId": "30c75eaa4ad8a0caa07b244e088073b3",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "register a new release",
+                "description": "register a new release",
+                "operationId": "565a83d739aefa4393fcf81a2304ba95",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "release name",
+                                        "type": "string",
+                                        "default": "release one"
+                                    },
+                                    "title": {
+                                        "description": "title release",
+                                        "type": "string",
+                                        "default": "title release"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release/{release}": {
+            "put": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "update a release by id",
+                "description": "update a release by id",
+                "operationId": "updateRelease",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "release name",
+                                        "type": "string",
+                                        "default": "release one"
+                                    },
+                                    "title": {
+                                        "description": "title release",
+                                        "type": "string",
+                                        "default": "title release"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "delete a release by id",
+                "description": "delete a release by id",
+                "operationId": "deleteRelease",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/role": {
             "get": {
                 "tags": [
@@ -376,19 +675,95 @@
     },
     "components": {
         "schemas": {
+            "Category": {
+                "title": "Category",
+                "required": [
+                    "name",
+                    "description"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Category",
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "Company": {
                 "title": "Company",
                 "required": [
                     "name",
-                    "title"
+                    "description"
                 ],
                 "properties": {
-                    "role_id": {
-                        "description": "Class Product",
+                    "name": {
+                        "description": "Class Company",
                         "type": "string"
                     },
-                    "user_id": {
+                    "description": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Permission": {
+                "title": "Permission",
+                "required": [
+                    "name",
+                    "description",
+                    "view",
+                    "edit",
+                    "delete"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Permission",
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "view": {
+                        "type": "tinyint"
+                    },
+                    "edit": {
+                        "type": "tinyint"
+                    },
+                    "delete": {
+                        "type": "tinyint"
+                    }
+                },
+                "type": "object"
+            },
+            "Release": {
+                "title": "Release",
+                "required": [
+                    "description",
+                    "value",
+                    "date",
+                    "vouncher",
+                    "status"
+                ],
+                "properties": {
+                    "description": {
+                        "description": "Class Release",
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "vouncher": {
+                        "type": "binary"
+                    },
+                    "status": {
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
@@ -396,16 +771,16 @@
             "Role": {
                 "title": "Role",
                 "required": [
-                    "role_id",
-                    "user_id"
+                    "name",
+                    "description"
                 ],
                 "properties": {
-                    "role_id": {
-                        "description": "Class Product",
-                        "type": "integer"
+                    "name": {
+                        "description": "Class Role",
+                        "type": "string"
                     },
-                    "user_id": {
-                        "type": "integer"
+                    "description": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -423,7 +798,7 @@
                 ],
                 "properties": {
                     "name": {
-                        "description": "Class Product",
+                        "description": "Class User",
                         "type": "string"
                     },
                     "surname": {

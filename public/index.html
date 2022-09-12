@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>FinanIes API Documentation</title>
@@ -7,28 +8,28 @@
     <link rel="icon" type="image/png" href="./assets/img/avicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="./assets/img/favicon-16x16.png" sizes="16x16">
 </head>
+
 <body>
-<div id="swagger-ui"></div>
-<script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-standalone-preset.js"></script>
-<script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
-<script>
-    (function () {
-    const ui = SwaggerUIBundle({
-            url: "swagger.json",
-            dom_id: '#swagger-ui',
-            presets: [
-                SwaggerUIBundle.presets.apis,
-                SwaggerUIStandalonePreset
-            ],
-            layout: "StandaloneLayout",
-            onComplete: function() {
-                const token = localStorage.getItem("token_swagger");
-                token && ui.preauthorizeApiKey("bearerAuth", token);
-                
-            }
-        });
-        
-    })();
-</script>
+    <div id="swagger-ui"></div>
+    <script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-standalone-preset.js"></script>
+    <script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+    <script>
+        (function () {
+            const ui = SwaggerUIBundle({
+                url: "swagger.json",
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                layout: "StandaloneLayout",
+                onComplete: function () {
+                    const token = localStorage.getItem("token_swagger");
+                    token && ui.preauthorizeApiKey("bearerAuth", token);
+                }
+            });
+        })();
+    </script>
 </body>
+
 </html>

@@ -12,7 +12,7 @@ use Laravel\Lumen\Auth\Authorizable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
- * Class Product
+ * Class User
  * @property string $title
  * @property string $body
  * @package App\Models
@@ -53,16 +53,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
-
-    public function roles()
-    {
-        return $this->hasMany('App\Models\Role');
-    }
-
-    public function rolesAsUser()
-    {
-        return $this->belongsToMany('App\Models\Role');
-    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

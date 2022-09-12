@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
- * Class Role
+ * Class Category
  * @property string $title
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Role",
+ *     schema="Category",
  *     type="object",
- *     title="Role",
+ *     title="Category",
  *     required={"name", "description"},
  *     properties={
  *         @OA\Property(property="name", type="string"),
@@ -25,16 +25,19 @@ use Laravel\Lumen\Auth\Authorizable;
  *     },
  * )
  */
-class Role extends Model implements AuthenticatableContract, AuthorizableContract
+class Category extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
-
-
-
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
-    protected $fillable = ["name", "description"];
+    protected $fillable = [
+        'name', 'description'
+    ];
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 }

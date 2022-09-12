@@ -10,22 +10,25 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
- * Class Company
+ * Class Release
  * @property string $title
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Company",
+ *     schema="Release",
  *     type="object",
- *     title="Company",
- *     required={"name", "description"},
+ *     title="Release",
+ *     required={"description", "value", "date", "vouncher", "status"},
  *     properties={
- *         @OA\Property(property="name", type="string"),
- *         @OA\Property(property="description", type="string")
+ *         @OA\Property(property="description", type="string"),
+ *         @OA\Property(property="value", type="string"),
+ *         @OA\Property(property="date", type="date"),
+ *         @OA\Property(property="vouncher", type="binary"),
+ *         @OA\Property(property="status", type="boolean"),
  *     },
  * )
  */
-class Company extends Model implements AuthenticatableContract, AuthorizableContract
+class Release extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
     /**
@@ -34,9 +37,8 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $fillable = [
-        'name', 'description'
+        'description', 'value', 'date', 'vouncher', 'status'
     ];
-
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);

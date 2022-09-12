@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->boolean('view');
-            $table->boolean('edit');
-            $table->boolean('delete');
+            $table->string('name');
+            $table->string('description');
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }
@@ -30,6 +30,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::create('companies', function (Blueprint $table) {
+            $table->dropForeign('companies_user_id_foreign');
+        });
         Schema::dropIfExists('companies');
     }
 };

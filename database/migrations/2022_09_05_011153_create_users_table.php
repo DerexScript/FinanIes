@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->unique()->notNullable();
             $table->string('password');
             $table->boolean('is_admin')->default(false);
+            $table->unsignedBigInteger("role_id");
+            $table->foreign("role_id")->references("id")->on("roles");
             $table->rememberToken();
             $table->timestamps();
         });
@@ -34,6 +36,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::create('users', function (Blueprint $table) {
+            $table->dropForeign('users_role_id_foreign');
+        });
         Schema::dropIfExists('users');
     }
 };
