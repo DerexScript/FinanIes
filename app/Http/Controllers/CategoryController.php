@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class CompanyController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,10 +26,10 @@ class CompanyController extends Controller
      */
     /**
      * @OA\Get(
-     *   tags={"Company"},
-     *   description="get all company",
-     *   summary="get all company",
-     *   path="/api/v1/company",
+     *   tags={"Category"},
+     *   description="get all category",
+     *   summary="get all category",
+     *   path="/api/v1/category",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource")
      * )
@@ -37,7 +37,7 @@ class CompanyController extends Controller
     public function index()
     {
         return response(
-            array("success" => true, "data" => Company::all(), "erros" => array()),
+            array("success" => true, "data" => Category::all(), "erros" => array()),
             200
         );
     }
@@ -60,10 +60,10 @@ class CompanyController extends Controller
      */
     /**
      * @OA\Post(
-     *   tags={"Company"},
-     *   path="/api/v1/company",
-     *   description="register a new company",
-     *   summary="register a new company",
+     *   tags={"Category"},
+     *   path="/api/v1/category",
+     *   description="register a new category",
+     *   summary="register a new category",
      *   security={{"bearerAuth": {}}},
      *   @OA\RequestBody(
      *     required=true,
@@ -95,7 +95,7 @@ class CompanyController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
         ];
         $messages = [];
         $customAttributes = [];
@@ -106,20 +106,20 @@ class CompanyController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "title"]);
-        $companie = new Company();
-        $companie->forceFill([
+        $fields = $request->only(["name", "description"]);
+        $category = new Category();
+        $category->forceFill([
             "name" => $fields["name"],
-            "title" => $fields["title"],
+            "description" => $fields["description"],
         ]);
-        if ($companie->save()) {
+        if ($category->save()) {
             return response(
-                array("success" => true, "data" => array("message" => "company successfully added"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "category successfully added"), "erros" => array()),
                 201
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering company")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering category")),
             500
         );
     }
@@ -127,10 +127,10 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(Category $category)
     {
         //
     }
@@ -138,10 +138,10 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Category $category)
     {
         //
     }
@@ -150,22 +150,22 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Put(
-     *   tags={"Company"},
-     *   path="/api/v1/company/{company}",
-     *   description="update a company by id",
-     *   summary="update a company by id",
-     *   operationId="updateCompany",
+     *   tags={"Category"},
+     *   path="/api/v1/category/{category}",
+     *   description="update a category by id",
+     *   summary="update a category by id",
+     *   operationId="updateCategory",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="company",
-     *       description="company identification",
+     *       name="category",
+     *       description="identification",
      *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
@@ -183,18 +183,13 @@ class CompanyController extends Controller
      *           property="description",
      *           description="description",
      *           type="string"
-     *         ),
-     *        @OA\Property(
-     *           property="user_id",
-     *           description="user id",
-     *           type="integer"
-     *        ),
+     *         )
      *       ),
      *     ),
      *  ),
      * ),
      */
-    public function update(Request $request, $company)
+    public function update(Request $request, $category)
     {
         $rules = [
             'name' => 'required',
@@ -210,31 +205,31 @@ class CompanyController extends Controller
             );
         }
         $fields = $request->only(['name', 'title']);
-        $company = Company::find($company);
-        if ($company && $company->update($fields)) {
+        $category = Category::find($category);
+        if ($category && $category->update($fields)) {
             return response(
-                array("success" => true, "data" => array("message" => "company successfully updated"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "category successfully updated"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error updating company data")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error updating category data")),
             500
         );
     }
 
     /**
      * @OA\Post(
-     *   tags={"Company"},
-     *   path="/api/v1/company/{company}/attach",
-     *   description="associate permission to company",
-     *   summary="associate permission to company",
+     *   tags={"Category"},
+     *   path="/api/v1/category/{category}/attach",
+     *   description="associate permission to category",
+     *   summary="associate permission to category",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="company",
-     *       description="company identification",
+     *       name="category",
+     *       description="category identification",
      *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
@@ -253,7 +248,7 @@ class CompanyController extends Controller
      *  ),
      * ),
      */
-    public function companyRules(Request $request, $company)
+    public function categoryRules(Request $request, $category)
     {
         $rules = [
             'permission_id' => 'required'
@@ -268,11 +263,11 @@ class CompanyController extends Controller
             );
         }
         $fields = $request->only(['permission_id']);
-        $company = Company::find($company);
+        $category = Category::find($category);
 
-        if ($company) {
+        if ($category) {
             $tzdate = Carbon::now('Europe/London');
-            $company->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            $category->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
             return response(
                 array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
                 200
@@ -287,39 +282,39 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *   tags={"Company"},
-     *   path="/api/v1/company/{company}",
-     *   description="delete a company by id",
-     *   summary="delete a company by id",
-     *   operationId="deleteCompany",
+     *   tags={"Category"},
+     *   path="/api/v1/category/{category}",
+     *   description="delete a category by id",
+     *   summary="delete a category by id",
+     *   operationId="deleteCategory",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="company",
-     *       description="company identification",
+     *       name="category",
+     *       description="category identification",
      *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
      * ),
      */
-    public function destroy($company)
+    public function destroy($category)
     {
-        $company = Company::find($company);
-        if ($company) {
-            $company->delete();
+        $category = Category::find($category);
+        if ($category) {
+            $category->delete();
             return response(
-                array("success" => true, "data" => array("message" => "company successfully deleted"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "category successfully deleted"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the company")),
+            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the category")),
             404
         );
     }

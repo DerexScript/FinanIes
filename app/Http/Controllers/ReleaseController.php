@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Release;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class ReleaseController extends Controller
@@ -70,16 +71,35 @@ class ReleaseController extends Controller
      *       mediaType="application/json",
      *       @OA\Schema(
      *         @OA\Property(
-     *           property="name",
-     *           description="release name",
-     *           type="string",
-     *           default="release one",
+     *           property="description",
+     *           description="description",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="title",
-     *           description="title release",
+     *           property="value",
+     *           description="value",
+     *           type="float"
+     *         ),
+     *         @OA\Property(
+     *           property="date",
+     *           description="date",
+     *           type="date"
+     *         ),
+     *         @OA\Property(
+     *           property="voucher",
+     *           description="The data block for encryption/decryption",
      *           type="string",
-     *           default="title release",
+     *           format="binary"
+     *         ),
+     *         @OA\Property(
+     *           property="company id",
+     *           description="company id",
+     *           type="integer"
+     *         ),
+     *         @OA\Property(
+     *           property="category id",
+     *           description="category id",
+     *           type="integer"
      *         ),
      *       ),
      *     ),
@@ -116,6 +136,67 @@ class ReleaseController extends Controller
         }
         return response(
             array("success" => false, "data" => array(), "erros" => array("message" => "error when entering release")),
+            500
+        );
+    }
+
+    /**
+     * @OA\Post(
+     *   tags={"Release"},
+     *   path="/api/v1/release/{release}/attach",
+     *   description="associate permission to release",
+     *   summary="associate permission to release",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="release",
+     *       description="release identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="permission_id",
+     *           description="permission id",
+     *           type="integer",
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function releaseRules(Request $request, $release)
+    {
+        $rules = [
+            'permission_id' => 'required'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $fields = $request->only(['permission_id']);
+        $release = Release::find($release);
+
+        if ($release) {
+            $tzdate = Carbon::now('Europe/London');
+            $release->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            return response(
+                array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
+                200
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when associating")),
             500
         );
     }
@@ -171,20 +252,39 @@ class ReleaseController extends Controller
      *       mediaType="application/json",
      *       @OA\Schema(
      *         @OA\Property(
-     *           property="name",
-     *           description="release name",
-     *           type="string",
-     *           default="release one",
+     *           property="description",
+     *           description="description",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="title",
-     *           description="title release",
+     *           property="value",
+     *           description="value",
+     *           type="float"
+     *         ),
+     *         @OA\Property(
+     *           property="date",
+     *           description="date",
+     *           type="date"
+     *         ),
+     *         @OA\Property(
+     *           property="voucher",
+     *           description="The data block for encryption/decryption",
      *           type="string",
-     *           default="title release",
+     *           format="binary"
+     *         ),
+     *         @OA\Property(
+     *           property="company id",
+     *           description="company id",
+     *           type="integer"
+     *         ),
+     *         @OA\Property(
+     *           property="category id",
+     *           description="category id",
+     *           type="integer"
      *         ),
      *       ),
      *     ),
-     *  ),
+     *   ),
      * ),
      */
     public function update(Request $request, $release)

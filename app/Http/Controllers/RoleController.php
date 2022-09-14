@@ -71,27 +71,13 @@ class RoleController extends Controller
      *       @OA\Schema(
      *         @OA\Property(
      *           property="name",
-     *           description="role name",
-     *           type="string",
-     *           default="role-one",
+     *           description="name",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="view",
-     *           description="view role",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *         @OA\Property(
-     *           property="edit",
-     *           description="edit role",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *         @OA\Property(
-     *           property="delete",
-     *           description="delete role",
-     *           type="boolean",
-     *           default="true",
+     *           property="description",
+     *           description="description",
+     *           type="string"
      *         ),
      *       ),
      *     ),
@@ -103,9 +89,7 @@ class RoleController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'view' => 'required',
-            'edit' => 'required',
-            'delete' => 'required',
+            'description' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -116,13 +100,11 @@ class RoleController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "view", "edit", "delete"]);
+        $fields = $request->only(["name", "description"]);
         $role = new Role();
         $role->forceFill([
             "name" => $fields["name"],
-            "view" => $fields["view"],
-            "edit" => $fields["edit"],
-            "delete" => $fields["delete"],
+            "description" => $fields["description"]
         ]);
         if ($role->save()) {
             return response(
@@ -190,27 +172,13 @@ class RoleController extends Controller
      *       @OA\Schema(
      *         @OA\Property(
      *           property="name",
-     *           description="role name",
-     *           type="string",
-     *           default="role-one",
+     *           description="name",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="view",
-     *           description="permission to see",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *         @OA\Property(
-     *           property="edit",
-     *           description="permission to edit",
-     *           type="boolean",
-     *           default="true",
-     *         ),
-     *         @OA\Property(
-     *           property="delete",
-     *           description="permission to delete",
-     *           type="boolean",
-     *           default="true",
+     *           property="description",
+     *           description="description",
+     *           type="string"
      *         ),
      *       ),
      *     ),
@@ -221,9 +189,7 @@ class RoleController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'view' => 'required|boolean',
-            'edit' => 'required|boolean',
-            'delete' => 'required|boolean',
+            'description' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -234,7 +200,7 @@ class RoleController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "view", "edit", "delete"]);
+        $fields = $request->only(["name", "description"]);
         $role = Role::find($role);
         if ($role && $role->update($fields)) {
             return response(

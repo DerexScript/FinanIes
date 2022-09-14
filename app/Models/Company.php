@@ -39,6 +39,6 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(Permission::class, "permission_company");
     }
 }

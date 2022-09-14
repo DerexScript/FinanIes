@@ -30,12 +30,21 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->post('/', ['uses' => 'CompanyController@store', 'as' => 'company.store']);
         $router->put('/{company}', ['uses' => 'CompanyController@update', 'as' => 'company.update']);
         $router->delete('/{company}', ['uses' => 'CompanyController@destroy', 'as' => 'company.destroy']);
+        $router->post('/{company}/attach', ['uses' => 'CompanyController@companyRules', 'as' => 'company.attach']);
     });
     $router->group(['prefix' => 'release', 'middleware' => 'auth:api'], function () use ($router) {
         $router->get('/', ['uses' => 'ReleaseController@index', 'as' => 'release.index']);
         $router->post('/', ['uses' => 'ReleaseController@store', 'as' => 'release.store']);
         $router->put('/{release}', ['uses' => 'ReleaseController@update', 'as' => 'release.update']);
         $router->delete('/{release}', ['uses' => 'ReleaseController@destroy', 'as' => 'release.destroy']);
+        $router->post('/{release}/attach', ['uses' => 'ReleaseController@releaseRules', 'as' => 'release.attach']);
+    });
+    $router->group(['prefix' => 'category', 'middleware' => 'auth:api'], function () use ($router) {
+        $router->get('/', ['uses' => 'CategoryController@index', 'as' => 'category.index']);
+        $router->post('/', ['uses' => 'CategoryController@store', 'as' => 'category.store']);
+        $router->put('/{category}', ['uses' => 'CategoryController@update', 'as' => 'category.update']);
+        $router->delete('/{category}', ['uses' => 'CategoryController@destroy', 'as' => 'category.destroy']);
+        $router->post('/{category}/attach', ['uses' => 'CategoryController@categoryRules', 'as' => 'category.attach']);
     });
     $router->group(['prefix' => 'permission', 'middleware' => 'auth:api'], function () use ($router) {
         $router->get('/', ['uses' => 'PermissionController@index', 'as' => 'permission.index']);

@@ -71,15 +71,28 @@ class PermissionController extends Controller
      *       @OA\Schema(
      *         @OA\Property(
      *           property="name",
-     *           description="permission name",
-     *           type="string",
-     *           default="permission one",
+     *           description="name",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="title",
-     *           description="title permission",
-     *           type="string",
-     *           default="title permission",
+     *           property="description",
+     *           description="description",
+     *           type="string"
+     *         ),
+     *         @OA\Property(
+     *           property="view",
+     *           description="view",
+     *           type="boolean"
+     *         ),
+     *         @OA\Property(
+     *           property="edit",
+     *           description="edit",
+     *           type="boolean"
+     *         ),
+     *         @OA\Property(
+     *           property="delete",
+     *           description="delete",
+     *           type="boolean"
      *         ),
      *       ),
      *     ),
@@ -91,7 +104,10 @@ class PermissionController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
+            'view' => 'required|boolean',
+            'edit' => 'required|boolean',
+            'delete' => 'required|boolean',
         ];
         $messages = [];
         $customAttributes = [];
@@ -106,7 +122,10 @@ class PermissionController extends Controller
         $permission = new Permission();
         $permission->forceFill([
             "name" => $fields["name"],
-            "title" => $fields["title"],
+            "description" => $fields["title"],
+            "view" => $fields["view"],
+            "edit" => $fields["edit"],
+            "delete" => $fields["delete"],
         ]);
         if ($permission->save()) {
             return response(
@@ -172,15 +191,28 @@ class PermissionController extends Controller
      *       @OA\Schema(
      *         @OA\Property(
      *           property="name",
-     *           description="permission name",
-     *           type="string",
-     *           default="permission one",
+     *           description="name",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="title",
-     *           description="title permission",
-     *           type="string",
-     *           default="title permission",
+     *           property="description",
+     *           description="description",
+     *           type="string"
+     *         ),
+     *         @OA\Property(
+     *           property="view",
+     *           description="view",
+     *           type="boolean"
+     *         ),
+     *         @OA\Property(
+     *           property="edit",
+     *           description="edit",
+     *           type="boolean"
+     *         ),
+     *         @OA\Property(
+     *           property="delete",
+     *           description="delete",
+     *           type="boolean"
      *         ),
      *       ),
      *     ),
@@ -191,7 +223,10 @@ class PermissionController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
+            'view' => 'required|boolean',
+            'edit' => 'required|boolean',
+            'delete' => 'required|boolean',
         ];
         $messages = [];
         $customAttributes = [];
@@ -202,7 +237,7 @@ class PermissionController extends Controller
                 400
             );
         }
-        $fields = $request->only(['name', 'title']);
+        $fields = $request->only(['name', 'description', 'view', 'edit', 'delete']);
         $permission = Permission::find($permission);
         if ($permission && $permission->update($fields)) {
             return response(

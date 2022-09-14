@@ -54,6 +54,195 @@
                 }
             }
         },
+        "/api/v1/category": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "get all category",
+                "description": "get all category",
+                "operationId": "20d3cf3a1801e111a5f74f854befa99e",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "register a new category",
+                "description": "register a new category",
+                "operationId": "8869ca502a1b6dbee083dd52e09c12cb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "user id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/category/{category}": {
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "update a category by id",
+                "description": "update a category by id",
+                "operationId": "updateCategory",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "delete a category by id",
+                "description": "delete a category by id",
+                "operationId": "deleteCategory",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "category identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/category/{category}/attach": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "associate permission to category",
+                "description": "associate permission to category",
+                "operationId": "da66f7ece45d91daff062505eaeef24f",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "description": "category identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permission_id": {
+                                        "description": "permission id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/company": {
             "get": {
                 "tags": [
@@ -87,14 +276,16 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "companie name",
-                                        "type": "string",
-                                        "default": "conpanie one"
+                                        "description": "name",
+                                        "type": "string"
                                     },
-                                    "title": {
-                                        "description": "title companie",
-                                        "type": "string",
-                                        "default": "title companie"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "user id",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -140,14 +331,16 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "companie name",
-                                        "type": "string",
-                                        "default": "conpanie one"
+                                        "description": "name",
+                                        "type": "string"
                                     },
-                                    "title": {
-                                        "description": "title companie",
-                                        "type": "string",
-                                        "default": "title companie"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "user id",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -184,6 +377,53 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/company/{company}/attach": {
+            "post": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "associate permission to company",
+                "description": "associate permission to company",
+                "operationId": "dca1aec0c9ef1bfca32c0fc68e26b26c",
+                "parameters": [
+                    {
+                        "name": "company",
+                        "in": "path",
+                        "description": "company identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permission_id": {
+                                        "description": "permission id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "An example resource"
@@ -259,14 +499,24 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "permission name",
-                                        "type": "string",
-                                        "default": "permission one"
+                                        "description": "name",
+                                        "type": "string"
                                     },
-                                    "title": {
-                                        "description": "title permission",
-                                        "type": "string",
-                                        "default": "title permission"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "view": {
+                                        "description": "view",
+                                        "type": "boolean"
+                                    },
+                                    "edit": {
+                                        "description": "edit",
+                                        "type": "boolean"
+                                    },
+                                    "delete": {
+                                        "description": "delete",
+                                        "type": "boolean"
                                     }
                                 },
                                 "type": "object"
@@ -312,14 +562,24 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "permission name",
-                                        "type": "string",
-                                        "default": "permission one"
+                                        "description": "name",
+                                        "type": "string"
                                     },
-                                    "title": {
-                                        "description": "title permission",
-                                        "type": "string",
-                                        "default": "title permission"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "view": {
+                                        "description": "view",
+                                        "type": "boolean"
+                                    },
+                                    "edit": {
+                                        "description": "edit",
+                                        "type": "boolean"
+                                    },
+                                    "delete": {
+                                        "description": "delete",
+                                        "type": "boolean"
                                     }
                                 },
                                 "type": "object"
@@ -400,15 +660,79 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "name": {
-                                        "description": "release name",
-                                        "type": "string",
-                                        "default": "release one"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
                                     },
-                                    "title": {
-                                        "description": "title release",
+                                    "value": {
+                                        "description": "value",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "date": {
+                                        "description": "date",
                                         "type": "string",
-                                        "default": "title release"
+                                        "format": "date"
+                                    },
+                                    "voucher": {
+                                        "description": "The data block for encryption/decryption",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "company id": {
+                                        "description": "company id",
+                                        "type": "integer"
+                                    },
+                                    "category id": {
+                                        "description": "category id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release/{release}/attach": {
+            "post": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "associate permission to release",
+                "description": "associate permission to release",
+                "operationId": "1e50237f44d286cc544d962a8d70fa06",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permission_id": {
+                                        "description": "permission id",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -453,15 +777,32 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "name": {
-                                        "description": "release name",
-                                        "type": "string",
-                                        "default": "release one"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
                                     },
-                                    "title": {
-                                        "description": "title release",
+                                    "value": {
+                                        "description": "value",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "date": {
+                                        "description": "date",
                                         "type": "string",
-                                        "default": "title release"
+                                        "format": "date"
+                                    },
+                                    "voucher": {
+                                        "description": "The data block for encryption/decryption",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "company id": {
+                                        "description": "company id",
+                                        "type": "integer"
+                                    },
+                                    "category id": {
+                                        "description": "category id",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -543,24 +884,12 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "role name",
-                                        "type": "string",
-                                        "default": "role-one"
+                                        "description": "name",
+                                        "type": "string"
                                     },
-                                    "view": {
-                                        "description": "view role",
-                                        "type": "boolean",
-                                        "default": "true"
-                                    },
-                                    "edit": {
-                                        "description": "edit role",
-                                        "type": "boolean",
-                                        "default": "true"
-                                    },
-                                    "delete": {
-                                        "description": "delete role",
-                                        "type": "boolean",
-                                        "default": "true"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -606,24 +935,12 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "role name",
-                                        "type": "string",
-                                        "default": "role-one"
+                                        "description": "name",
+                                        "type": "string"
                                     },
-                                    "view": {
-                                        "description": "permission to see",
-                                        "type": "boolean",
-                                        "default": "true"
-                                    },
-                                    "edit": {
-                                        "description": "permission to edit",
-                                        "type": "boolean",
-                                        "default": "true"
-                                    },
-                                    "delete": {
-                                        "description": "permission to delete",
-                                        "type": "boolean",
-                                        "default": "true"
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
