@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description')->unique();
-            $table->unsignedBigInteger("permission_id");
+            $table->string('description');
+            $table->unsignedBigInteger("permission_id")->nullable();
             $table->foreign("permission_id")->references("id")->on("permissions");
             $table->timestamps();
         });

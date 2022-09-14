@@ -23,7 +23,7 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->text(5),
+            'name' => $this->faker->unique()->text(5),
             'description' => $this->faker->text(10),
             "view" => $this->faker->boolean(50),
             "edit" => $this->faker->boolean(50),

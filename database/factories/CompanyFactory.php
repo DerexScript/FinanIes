@@ -23,9 +23,8 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstNameMale(),
-            'description' => $this->faker->text(),
-            'user_id' => '1'
+            'name' => $this->faker->unique()->firstNameMale(),
+            'description' => $this->faker->text()
         ];
     }
 }

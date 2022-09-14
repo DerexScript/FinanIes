@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
@@ -247,6 +248,69 @@ class PermissionController extends Controller
         }
         return response(
             array("success" => false, "data" => array(), "erros" => array("message" => "error updating permission data")),
+            500
+        );
+    }
+
+
+
+    /**
+     * @OA\Post(
+     *   tags={"Permission"},
+     *   path="/api/v1/permission/{permission}/attach",
+     *   description="associate permission to category",
+     *   summary="associate permission to category",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="permission",
+     *       description="permission identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="category_id",
+     *           description="category id",
+     *           type="integer",
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function categoryRules(Request $request, $permission)
+    {
+        $rules = [
+            'category_id' => 'required'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $fields = $request->only(['category_id']);
+        $permission = Permission::find($permission);
+
+        if ($permission) {
+            $tzdate = Carbon::now('Europe/London');
+            $permission->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            return response(
+                array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
+                200
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when associating")),
             500
         );
     }

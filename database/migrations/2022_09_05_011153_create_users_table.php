@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->string('username')->unique();
-            $table->timestamp('email_verified_at')->unique()->notNullable();
+            $table->timestamp('email_verified_at')->notNullable();
             $table->string('password');
             $table->boolean('is_admin')->default(false);
-            $table->unsignedBigInteger("role_id");
+            $table->unsignedBigInteger("role_id")->nullable();
             $table->foreign("role_id")->references("id")->on("roles");
             $table->rememberToken();
             $table->timestamps();

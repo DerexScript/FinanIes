@@ -21,8 +21,8 @@ return new class extends Migration
             $table->binary("voucher");
             $table->boolean("status");
 
-            $table->unsignedBigInteger("company_id");
-            $table->unsignedBigInteger("category_id");
+            $table->unsignedBigInteger("company_id")->nullable();
+            $table->unsignedBigInteger("category_id")->nullable();
             $table->foreign("company_id")->references("id")->on("companies");
             $table->foreign("category_id")->references("id")->on("categories");
 
