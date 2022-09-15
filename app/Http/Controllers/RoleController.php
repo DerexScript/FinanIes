@@ -118,6 +118,132 @@ class RoleController extends Controller
         );
     }
 
+
+
+    /**
+     * @OA\Post(
+     *   tags={"Role"},
+     *   path="/api/v1/role/{role}/associate",
+     *   description="associate role with a permission",
+     *   summary="associate role with a permission",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="role",
+     *       description="role identification",
+     *       in="path",
+     *       @OA\Schema(
+     *         type="integer"
+     *      ),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="permission_id",
+     *           description="permission id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function permissionAssociate(Request $request, $role)
+    {
+        $rules = [
+            'permission_id' => 'required|integer'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $role = Role::find($role);
+        if ($role) {
+            $role->permission()->associate($request['permission_id'])->save();
+            return response(
+                array("success" => true, "data" => array("message" => "permission successfully associated"), "erros" => array()),
+                201
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error associating permission")),
+            500
+        );
+    }
+
+
+    /**
+     * @OA\Post(
+     *   tags={"Role"},
+     *   path="/api/v1/role/{role}/dissociate",
+     *   description="dissociate permission with a role",
+     *   summary="dissociate permission with a role",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="role",
+     *       description="role identification",
+     *       in="path",
+     *       @OA\Schema(
+     *         type="integer"
+     *      ),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="permission_id",
+     *           description="permission id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function permissionDisassociate(Request $request, $role)
+    {
+        $rules = [
+            'permission_id' => 'required|integer'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $role = Role::find($role);
+        if ($role) {
+            $role->permission()->dissociate($request['permission_id'])->save();
+            return response(
+                array("success" => true, "data" => array("message" => "permission successfully dissociate"), "erros" => array()),
+                201
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error dissociate permission")),
+            500
+        );
+    }
+
+
+
+
     /**
      * Display the specified resource.
      *

@@ -80,11 +80,6 @@ class CompanyController extends Controller
      *           description="description",
      *           type="string"
      *         ),
-     *         @OA\Property(
-     *           property="user_id",
-     *           description="user id",
-     *           type="integer"
-     *         ),
      *       ),
      *     ),
      *   ),
@@ -184,13 +179,8 @@ class CompanyController extends Controller
      *           description="description",
      *           type="string"
      *         ),
-     *        @OA\Property(
-     *           property="user_id",
-     *           description="user id",
-     *           type="integer"
-     *        ),
      *       ),
-     *     ),
+     *    ),
      *  ),
      * ),
      */
@@ -198,7 +188,7 @@ class CompanyController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
         ];
         $messages = [];
         $customAttributes = [];
@@ -209,7 +199,7 @@ class CompanyController extends Controller
                 400
             );
         }
-        $fields = $request->only(['name', 'title']);
+        $fields = $request->only(['name', 'description']);
         $company = Company::find($company);
         if ($company && $company->update($fields)) {
             return response(

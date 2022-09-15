@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -59,6 +60,130 @@ class UserController extends Controller
     {
         //
     }
+
+
+
+    /**
+     * @OA\Post(
+     *   tags={"User"},
+     *   path="/api/v1/user/{user}/associated",
+     *   description="associated user with a role",
+     *   summary="associated user with a role",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="user",
+     *       description="user identification",
+     *       in="path",
+     *       @OA\Schema(
+     *         type="integer"
+     *      ),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="role_id",
+     *           description="role id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function roleAssociate(Request $request, $user)
+    {
+        $rules = [
+            'role_id' => 'required|integer'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $user = User::find($user);
+        if ($user) {
+            $user->role()->associate($request['role_id'])->save();
+            return response(
+                array("success" => true, "data" => array("message" => "role successfully associated"), "erros" => array()),
+                201
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error associating user")),
+            500
+        );
+    }
+
+
+    /**
+     * @OA\Post(
+     *   tags={"User"},
+     *   path="/api/v1/user/{user}/dissociate",
+     *   description="dissociate user with a role",
+     *   summary="dissociate user with a role",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="user",
+     *       description="user identification",
+     *       in="path",
+     *       @OA\Schema(
+     *         type="integer"
+     *      ),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="role_id",
+     *           description="role id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function roleDisassociate(Request $request, $user)
+    {
+        $rules = [
+            'role_id' => 'required|integer'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $user = User::find($user);
+        if ($user) {
+            $user->role()->dissociate($request['role_id'])->save();
+            return response(
+                array("success" => true, "data" => array("message" => "role successfully dissociate"), "erros" => array()),
+                201
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error dissociate user")),
+            500
+        );
+    }
+
 
     /**
      * Update the specified resource in storage.

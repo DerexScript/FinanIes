@@ -80,11 +80,6 @@ class CategoryController extends Controller
      *           description="description",
      *           type="string"
      *         ),
-     *         @OA\Property(
-     *           property="user_id",
-     *           description="user id",
-     *           type="integer"
-     *         ),
      *       ),
      *     ),
      *   ),

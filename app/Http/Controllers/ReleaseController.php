@@ -92,14 +92,9 @@ class ReleaseController extends Controller
      *           format="binary"
      *         ),
      *         @OA\Property(
-     *           property="company id",
-     *           description="company id",
-     *           type="integer"
-     *         ),
-     *         @OA\Property(
-     *           property="category id",
-     *           description="category id",
-     *           type="integer"
+     *           property="status",
+     *           description="status",
+     *           type="boolean",
      *         ),
      *       ),
      *     ),
@@ -110,8 +105,11 @@ class ReleaseController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
+            'value' => 'required',
+            'date' => 'required',
+            'voucher' => 'required',
+            'status' => 'required|boolean',
         ];
         $messages = [];
         $customAttributes = [];
@@ -122,11 +120,14 @@ class ReleaseController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "title"]);
+        $fields = $request->only(["description", "value", "date", "voucher", "status"]);
         $release = new Release();
         $release->forceFill([
-            "name" => $fields["name"],
-            "title" => $fields["title"],
+            "description" => $fields["description"],
+            "value" => $fields["value"],
+            "date" => $fields["date"],
+            "voucher" => $fields["voucher"],
+            "status" => $fields["status"],
         ]);
         if ($release->save()) {
             return response(
@@ -273,14 +274,9 @@ class ReleaseController extends Controller
      *           format="binary"
      *         ),
      *         @OA\Property(
-     *           property="company id",
-     *           description="company id",
-     *           type="integer"
-     *         ),
-     *         @OA\Property(
-     *           property="category id",
-     *           description="category id",
-     *           type="integer"
+     *           property="status",
+     *           description="status",
+     *           type="boolean",
      *         ),
      *       ),
      *     ),
@@ -290,8 +286,11 @@ class ReleaseController extends Controller
     public function update(Request $request, $release)
     {
         $rules = [
-            'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
+            'value' => 'required',
+            'date' => 'required',
+            'voucher' => 'required',
+            'status' => 'required|boolean',
         ];
         $messages = [];
         $customAttributes = [];
@@ -302,7 +301,7 @@ class ReleaseController extends Controller
                 400
             );
         }
-        $fields = $request->only(['name', 'title']);
+        $fields = $request->only(['description', 'value', 'date', 'voucher', 'status']);
         $release = Release::find($release);
         if ($release && $release->update($fields)) {
             return response(

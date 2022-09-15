@@ -37,4 +37,14 @@ class Role extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var string[]
      */
     protected $fillable = ["name", "description"];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
 }

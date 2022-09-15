@@ -123,7 +123,7 @@ class PermissionController extends Controller
         $permission = new Permission();
         $permission->forceFill([
             "name" => $fields["name"],
-            "description" => $fields["title"],
+            "description" => $fields["description"],
             "view" => $fields["view"],
             "edit" => $fields["edit"],
             "delete" => $fields["delete"],

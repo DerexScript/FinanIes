@@ -24,6 +24,9 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->post('/', ['uses' => 'RoleController@store', 'as' => 'role.store']);
         $router->put('/{role}', ['uses' => 'RoleController@update', 'as' => 'role.update']);
         $router->delete('/{role}', ['uses' => 'RoleController@destroy', 'as' => 'role.destroy']);
+
+        $router->post('/{role}/associate', ['uses' => 'RoleController@permissionAssociate', 'as' => 'role.associate']);
+        $router->post('/{role}/dissociate', ['uses' => 'RoleController@permissionDisassociate', 'as' => 'role.dissociate']);
     });
     $router->group(['prefix' => 'company', 'middleware' => 'auth:api'], function () use ($router) {
         $router->get('/', ['uses' => 'CompanyController@index', 'as' => 'company.index']);
@@ -51,5 +54,10 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->post('/', ['uses' => 'PermissionController@store', 'as' => 'permission.store']);
         $router->put('/{permission}', ['uses' => 'PermissionController@update', 'as' => 'permission.update']);
         $router->delete('/{permission}', ['uses' => 'PermissionController@destroy', 'as' => 'permission.destroy']);
+    });
+
+    $router->group(['prefix' => 'user', 'middleware' => 'auth:api'], function () use ($router) {
+        $router->post('/{user}/associate', ['uses' => 'UserController@roleAssociated', 'as' => 'user.associate']);
+        $router->post('/{user}/dissociate', ['uses' => 'UserController@roleDisassociate', 'as' => 'user.dissociate']);
     });
 });

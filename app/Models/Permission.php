@@ -53,4 +53,9 @@ class Permission extends Model implements AuthenticatableContract, AuthorizableC
     {
         return $this->belongsToMany(Category::class, 'permission_category');
     }
+
+    public function role()
+    {
+        return $this->hasMany(Role::class);
+    }
 }

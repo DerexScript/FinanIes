@@ -93,10 +93,6 @@
                                     "description": {
                                         "description": "description",
                                         "type": "string"
-                                    },
-                                    "user_id": {
-                                        "description": "user id",
-                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -282,10 +278,6 @@
                                     "description": {
                                         "description": "description",
                                         "type": "string"
-                                    },
-                                    "user_id": {
-                                        "description": "user id",
-                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -337,10 +329,6 @@
                                     "description": {
                                         "description": "description",
                                         "type": "string"
-                                    },
-                                    "user_id": {
-                                        "description": "user id",
-                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -726,13 +714,9 @@
                                         "type": "string",
                                         "format": "binary"
                                     },
-                                    "company id": {
-                                        "description": "company id",
-                                        "type": "integer"
-                                    },
-                                    "category id": {
-                                        "description": "category id",
-                                        "type": "integer"
+                                    "status": {
+                                        "description": "status",
+                                        "type": "boolean"
                                     }
                                 },
                                 "type": "object"
@@ -843,13 +827,9 @@
                                         "type": "string",
                                         "format": "binary"
                                     },
-                                    "company id": {
-                                        "description": "company id",
-                                        "type": "integer"
-                                    },
-                                    "category id": {
-                                        "description": "category id",
-                                        "type": "integer"
+                                    "status": {
+                                        "description": "status",
+                                        "type": "boolean"
                                     }
                                 },
                                 "type": "object"
@@ -956,6 +936,100 @@
                 ]
             }
         },
+        "/api/v1/role/{role}/associate": {
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "associate role with a permission",
+                "description": "associate role with a permission",
+                "operationId": "5fb200a52b6bc2abc158f422ec8b4afc",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permission_id": {
+                                        "description": "permission id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/role/{role}/dissociate": {
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "dissociate permission with a role",
+                "description": "dissociate permission with a role",
+                "operationId": "f65eed552917317aaeec35249459f7a1",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permission_id": {
+                                        "description": "permission id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/role/{role}": {
             "put": {
                 "tags": [
@@ -1024,6 +1098,100 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/{user}/associated": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "associated user with a role",
+                "description": "associated user with a role",
+                "operationId": "7e0e0253ecafc0de2a38fe36ec500781",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "user identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role_id": {
+                                        "description": "role id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/{user}/dissociate": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "dissociate user with a role",
+                "description": "dissociate user with a role",
+                "operationId": "13a88ce7e8b38e9b5cdbf1dbff123b2a",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "user identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role_id": {
+                                        "description": "role id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "An example resource"
