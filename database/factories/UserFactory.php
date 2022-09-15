@@ -27,10 +27,9 @@ class UserFactory extends Factory
             'surname' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'username' => $this->faker->unique()->userName(),
-            'email_verified_at' => gmdate('Y-m-d H:i:s'),
             'is_admin' => 1,
             'password' => '$2y$10$0rb1CegyVWyNFjHmEr3tOetqVI8F2DvvTdynl83KnJqtZ67A529CO', // password123
-            'remember_token' => Str::random(10),
+            'remember_token' => Str::random(60),
         ];
     }
 }

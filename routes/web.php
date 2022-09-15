@@ -55,8 +55,11 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->put('/{permission}', ['uses' => 'PermissionController@update', 'as' => 'permission.update']);
         $router->delete('/{permission}', ['uses' => 'PermissionController@destroy', 'as' => 'permission.destroy']);
     });
-
     $router->group(['prefix' => 'user', 'middleware' => 'auth:api'], function () use ($router) {
+        $router->get('/', ['uses' => 'UserController@index', 'as' => 'user.index']);
+        $router->post('/', ['uses' => 'UserController@store', 'as' => 'user.store']);
+        $router->put('/{user}', ['uses' => 'UserController@update', 'as' => 'user.update']);
+        $router->delete('/{user}', ['uses' => 'UserController@destroy', 'as' => 'user.destroy']);
         $router->post('/{user}/associate', ['uses' => 'UserController@roleAssociated', 'as' => 'user.associate']);
         $router->post('/{user}/dissociate', ['uses' => 'UserController@roleDisassociate', 'as' => 'user.dissociate']);
     });
