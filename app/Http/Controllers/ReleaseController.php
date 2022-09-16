@@ -142,67 +142,6 @@ class ReleaseController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *   tags={"Release"},
-     *   path="/api/v1/release/{release}/attach",
-     *   description="associate permission to release",
-     *   summary="associate permission to release",
-     *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource"),
-     *   @OA\Parameter(
-     *       required=true,
-     *       name="release",
-     *       description="release identification",
-     *       in="path",
-     *       @OA\Schema(type="integer"),
-     *   ),
-     *  @OA\RequestBody(
-     *     required=true,
-     *     @OA\MediaType(
-     *       mediaType="application/json",
-     *       @OA\Schema(
-     *         @OA\Property(
-     *           property="permission_id",
-     *           description="permission id",
-     *           type="integer",
-     *         ),
-     *       ),
-     *     ),
-     *  ),
-     * ),
-     */
-    public function releaseRules(Request $request, $release)
-    {
-        $rules = [
-            'permission_id' => 'required'
-        ];
-        $messages = [];
-        $customAttributes = [];
-        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
-        if ($validator->fails()) {
-            return response(
-                array("success" => false, "data" => array(), "erros" => $validator->errors()),
-                400
-            );
-        }
-        $fields = $request->only(['permission_id']);
-        $release = Release::find($release);
-
-        if ($release) {
-            $tzdate = Carbon::now('Europe/London');
-            $release->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
-            return response(
-                array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
-                200
-            );
-        }
-        return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error when associating")),
-            500
-        );
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Release  $release

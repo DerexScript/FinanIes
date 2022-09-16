@@ -252,14 +252,12 @@ class PermissionController extends Controller
         );
     }
 
-
-
     /**
      * @OA\Post(
      *   tags={"Permission"},
-     *   path="/api/v1/permission/{permission}/attach",
-     *   description="associate permission to category",
-     *   summary="associate permission to category",
+     *   path="/api/v1/permission/{permission}/category/attach",
+     *   description="attach category to permission",
+     *   summary="attach category to permission",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
@@ -303,7 +301,7 @@ class PermissionController extends Controller
 
         if ($permission) {
             $tzdate = Carbon::now('Europe/London');
-            $permission->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            $permission->categories()->attach($fields['category_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
             return response(
                 array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
                 200
@@ -314,6 +312,324 @@ class PermissionController extends Controller
             500
         );
     }
+
+    /**
+     * @OA\Post(
+     *   tags={"Permission"},
+     *   path="/api/v1/permission/{permission}/category/detach",
+     *   description="detach category to permission",
+     *   summary="detach category to permission",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="permission",
+     *       description="permission identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="category_id",
+     *           description="category id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function categoryRulesDetach(Request $request, $permission)
+    {
+        $rules = [
+            'category_id' => 'required'
+        ];
+
+        $messages = [];
+        $customAttributes = [];
+
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+
+        $fields = $request->only(['category_id']);
+        $permission = Permission::find($permission);
+
+        if ($permission) {
+            $permission->categories()->detach($fields['category_id']);
+            return response(
+                array("success" => true, "data" => array('message' => "successful detach"), "erros" => array()),
+                200
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when detach")),
+            500
+        );
+    }
+
+    /**
+     * @OA\Post(
+     *   tags={"Permission"},
+     *   path="/api/v1/permission/{permission}/company/attach",
+     *   description="attach company to permission",
+     *   summary="attach company to permission",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="permission",
+     *       description="permission identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="company_id",
+     *           description="company id",
+     *           type="integer",
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function companyRules(Request $request, $permission)
+    {
+        $rules = [
+            'company_id' => 'required'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $fields = $request->only(['company_id']);
+        $permission = Permission::find($permission);
+        if ($permission) {
+            $tzdate = Carbon::now('Europe/London');
+            $permission->companies()->attach($fields['company_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            return response(
+                array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
+                200
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when associating")),
+            500
+        );
+    }
+
+    /**
+     * @OA\Post(
+     *   tags={"Permission"},
+     *   path="/api/v1/permission/{permission}/company/detach",
+     *   description="detach company to permission",
+     *   summary="detach company to permission",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="permission",
+     *       description="permission identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="category_id",
+     *           description="category id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function companyRulesDetach(Request $request, $permission)
+    {
+        $rules = [
+            'category_id' => 'required'
+        ];
+
+        $messages = [];
+        $customAttributes = [];
+
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+
+        $fields = $request->only(['category_id']);
+        $permission = Permission::find($permission);
+
+        if ($permission) {
+            $permission->companies()->detach($fields['category_id']);
+            return response(
+                array("success" => true, "data" => array('message' => "successful detach"), "erros" => array()),
+                200
+            );
+        }
+
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when detach")),
+            500
+        );
+    }
+
+
+
+    /**
+     * @OA\Post(
+     *   tags={"Permission"},
+     *   path="/api/v1/permission/{permission}/release/attach",
+     *   description="attach release to permission",
+     *   summary="attach release to permission",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="permission",
+     *       description="permission identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="release_id",
+     *           description="release id",
+     *           type="integer",
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function releaseRules(Request $request, $permission)
+    {
+        $rules = [
+            'release_id' => 'required'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $fields = $request->only(['release_id']);
+        $permission = Permission::find($permission);
+
+        if ($permission) {
+            $tzdate = Carbon::now('Europe/London');
+            $permission->releases()->attach($fields['release_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            return response(
+                array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
+                200
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when associating")),
+            500
+        );
+    }
+
+    /**
+     * @OA\Post(
+     *   tags={"Permission"},
+     *   path="/api/v1/permission/{permission}/release/detach",
+     *   description="detach release to permission",
+     *   summary="detach release to permission",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="permission",
+     *       description="permission identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         @OA\Property(
+     *           property="release_id",
+     *           description="release id",
+     *           type="integer"
+     *         ),
+     *       ),
+     *     ),
+     *  ),
+     * ),
+     */
+    public function releaseRulesDetach(Request $request, $permission)
+    {
+        $rules = [
+            'release_id' => 'required'
+        ];
+
+        $messages = [];
+        $customAttributes = [];
+
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+
+        $fields = $request->only(['release_id']);
+        $permission = Permission::find($permission);
+
+        if ($permission) {
+            $permission->releases()->detach($fields['release_id']);
+            return response(
+                array("success" => true, "data" => array('message' => "successful detach"), "erros" => array()),
+                200
+            );
+        }
+
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when detach")),
+            500
+        );
+    }
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

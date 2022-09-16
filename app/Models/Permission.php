@@ -43,7 +43,7 @@ class Permission extends Model implements AuthenticatableContract, AuthorizableC
 
     public function companies()
     {
-        return $this->belongsToMany(Company::class, 'permission_companie');
+        return $this->belongsToMany(Company::class, 'permission_company');
     }
     public function releases()
     {

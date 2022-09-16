@@ -214,67 +214,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * @OA\Post(
-     *   tags={"Company"},
-     *   path="/api/v1/company/{company}/attach",
-     *   description="associate permission to company",
-     *   summary="associate permission to company",
-     *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource"),
-     *   @OA\Parameter(
-     *       required=true,
-     *       name="company",
-     *       description="company identification",
-     *       in="path",
-     *       @OA\Schema(type="integer"),
-     *   ),
-     *  @OA\RequestBody(
-     *     required=true,
-     *     @OA\MediaType(
-     *       mediaType="application/json",
-     *       @OA\Schema(
-     *         @OA\Property(
-     *           property="permission_id",
-     *           description="permission id",
-     *           type="integer",
-     *         ),
-     *       ),
-     *     ),
-     *  ),
-     * ),
-     */
-    public function companyRules(Request $request, $company)
-    {
-        $rules = [
-            'permission_id' => 'required'
-        ];
-        $messages = [];
-        $customAttributes = [];
-        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
-        if ($validator->fails()) {
-            return response(
-                array("success" => false, "data" => array(), "erros" => $validator->errors()),
-                400
-            );
-        }
-        $fields = $request->only(['permission_id']);
-        $company = Company::find($company);
-
-        if ($company) {
-            $tzdate = Carbon::now('Europe/London');
-            $company->permissions()->attach($fields['permission_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
-            return response(
-                array("success" => true, "data" => array('message' => "successful association"), "erros" => array()),
-                200
-            );
-        }
-        return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error when associating")),
-            500
-        );
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Company  $company
