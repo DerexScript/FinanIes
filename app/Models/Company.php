@@ -36,4 +36,9 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
     protected $fillable = [
         'name', 'description'
     ];
+
+    public function releases()
+    {
+        return $this->hasMany(Release::class);
+    }
 }

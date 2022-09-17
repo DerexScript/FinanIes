@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class RoleController extends Controller
+class ResourceController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,10 +27,10 @@ class RoleController extends Controller
      */
     /**
      * @OA\Get(
-     *   tags={"Role"},
-     *   description="get all roles",
-     *   summary="get all roles",
-     *   path="/api/v1/role",
+     *   tags={"Resource"},
+     *   description="get all resource",
+     *   summary="get all resource",
+     *   path="/api/v1/resource",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource")
      * )
@@ -38,7 +38,7 @@ class RoleController extends Controller
     public function index()
     {
         return response(
-            array("success" => true, "data" => Role::all(), "erros" => array()),
+            array("success" => true, "data" => Resource::all(), "erros" => array()),
             200
         );
     }
@@ -61,10 +61,10 @@ class RoleController extends Controller
      */
     /**
      * @OA\Post(
-     *   tags={"Role"},
-     *   path="/api/v1/role",
-     *   description="register a new role",
-     *   summary="register a new role",
+     *   tags={"Resource"},
+     *   path="/api/v1/resource",
+     *   description="register a new resource",
+     *   summary="register a new resource",
      *   security={{"bearerAuth": {}}},
      *   @OA\RequestBody(
      *     required=true,
@@ -77,8 +77,8 @@ class RoleController extends Controller
      *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="description",
-     *           description="description",
+     *           property="resource",
+     *           description="resource",
      *           type="string"
      *         ),
      *       ),
@@ -91,7 +91,7 @@ class RoleController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'description' => 'required'
+            'resource' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -102,38 +102,37 @@ class RoleController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "description"]);
-        $role = new Role();
-        $role->forceFill([
+        $fields = $request->only(["name", "resource"]);
+        $resource = new Resource();
+        $resource->forceFill([
             "name" => $fields["name"],
-            "description" => $fields["description"]
+            "resource" => $fields["resource"]
         ]);
-        if ($role->save()) {
+        if ($resource->save()) {
             return response(
-                array("success" => true, "data" => array("message" => "role successfully added"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "resource successfully added"), "erros" => array()),
                 201
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering role")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering resource")),
             500
         );
     }
 
 
-
     /**
      * @OA\Post(
-     *   tags={"Role"},
-     *   path="/api/v1/role/{role}/resource/attach",
-     *   description="attach role with a resource",
-     *   summary="attach role with a resource",
+     *   tags={"Resource"},
+     *   path="/api/v1/resource/{resource}/role/attach",
+     *   description="attach resource with a role",
+     *   summary="attach resource with a role",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="role",
-     *       description="role identification",
+     *       name="resource",
+     *       description="resource identification",
      *       in="path",
      *       @OA\Schema(
      *         type="integer"
@@ -145,8 +144,8 @@ class RoleController extends Controller
      *       mediaType="application/json",
      *       @OA\Schema(
      *         @OA\Property(
-     *           property="resource_id",
-     *           description="resource id",
+     *           property="role_id",
+     *           description="role id",
      *           type="integer"
      *         ),
      *       ),
@@ -154,10 +153,10 @@ class RoleController extends Controller
      *  ),
      * ),
      */
-    public function resourceAttach(Request $request, $role)
+    public function roleAttach(Request $request, $resource)
     {
         $rules = [
-            'resource_id' => 'required|integer'
+            'role_id' => 'required|integer'
         ];
         $messages = [];
         $customAttributes = [];
@@ -168,18 +167,18 @@ class RoleController extends Controller
                 400
             );
         }
-        $role = Role::find($role);
-        $resource = Resource::find($request['resource_id']);
-        if ($role && $resource) {
+        $resource = Resource::find($resource);
+        $role = Role::find($request['role_id']);
+        if ($resource && $role && !$resource->roles->contains($request['role_id'])) {
             $tzdate = Carbon::now('Europe/London');
-            $role->resources()->attach($request['resource_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
+            $resource->roles()->attach($request['role_id'], ['created_at' => $tzdate, 'updated_at' => $tzdate]);
             return response(
-                array("success" => true, "data" => array("message" => "resource successfully attach"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "role successfully attach"), "erros" => array()),
                 201
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error attach resource")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error attach role")),
             500
         );
     }
@@ -187,16 +186,16 @@ class RoleController extends Controller
 
     /**
      * @OA\Post(
-     *   tags={"Role"},
-     *   path="/api/v1/role/{role}/resource/detach",
-     *   description="detach role with a resource",
-     *   summary="detach role with a resource",
+     *   tags={"Resource"},
+     *   path="/api/v1/resource/{resource}/role/detach",
+     *   description="detach resource with a role",
+     *   summary="detach resource with a role",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="role",
-     *       description="role identification",
+     *       name="resource",
+     *       description="resource identification",
      *       in="path",
      *       @OA\Schema(
      *         type="integer"
@@ -208,8 +207,8 @@ class RoleController extends Controller
      *       mediaType="application/json",
      *       @OA\Schema(
      *         @OA\Property(
-     *           property="resource_id",
-     *           description="resource id",
+     *           property="role_id",
+     *           description="role id",
      *           type="integer"
      *         ),
      *       ),
@@ -217,10 +216,10 @@ class RoleController extends Controller
      *  ),
      * ),
      */
-    public function resourceDetach(Request $request, $role)
+    public function roleDetach(Request $request, $resource)
     {
         $rules = [
-            'resource_id' => 'required|integer'
+            'role_id' => 'required|integer'
         ];
         $messages = [];
         $customAttributes = [];
@@ -231,16 +230,16 @@ class RoleController extends Controller
                 400
             );
         }
-        $role = Role::find($role);
-        if ($role) {
-            $role->resources()->detach($request['resource_id']);
+        $resource = Resource::find($resource);
+        if ($resource) {
+            $resource->roles()->detach($request['role_id']);
             return response(
-                array("success" => true, "data" => array("message" => "resource successfully detach"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "role successfully detach"), "erros" => array()),
                 201
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error detach resource")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error detach role")),
             500
         );
     }
@@ -251,10 +250,10 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Resource  $resource
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Resource $resource)
     {
         //
     }
@@ -262,10 +261,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Resource  $resource
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(Resource $resource)
     {
         //
     }
@@ -274,22 +273,22 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Resource  $resource
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Put(
-     *   tags={"Role"},
-     *   path="/api/v1/role/{role}",
-     *   description="update a role by id",
-     *   summary="update a role by id",
-     *   operationId="updateRole",
+     *   tags={"Resource"},
+     *   path="/api/v1/resource/{resource}",
+     *   description="update a resource by id",
+     *   summary="update a resource by id",
+     *   operationId="updateResource",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="role",
-     *       description="role identification",
+     *       name="resource",
+     *       description="resource identification",
      *       in="path",
      *       @OA\Schema(
      *         type="integer"
@@ -306,8 +305,8 @@ class RoleController extends Controller
      *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="description",
-     *           description="description",
+     *           property="resource",
+     *           description="resource",
      *           type="string"
      *         ),
      *       ),
@@ -315,11 +314,11 @@ class RoleController extends Controller
      *  ),
      * ),
      */
-    public function update(Request $request, $role)
+    public function update(Request $request, $resource)
     {
         $rules = [
             'name' => 'required',
-            'description' => 'required'
+            'resource' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -330,16 +329,16 @@ class RoleController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "description"]);
-        $role = Role::find($role);
-        if ($role && $role->update($fields)) {
+        $fields = $request->only(["name", "resource"]);
+        $resource = Resource::find($resource);
+        if ($resource && $resource->update($fields)) {
             return response(
-                array("success" => true, "data" => array("message" => "role successfully updated"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "resource successfully updated"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error updating role data")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error updating resource data")),
             500
         );
     }
@@ -347,22 +346,22 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Resource  $resource
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *   tags={"Role"},
-     *   path="/api/v1/role/{role}",
-     *   description="delete a role by id",
-     *   summary="delete a role by id",
-     *   operationId="deleteRole",
+     *   tags={"Resource"},
+     *   path="/api/v1/resource/{resource}",
+     *   description="delete a resource by id",
+     *   summary="delete a resource by id",
+     *   operationId="deleteResource",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="role",
-     *       description="role identification",
+     *       name="resource",
+     *       description="resource identification",
      *       in="path",
      *       @OA\Schema(
      *         type="integer"
@@ -370,18 +369,18 @@ class RoleController extends Controller
      *   ),
      * ),
      */
-    public function destroy($role)
+    public function destroy($resource)
     {
-        $role = Role::find($role);
-        if ($role) {
-            $role->delete();
+        $resource = Resource::find($resource);
+        if ($resource) {
+            $resource->delete();
             return response(
-                array("success" => true, "data" => array("message" => "role successfully deleted"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "resource successfully deleted"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the role")),
+            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the resource")),
             404
         );
     }

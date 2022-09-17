@@ -391,6 +391,13 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "description",
+                                    "value",
+                                    "date",
+                                    "voucher",
+                                    "status"
+                                ],
                                 "properties": {
                                     "description": {
                                         "description": "description",
@@ -414,6 +421,18 @@
                                     "status": {
                                         "description": "status",
                                         "type": "boolean"
+                                    },
+                                    "company_id": {
+                                        "description": "company_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "category_id": {
+                                        "description": "category_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
                                     }
                                 },
                                 "type": "object"
@@ -528,6 +547,238 @@
                 ]
             }
         },
+        "/api/v1/resource": {
+            "get": {
+                "tags": [
+                    "Resource"
+                ],
+                "summary": "get all resource",
+                "description": "get all resource",
+                "operationId": "840591071ba63b14231f2fee89888265",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Resource"
+                ],
+                "summary": "register a new resource",
+                "description": "register a new resource",
+                "operationId": "d5974568a36c11b92329e4c04d22a6ab",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "resource": {
+                                        "description": "resource",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/resource/{resource}/role/attach": {
+            "post": {
+                "tags": [
+                    "Resource"
+                ],
+                "summary": "attach resource with a role",
+                "description": "attach resource with a role",
+                "operationId": "e09a86a0f3bf1374ca971902d8a9de5c",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "path",
+                        "description": "resource identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role_id": {
+                                        "description": "role id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/resource/{resource}/role/detach": {
+            "post": {
+                "tags": [
+                    "Resource"
+                ],
+                "summary": "detach resource with a role",
+                "description": "detach resource with a role",
+                "operationId": "91a8d3bc27f3b4fe232fe42ad616e229",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "path",
+                        "description": "resource identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role_id": {
+                                        "description": "role id",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/resource/{resource}": {
+            "put": {
+                "tags": [
+                    "Resource"
+                ],
+                "summary": "update a resource by id",
+                "description": "update a resource by id",
+                "operationId": "updateResource",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "path",
+                        "description": "resource identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "resource": {
+                                        "description": "resource",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Resource"
+                ],
+                "summary": "delete a resource by id",
+                "description": "delete a resource by id",
+                "operationId": "deleteResource",
+                "parameters": [
+                    {
+                        "name": "resource",
+                        "in": "path",
+                        "description": "resource identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/role": {
             "get": {
                 "tags": [
@@ -586,14 +837,14 @@
                 ]
             }
         },
-        "/api/v1/role/{role}/associate": {
+        "/api/v1/role/{role}/resource/attach": {
             "post": {
                 "tags": [
                     "Role"
                 ],
-                "summary": "associate role with a permission",
-                "description": "associate role with a permission",
-                "operationId": "5fb200a52b6bc2abc158f422ec8b4afc",
+                "summary": "attach role with a resource",
+                "description": "attach role with a resource",
+                "operationId": "6655d6a32f3350b5a21329e2d6e41e0b",
                 "parameters": [
                     {
                         "name": "role",
@@ -611,8 +862,8 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "permission_id": {
-                                        "description": "permission id",
+                                    "resource_id": {
+                                        "description": "resource id",
                                         "type": "integer"
                                     }
                                 },
@@ -633,14 +884,14 @@
                 ]
             }
         },
-        "/api/v1/role/{role}/dissociate": {
+        "/api/v1/role/{role}/resource/detach": {
             "post": {
                 "tags": [
                     "Role"
                 ],
-                "summary": "dissociate permission with a role",
-                "description": "dissociate permission with a role",
-                "operationId": "f65eed552917317aaeec35249459f7a1",
+                "summary": "detach role with a resource",
+                "description": "detach role with a resource",
+                "operationId": "43c2147d74ac568571a7d0e468d04ae8",
                 "parameters": [
                     {
                         "name": "role",
@@ -658,8 +909,8 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "permission_id": {
-                                        "description": "permission id",
+                                    "resource_id": {
+                                        "description": "resource id",
                                         "type": "integer"
                                     }
                                 },

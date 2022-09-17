@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
@@ -39,4 +40,14 @@ class Release extends Model implements AuthenticatableContract, AuthorizableCont
     protected $fillable = [
         'description', 'value', 'date', 'vouncher', 'status'
     ];
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
 }

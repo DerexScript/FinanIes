@@ -70,6 +70,7 @@ class ReleaseController extends Controller
      *     @OA\MediaType(
      *       mediaType="application/json",
      *       @OA\Schema(
+     *         required={"description", "value", "date", "voucher", "status"},
      *         @OA\Property(
      *           property="description",
      *           description="description",
@@ -96,6 +97,20 @@ class ReleaseController extends Controller
      *           description="status",
      *           type="boolean",
      *         ),
+     *        @OA\Property(
+     *           property="company_id",
+     *           description="company_id",
+     *           format="int64",
+     *           default=null,
+     *           nullable="true",
+     *        ),
+     *        @OA\Property(
+     *           property="category_id",
+     *           description="category_id",
+     *           format="int64",
+     *           default=null,
+     *           nullable="true",
+     *        ),
      *       ),
      *     ),
      *   ),
@@ -120,15 +135,9 @@ class ReleaseController extends Controller
                 400
             );
         }
-        $fields = $request->only(["description", "value", "date", "voucher", "status"]);
+        $fields = $request->only(["description", "value", "date", "voucher", "status", "company_id", "category_id"]);
         $release = new Release();
-        $release->forceFill([
-            "description" => $fields["description"],
-            "value" => $fields["value"],
-            "date" => $fields["date"],
-            "voucher" => $fields["voucher"],
-            "status" => $fields["status"],
-        ]);
+        $release->forceFill($fields);
         if ($release->save()) {
             return response(
                 array("success" => true, "data" => array("message" => "release successfully added"), "erros" => array()),

@@ -36,4 +36,9 @@ class Category extends Model implements AuthenticatableContract, AuthorizableCon
     protected $fillable = [
         'name', 'description'
     ];
+
+    public function releases()
+    {
+        return $this->hasMany(Release::class);
+    }
 }
