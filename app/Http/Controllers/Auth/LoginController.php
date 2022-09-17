@@ -38,7 +38,7 @@ class LoginController extends Controller
      *           property="credential",
      *           description="Email address or user.",
      *           type="string",
-     *           default="admin@admin.com",
+     *           default="user@user.com",
      *         ),
      *         @OA\Property(
      *           property="password",
