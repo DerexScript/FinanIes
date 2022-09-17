@@ -6,6 +6,8 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use OpenApi\Annotations as OA;
 
 define("API_HOST", preg_match("/user/i", __DIR__) ? 'http://localhost:8000' : 'https://api.finanies.tk');
+
+exit(API_HOST);
 /**
  * Class Controller
  * @package App\Http\Controllers

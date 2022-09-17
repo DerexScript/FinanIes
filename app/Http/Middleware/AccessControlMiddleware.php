@@ -17,7 +17,7 @@ class AccessControlMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->cannot($request->route()[1]['as']) /* && !$request->user()->is_admin */) {
+        if ($request->user()->cannot($request->route()[1]['as']) && !$request->user()->is_admin) {
             return response()->json(array("success" => false, "data" => array(), "erros" => array("message" => "Access Denied.")), 401);
         }
         return $next($request);
