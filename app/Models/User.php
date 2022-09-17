@@ -26,9 +26,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *         @OA\Property(property="surname", type="string"),
  *         @OA\Property(property="email", type="string"),
  *         @OA\Property(property="username", type="string"),
- *         @OA\Property(property="email_verified_at", type="timestamp"),
+ *         @OA\Property(property="email_verified_at", type="string"),
  *         @OA\Property(property="password", type="string"),
- *         @OA\Property(property="is_admin", type="tinyint")
+ *         @OA\Property(property="is_admin", type="boolean")
  *     },
  * )
  */

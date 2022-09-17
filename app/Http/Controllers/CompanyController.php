@@ -80,6 +80,13 @@ class CompanyController extends Controller
      *           description="description",
      *           type="string"
      *         ),
+     *        @OA\Property(
+     *           property="user_id",
+     *           description="user_id",
+     *           format="int64",
+     *           default=null,
+     *           nullable="true",
+     *        ),
      *       ),
      *     ),
      *   ),
@@ -90,7 +97,7 @@ class CompanyController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
         ];
         $messages = [];
         $customAttributes = [];
@@ -101,12 +108,9 @@ class CompanyController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "title"]);
+        $fields = $request->only(["name", "description", "user_id"]);
         $companie = new Company();
-        $companie->forceFill([
-            "name" => $fields["name"],
-            "title" => $fields["title"],
-        ]);
+        $companie->forceFill($fields);
         if ($companie->save()) {
             return response(
                 array("success" => true, "data" => array("message" => "company successfully added"), "erros" => array()),

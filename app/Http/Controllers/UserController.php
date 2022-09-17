@@ -116,17 +116,10 @@ class UserController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "surname", "email", "username", "email_verified_at", "password", "is_admin"]);
+        $fields = $request->only(["name", "surname", "email", "username", "password", "is_admin"]);
+        $fields["password"] = Hash::make($fields["password"]);
         $user = new User();
-        $user->forceFill([
-            "name" => $fields["name"],
-            "surname" => $fields["surname"],
-            "email" => $fields["email"],
-            "username" => $fields["username"],
-            "password" => Hash::make($fields["password"]),
-            "is_admin" => $fields["is_admin"]
-        ])->setRememberToken(Str::random(60));
-
+        $user->forceFill($fields)->setRememberToken(Str::random(60));
         if ($user->save()) {
             return response(
                 array("success" => true, "data" => array("message" => "user successfully added"), "erros" => array()),
@@ -340,11 +333,6 @@ class UserController extends Controller
      *           description="password",
      *           type="string"
      *         ),
-     *         @OA\Property(
-     *           property="is_admin",
-     *           description="is_admin",
-     *           type="boolean"
-     *         ),
      *       ),
      *     ),
      *  ),
@@ -357,8 +345,7 @@ class UserController extends Controller
             'surname' => 'required',
             'email' => 'required',
             'username' => 'required',
-            'password' => 'required',
-            'is_admin' => 'required',
+            'password' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -369,7 +356,7 @@ class UserController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "surname", "email", "username", "password", "is_admin"]);
+        $fields = $request->only(["name", "surname", "email", "username", "password"]);
         $user = User::find($user);
         if ($user && $user->update($fields)) {
             return response(

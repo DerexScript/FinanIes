@@ -23,9 +23,11 @@ use Laravel\Lumen\Auth\Authorizable;
  *     properties={
  *         @OA\Property(property="description", type="string"),
  *         @OA\Property(property="value", type="string"),
- *         @OA\Property(property="date", type="date"),
- *         @OA\Property(property="vouncher", type="binary"),
+ *         @OA\Property(property="date", type="string"),
+ *         @OA\Property(property="vouncher", type="string"),
  *         @OA\Property(property="status", type="boolean"),
+ *         @OA\Property(property="company_id", type="integer", nullable=true),
+ *         @OA\Property(property="category_id", type="integer", nullable=true),
  *     },
  * )
  */

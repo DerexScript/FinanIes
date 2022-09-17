@@ -81,6 +81,11 @@ class RoleController extends Controller
      *           description="description",
      *           type="string"
      *         ),
+     *         @OA\Property(
+     *           property="role",
+     *           description="role",
+     *           type="string"
+     *         ),
      *       ),
      *     ),
      *   ),
@@ -91,7 +96,8 @@ class RoleController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'role' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -102,12 +108,9 @@ class RoleController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "description"]);
+        $fields = $request->only(["name", "description", "role"]);
         $role = new Role();
-        $role->forceFill([
-            "name" => $fields["name"],
-            "description" => $fields["description"]
-        ]);
+        $role->forceFill($fields);
         if ($role->save()) {
             return response(
                 array("success" => true, "data" => array("message" => "role successfully added"), "erros" => array()),
@@ -310,6 +313,11 @@ class RoleController extends Controller
      *           description="description",
      *           type="string"
      *         ),
+     *         @OA\Property(
+     *           property="role",
+     *           description="role",
+     *           type="string"
+     *         ),
      *       ),
      *     ),
      *  ),
@@ -319,7 +327,8 @@ class RoleController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'role' => 'required',
         ];
         $messages = [];
         $customAttributes = [];
@@ -330,7 +339,7 @@ class RoleController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "description"]);
+        $fields = $request->only(["name", "description", "role"]);
         $role = Role::find($role);
         if ($role && $role->update($fields)) {
             return response(

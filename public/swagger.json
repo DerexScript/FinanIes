@@ -231,6 +231,12 @@
                                     "description": {
                                         "description": "description",
                                         "type": "string"
+                                    },
+                                    "user_id": {
+                                        "description": "user_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
                                     }
                                 },
                                 "type": "object"
@@ -818,6 +824,10 @@
                                     "description": {
                                         "description": "description",
                                         "type": "string"
+                                    },
+                                    "role": {
+                                        "description": "role",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -962,6 +972,10 @@
                                     },
                                     "description": {
                                         "description": "description",
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "description": "role",
                                         "type": "string"
                                     }
                                 },
@@ -1223,10 +1237,6 @@
                                     "password": {
                                         "description": "password",
                                         "type": "string"
-                                    },
-                                    "is_admin": {
-                                        "description": "is_admin",
-                                        "type": "boolean"
                                     }
                                 },
                                 "type": "object"
@@ -1330,14 +1340,21 @@
                         "type": "string"
                     },
                     "date": {
-                        "type": "string",
-                        "format": "date"
+                        "type": "string"
                     },
                     "vouncher": {
-                        "type": "binary"
+                        "type": "string"
                     },
                     "status": {
                         "type": "boolean"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -1406,13 +1423,13 @@
                         "type": "string"
                     },
                     "email_verified_at": {
-                        "type": "timestamp"
+                        "type": "string"
                     },
                     "password": {
                         "type": "string"
                     },
                     "is_admin": {
-                        "type": "tinyint"
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
