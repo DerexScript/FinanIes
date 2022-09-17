@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); //Moderator, Administrator
-            $table->string('description'); //description
-            $table->string('role');  //ROLE_MODERATOR, Administrator
+            $table->string('name'); //visible names
+            $table->string('resource'); // user.index (route.name) <- habilities
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('resources');
     }
 };

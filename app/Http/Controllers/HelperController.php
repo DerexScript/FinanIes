@@ -39,7 +39,9 @@ class HelperController extends Controller
         $routes = [];
         $rrr = Route::getRoutes();
         foreach ($rrr as $route) {
-            $routes[] = $route;
+            if (array_key_exists('as', $route['action'])) {
+                $routes[] = $route['action']['as'];
+            }
         }
         return response(
             array("success" => true, "data" => $routes, "erros" => array()),

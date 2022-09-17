@@ -31,7 +31,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        \App\Models\Permission::factory(10)->create();
         \App\Models\Role::factory(10)->create();
         \App\Models\User::factory(10)->create();
         \App\Models\Company::factory(10)->create();

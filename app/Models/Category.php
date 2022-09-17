@@ -36,8 +36,4 @@ class Category extends Model implements AuthenticatableContract, AuthorizableCon
     protected $fillable = [
         'name', 'description'
     ];
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class, "permission_category");
-    }
 }

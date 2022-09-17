@@ -79,6 +79,7 @@ $app->configure('jwt');
 // ]);
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'access.control.list' => App\Http\Middleware\AccessControlMiddleware::class,
 ]);
 
 $app->middleware([

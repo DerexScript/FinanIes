@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('is_admin')->default(false);
             $table->unsignedBigInteger("role_id")->nullable();
-            $table->foreign("role_id")->references("id")->on("roles");
+            $table->foreign("role_id")->references("id")->on("roles")->onDelete('SET NULL');
             $table->rememberToken();
             $table->timestamps();
         });

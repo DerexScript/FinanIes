@@ -10,23 +10,22 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
- * Class Role
+ * Class Resource
  * @property string $title
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Role",
+ *     schema="Resource",
  *     type="object",
- *     title="Role",
- *     required={"name", "description", "role"},
+ *     title="Resource",
+ *     required={"name", "resource"},
  *     properties={
  *         @OA\Property(property="name", type="string"),
- *         @OA\Property(property="description", type="string"),
- *         @OA\Property(property="role", type="string")
+ *         @OA\Property(property="resource", type="string")
  *     },
  * )
  */
-class Role extends Model implements AuthenticatableContract, AuthorizableContract
+class Resource extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
 
@@ -37,15 +36,11 @@ class Role extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var string[]
      */
-    protected $fillable = ["name", "description", "role"];
+    protected $fillable = ["name", "resource"];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
 
-    public function resources()
+    public function roles()
     {
-        return $this->belongsToMany(Resource::class);
+        return $this->belongsToMany(Role::class);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,8 +24,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::define('manage-roles', fn (User $user) => $user->is_admin == 1);
-
+        $resources = \App\Models\Resource::all();
+        foreach ($resources as $key => $resource) {
+            Gate::define($resource->resource, function ($user) use ($resource) {
+                return $resource->roles->contains($user->role);
+            });
+        }
+        //dd(Gate::abilities());
         // Here you may define how you wish users to be authenticated for your Lumen
         // application. The callback which receives the incoming request instance
         // should return either a User instance or null. You're free to obtain
@@ -34,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->input('api_token')) {
-                return User::where('api_token', $request->input('api_token'))->first();
+                return \App\Models\User::where('api_token', $request->input('api_token'))->first();
             }
         });
     }

@@ -166,7 +166,7 @@ class UserController extends Controller
     /**
      * @OA\Post(
      *   tags={"User"},
-     *   path="/api/v1/user/{user}/associated",
+     *   path="/api/v1/user/{user}/associate",
      *   description="associated user with a role",
      *   summary="associated user with a role",
      *   security={{"bearerAuth": {}}},

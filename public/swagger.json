@@ -360,450 +360,6 @@
                 }
             }
         },
-        "/api/v1/permission": {
-            "get": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "get all permissions",
-                "description": "get all permissions",
-                "operationId": "550d293092d8f45fe8379222bb165be6",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "register a new permission",
-                "description": "register a new permission",
-                "operationId": "7ba7bb2d9c5e353725c90f6ca637f156",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "name",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "view": {
-                                        "description": "view",
-                                        "type": "boolean"
-                                    },
-                                    "edit": {
-                                        "description": "edit",
-                                        "type": "boolean"
-                                    },
-                                    "delete": {
-                                        "description": "delete",
-                                        "type": "boolean"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}": {
-            "put": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "update a permission by id",
-                "description": "update a permission by id",
-                "operationId": "updatePermission",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "name",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "view": {
-                                        "description": "view",
-                                        "type": "boolean"
-                                    },
-                                    "edit": {
-                                        "description": "edit",
-                                        "type": "boolean"
-                                    },
-                                    "delete": {
-                                        "description": "delete",
-                                        "type": "boolean"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "delete a permission by id",
-                "description": "delete a permission by id",
-                "operationId": "deletePermission",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}/category/attach": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "attach category to permission",
-                "description": "attach category to permission",
-                "operationId": "89df6ba5eeffc6c7cabc380731d90b00",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "category_id": {
-                                        "description": "category id",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}/category/detach": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "detach category to permission",
-                "description": "detach category to permission",
-                "operationId": "f8d82ee289795b15ce3d8d74363c8970",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "category_id": {
-                                        "description": "category id",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}/company/attach": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "attach company to permission",
-                "description": "attach company to permission",
-                "operationId": "85f1fc2020b37aa318306eae509e200e",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "company_id": {
-                                        "description": "company id",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}/company/detach": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "detach company to permission",
-                "description": "detach company to permission",
-                "operationId": "8e78470dda538837f53741cd1acbfca6",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "category_id": {
-                                        "description": "category id",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}/release/attach": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "attach release to permission",
-                "description": "attach release to permission",
-                "operationId": "c509b1c20fa565f46c94fafdf5660484",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "release_id": {
-                                        "description": "release id",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/permission/{permission}/release/detach": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "detach release to permission",
-                "description": "detach release to permission",
-                "operationId": "c73e119fc0547320a760d71fe2e1ed82",
-                "parameters": [
-                    {
-                        "name": "permission",
-                        "in": "path",
-                        "description": "permission identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "release_id": {
-                                        "description": "release id",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/v1/release": {
             "get": {
                 "tags": [
@@ -1278,14 +834,14 @@
                 ]
             }
         },
-        "/api/v1/user/{user}/associated": {
+        "/api/v1/user/{user}/associate": {
             "post": {
                 "tags": [
                     "User"
                 ],
                 "summary": "associated user with a role",
                 "description": "associated user with a role",
-                "operationId": "7e0e0253ecafc0de2a38fe36ec500781",
+                "operationId": "e9f606a9bf929f460e9a1af37099a704",
                 "parameters": [
                     {
                         "name": "user",
@@ -1505,35 +1061,6 @@
                 },
                 "type": "object"
             },
-            "Permission": {
-                "title": "Permission",
-                "required": [
-                    "name",
-                    "description",
-                    "view",
-                    "edit",
-                    "delete"
-                ],
-                "properties": {
-                    "name": {
-                        "description": "Class Permission",
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
-                    },
-                    "view": {
-                        "type": "tinyint"
-                    },
-                    "edit": {
-                        "type": "tinyint"
-                    },
-                    "delete": {
-                        "type": "tinyint"
-                    }
-                },
-                "type": "object"
-            },
             "Release": {
                 "title": "Release",
                 "required": [
@@ -1564,11 +1091,29 @@
                 },
                 "type": "object"
             },
+            "Resource": {
+                "title": "Resource",
+                "required": [
+                    "name",
+                    "resource"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Resource",
+                        "type": "string"
+                    },
+                    "resource": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "Role": {
                 "title": "Role",
                 "required": [
                     "name",
-                    "description"
+                    "description",
+                    "role"
                 ],
                 "properties": {
                     "name": {
@@ -1576,6 +1121,9 @@
                         "type": "string"
                     },
                     "description": {
+                        "type": "string"
+                    },
+                    "role": {
                         "type": "string"
                     }
                 },

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date("date");
             $table->binary("voucher");
             $table->boolean("status");
-
             $table->unsignedBigInteger("company_id")->nullable();
             $table->unsignedBigInteger("category_id")->nullable();
             $table->foreign("company_id")->references("id")->on("companies");

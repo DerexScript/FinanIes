@@ -39,8 +39,4 @@ class Release extends Model implements AuthenticatableContract, AuthorizableCont
     protected $fillable = [
         'description', 'value', 'date', 'vouncher', 'status'
     ];
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
 }

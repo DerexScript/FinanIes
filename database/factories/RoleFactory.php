@@ -24,7 +24,8 @@ class RoleFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->text(5),
-            'description' => $this->faker->title(10)
+            'description' => $this->faker->title(10),
+            'role' => $this->faker->title(10)
         ];
     }
 }
