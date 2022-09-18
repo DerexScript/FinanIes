@@ -90,7 +90,8 @@ class LoginController extends Controller
                     "success" => true, "data" => array(
                         'token' => $token,
                         'token_type' => 'bearer',
-                        'expires_in' => JwtAuth::factory()->getTTL() * 60
+                        'expires_in' => JwtAuth::factory()->getTTL() * 60,
+                        'user' => $user,
                     ), "erros" => array()
                 ),
                 200
