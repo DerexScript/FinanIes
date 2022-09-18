@@ -122,7 +122,7 @@ class EntryGroupController extends Controller
                 400
             );
         }
-        $fields = $request->only(["name", "description", "status"]);
+        $fields = $request->only(["name", "description", "status", 'entry_id', 'company_id']);
         $entry = new EntryGroup();
         $entry->forceFill($fields);
         if ($entry->save()) {
@@ -238,7 +238,7 @@ class EntryGroupController extends Controller
                 400
             );
         }
-        $fields = $request->only(['name', 'description', 'status']);
+        $fields = $request->only(['name', 'description', 'status', 'entry_id', 'company_id']);
         $entryGroup = EntryGroup::find($entryGroup);
         if ($entryGroup && $entryGroup->update($fields)) {
             return response(
