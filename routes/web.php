@@ -47,7 +47,7 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->put('/{entry}', ['uses' => 'EntryController@update', 'as' => 'entry.update']);
         $router->delete('/{entry}', ['uses' => 'EntryController@destroy', 'as' => 'entry.destroy']);
     });
-    $router->group(['prefix' => 'entry-group', 'middleware' => ['auth:api']], function () use ($router) {
+    $router->group(['prefix' => 'entry-group', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
         $router->get('/', ['uses' => 'EntryGroupController@index', 'as' => 'entryGroup.index']);
         $router->post('/', ['uses' => 'EntryGroupController@store', 'as' => 'entryGroup.store']);
         $router->put('/{entryGroup}', ['uses' => 'EntryGroupController@update', 'as' => 'entryGroup.update']);
