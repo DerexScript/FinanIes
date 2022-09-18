@@ -70,7 +70,7 @@ class ReleaseController extends Controller
      *     @OA\MediaType(
      *       mediaType="application/json",
      *       @OA\Schema(
-     *         required={"description", "value", "date", "voucher", "status"},
+     *         required={"description", "value", "date", "status"},
      *         @OA\Property(
      *           property="description",
      *           description="description",
@@ -86,12 +86,7 @@ class ReleaseController extends Controller
      *           description="date",
      *           type="date"
      *         ),
-     *         @OA\Property(
-     *           property="voucher",
-     *           description="The data block for encryption/decryption",
-     *           type="string",
-     *           format="binary"
-     *         ),
+
      *         @OA\Property(
      *           property="status",
      *           description="status",
@@ -111,6 +106,18 @@ class ReleaseController extends Controller
      *           default=null,
      *           nullable="true",
      *        ),
+     *       ),
+     *     ),
+     *     @OA\MediaType(
+     *       mediaType="multipart/form-data",
+     *       @OA\Schema(
+     *         required={"voucher"},
+     *         @OA\Property(
+     *           description="file image to upload",
+     *           property="voucher",
+     *           type="string",
+     *           format="binary",
+     *         ),
      *       ),
      *     ),
      *   ),

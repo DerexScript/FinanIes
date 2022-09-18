@@ -401,7 +401,6 @@
                                     "description",
                                     "value",
                                     "date",
-                                    "voucher",
                                     "status"
                                 ],
                                 "properties": {
@@ -419,11 +418,6 @@
                                         "type": "string",
                                         "format": "date"
                                     },
-                                    "voucher": {
-                                        "description": "The data block for encryption/decryption",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
                                     "status": {
                                         "description": "status",
                                         "type": "boolean"
@@ -439,6 +433,21 @@
                                         "format": "int64",
                                         "default": null,
                                         "nullable": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "voucher"
+                                ],
+                                "properties": {
+                                    "voucher": {
+                                        "description": "file image to upload",
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
