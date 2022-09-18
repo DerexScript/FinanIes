@@ -41,11 +41,17 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
         $router->put('/{company}', ['uses' => 'CompanyController@update', 'as' => 'company.update']);
         $router->delete('/{company}', ['uses' => 'CompanyController@destroy', 'as' => 'company.destroy']);
     });
-    $router->group(['prefix' => 'release', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
-        $router->get('/', ['uses' => 'ReleaseController@index', 'as' => 'release.index']);
-        $router->post('/', ['uses' => 'ReleaseController@store', 'as' => 'release.store']);
-        $router->put('/{release}', ['uses' => 'ReleaseController@update', 'as' => 'release.update']);
-        $router->delete('/{release}', ['uses' => 'ReleaseController@destroy', 'as' => 'release.destroy']);
+    $router->group(['prefix' => 'entry', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
+        $router->get('/', ['uses' => 'EntryController@index', 'as' => 'entry.index']);
+        $router->post('/', ['uses' => 'EntryController@store', 'as' => 'entry.store']);
+        $router->put('/{entry}', ['uses' => 'EntryController@update', 'as' => 'entry.update']);
+        $router->delete('/{entry}', ['uses' => 'EntryController@destroy', 'as' => 'entry.destroy']);
+    });
+    $router->group(['prefix' => 'entry-group', 'middleware' => ['auth:api']], function () use ($router) {
+        $router->get('/', ['uses' => 'EntryGroupController@index', 'as' => 'entryGroup.index']);
+        $router->post('/', ['uses' => 'EntryGroupController@store', 'as' => 'entryGroup.store']);
+        $router->put('/{entryGroup}', ['uses' => 'EntryGroupController@update', 'as' => 'entryGroup.update']);
+        $router->delete('/{entryGroup}', ['uses' => 'EntryGroupController@destroy', 'as' => 'entryGroup.destroy']);
     });
     $router->group(['prefix' => 'category', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
         $router->get('/', ['uses' => 'CategoryController@index', 'as' => 'category.index']);

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Release;
+use App\Models\EntryGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class ReleaseController extends Controller
+class EntryGroupController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,10 +26,10 @@ class ReleaseController extends Controller
      */
     /**
      * @OA\Get(
-     *   tags={"Release"},
-     *   description="get all release",
-     *   summary="get all release",
-     *   path="/api/v1/release",
+     *   tags={"EntryGroup"},
+     *   description="get all entry group",
+     *   summary="get all entry group",
+     *   path="/api/v1/entry-group",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource")
      * )
@@ -37,7 +37,7 @@ class ReleaseController extends Controller
     public function index()
     {
         return response(
-            array("success" => true, "data" => Release::all(), "erros" => array()),
+            array("success" => true, "data" => EntryGroup::all(), "erros" => array()),
             200
         );
     }
@@ -60,33 +60,144 @@ class ReleaseController extends Controller
      */
     /**
      * @OA\Post(
-     *   tags={"Release"},
-     *   path="/api/v1/release",
-     *   description="register a new release",
-     *   summary="register a new release",
+     *   tags={"EntryGroup"},
+     *   path="/api/v1/entry-group",
+     *   description="register a new entry group",
+     *   summary="register a new entry group",
      *   security={{"bearerAuth": {}}},
      *   @OA\RequestBody(
      *     required=true,
      *     @OA\MediaType(
      *       mediaType="application/json",
      *       @OA\Schema(
-     *         required={"description", "value", "date", "status"},
+     *         required={"name", "description", "status"},
+     *         @OA\Property(
+     *           property="name",
+     *           description="name",
+     *           type="string"
+     *         ),
      *         @OA\Property(
      *           property="description",
      *           description="description",
      *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="value",
-     *           description="value",
-     *           type="float"
+     *           property="status",
+     *           description="status",
+     *           type="boolean"
+     *         ),
+     *        @OA\Property(
+     *           property="company_id",
+     *           description="company_id",
+     *           format="int64",
+     *           default=null,
+     *           nullable="true",
+     *        ),
+     *        @OA\Property(
+     *           property="entry_id",
+     *           description="entry_id",
+     *           format="int64",
+     *           default=null,
+     *           nullable="true",
+     *        ),
+     *       ),
+     *     ),
+     *   ),
+     *   @OA\Response(response="200", description="An example resource")
+     * )
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'status' => 'required'
+        ];
+        $messages = [];
+        $customAttributes = [];
+        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
+        if ($validator->fails()) {
+            return response(
+                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                400
+            );
+        }
+        $fields = $request->only(["name", "description", "status"]);
+        $entry = new EntryGroup();
+        $entry->forceFill($fields);
+        if ($entry->save()) {
+            return response(
+                array("success" => true, "data" => array("message" => "entry group successfully added"), "erros" => array()),
+                201
+            );
+        }
+        return response(
+            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering entry group")),
+            500
+        );
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\EntryGroup  $entryGroup
+     * @return \Illuminate\Http\Response
+     */
+    public function show(EntryGroup $entryGroup)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\EntryGroup  $entryGroup
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(EntryGroup $entryGroup)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\EntryGroup  $entryGroup
+     * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Put(
+     *   tags={"EntryGroup"},
+     *   path="/api/v1/entry-group/{entryGroup}",
+     *   description="update a entry group by id",
+     *   summary="update a entry group by id",
+     *   operationId="updateEntryGroup",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource"),
+     *   @OA\Parameter(
+     *       required=true,
+     *       name="entryGroup",
+     *       description="entry group identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     *  @OA\RequestBody(
+     *     required=true,
+     *     @OA\MediaType(
+     *       mediaType="application/json",
+     *       @OA\Schema(
+     *         required={"name", "description", "status"},
+     *         @OA\Property(
+     *           property="name",
+     *           description="name",
+     *           type="string"
      *         ),
      *         @OA\Property(
-     *           property="date",
-     *           description="date",
-     *           type="date"
+     *           property="description",
+     *           description="description",
+     *           type="string"
      *         ),
-
      *         @OA\Property(
      *           property="status",
      *           description="status",
@@ -100,152 +211,23 @@ class ReleaseController extends Controller
      *           nullable="true",
      *        ),
      *        @OA\Property(
-     *           property="category_id",
-     *           description="category_id",
+     *           property="entry_id",
+     *           description="entry_id",
      *           format="int64",
      *           default=null,
      *           nullable="true",
      *        ),
      *       ),
      *     ),
-     *     @OA\MediaType(
-     *       mediaType="multipart/form-data",
-     *       @OA\Schema(
-     *         required={"voucher"},
-     *         @OA\Property(
-     *           description="file image to upload",
-     *           property="voucher",
-     *           type="string",
-     *           format="binary",
-     *         ),
-     *       ),
-     *     ),
-     *   ),
-     *   @OA\Response(response="200", description="An example resource")
-     * )
-     */
-    public function store(Request $request)
-    {
-        $rules = [
-            'description' => 'required',
-            'value' => 'required',
-            'date' => 'required',
-            'voucher' => 'required',
-            'status' => 'required|boolean',
-        ];
-        $messages = [];
-        $customAttributes = [];
-        $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
-        if ($validator->fails()) {
-            return response(
-                array("success" => false, "data" => array(), "erros" => $validator->errors()),
-                400
-            );
-        }
-        $fields = $request->only(["description", "value", "date", "voucher", "status", "company_id", "category_id"]);
-        $release = new Release();
-        $release->forceFill($fields);
-        if ($release->save()) {
-            return response(
-                array("success" => true, "data" => array("message" => "release successfully added"), "erros" => array()),
-                201
-            );
-        }
-        return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering release")),
-            500
-        );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Release  $release
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Release $release)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Release  $release
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Release $release)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Release  $release
-     * @return \Illuminate\Http\Response
-     */
-    /**
-     * @OA\Put(
-     *   tags={"Release"},
-     *   path="/api/v1/release/{release}",
-     *   description="update a release by id",
-     *   summary="update a release by id",
-     *   operationId="updateRelease",
-     *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource"),
-     *   @OA\Parameter(
-     *       required=true,
-     *       name="release",
-     *       description="release identification",
-     *       in="path",
-     *       @OA\Schema(type="integer"),
-     *   ),
-     *  @OA\RequestBody(
-     *     required=true,
-     *     @OA\MediaType(
-     *       mediaType="application/json",
-     *       @OA\Schema(
-     *         @OA\Property(
-     *           property="description",
-     *           description="description",
-     *           type="string"
-     *         ),
-     *         @OA\Property(
-     *           property="value",
-     *           description="value",
-     *           type="float"
-     *         ),
-     *         @OA\Property(
-     *           property="date",
-     *           description="date",
-     *           type="date"
-     *         ),
-     *         @OA\Property(
-     *           property="voucher",
-     *           description="The data block for encryption/decryption",
-     *           type="string",
-     *           format="binary"
-     *         ),
-     *         @OA\Property(
-     *           property="status",
-     *           description="status",
-     *           type="boolean",
-     *         ),
-     *       ),
-     *     ),
      *   ),
      * ),
      */
-    public function update(Request $request, $release)
+    public function update(Request $request, $entryGroup)
     {
         $rules = [
+            'name' => 'required',
             'description' => 'required',
-            'value' => 'required',
-            'date' => 'required',
-            'voucher' => 'required',
-            'status' => 'required|boolean',
+            'status' => 'required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -256,16 +238,16 @@ class ReleaseController extends Controller
                 400
             );
         }
-        $fields = $request->only(['description', 'value', 'date', 'voucher', 'status']);
-        $release = Release::find($release);
-        if ($release && $release->update($fields)) {
+        $fields = $request->only(['name', 'description', 'status']);
+        $entryGroup = EntryGroup::find($entryGroup);
+        if ($entryGroup && $entryGroup->update($fields)) {
             return response(
-                array("success" => true, "data" => array("message" => "release successfully updated"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "entry group successfully updated"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error updating release data")),
+            array("success" => false, "data" => array(), "erros" => array("message" => "error updating entry group data")),
             500
         );
     }
@@ -273,39 +255,39 @@ class ReleaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Release  $release
+     * @param  \App\Models\EntryGroup  $entryGroup
      * @return \Illuminate\Http\Response
      */
     /**
      * @OA\Delete(
-     *   tags={"Release"},
-     *   path="/api/v1/release/{release}",
-     *   description="delete a release by id",
-     *   summary="delete a release by id",
-     *   operationId="deleteRelease",
+     *   tags={"EntryGroup"},
+     *   path="/api/v1/entry-group/{entryGroup}}",
+     *   description="delete a entry group by id",
+     *   summary="delete a entry group by id",
+     *   operationId="deleteEntryGroup",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="An example resource"),
      *   @OA\Parameter(
      *       required=true,
-     *       name="release",
-     *       description="release identification",
+     *       name="entryGroup",
+     *       description="entry group identification",
      *       in="path",
      *       @OA\Schema(type="integer"),
      *   ),
      * ),
      */
-    public function destroy($release)
+    public function destroy($entryGroup)
     {
-        $release = Release::find($release);
-        if ($release) {
-            $release->delete();
+        $entryGroup = EntryGroup::find($entryGroup);
+        if ($entryGroup) {
+            $entryGroup->delete();
             return response(
-                array("success" => true, "data" => array("message" => "release successfully deleted"), "erros" => array()),
+                array("success" => true, "data" => array("message" => "entry group successfully deleted"), "erros" => array()),
                 200
             );
         }
         return response(
-            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the release")),
+            array("success" => true, "data" => array(), "erros" => array("message" => "error when trying to delete the entry group")),
             404
         );
     }

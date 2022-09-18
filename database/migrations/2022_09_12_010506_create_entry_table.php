@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('releases', function (Blueprint $table) {
+        Schema::create('entries', function (Blueprint $table) {
             $table->id();
             $table->string("description");
             $table->string("value");
             $table->date("date");
             $table->binary("voucher");
             $table->boolean("status");
-            $table->unsignedBigInteger("company_id")->nullable();
             $table->unsignedBigInteger("category_id")->nullable();
-            $table->foreign("company_id")->references("id")->on("companies");
             $table->foreign("category_id")->references("id")->on("categories");
-
             $table->timestamps();
         });
     }
@@ -36,10 +33,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::create('releases', function (Blueprint $table) {
-            $table->dropForeign('releases_company_id_foreign');
-            $table->dropForeign('releases_category_id_foreign');
+        Schema::create('entries', function (Blueprint $table) {
+            $table->dropForeign('entries_company_id_foreign');
+            $table->dropForeign('entries_category_id_foreign');
         });
-        Schema::dropIfExists('releases');
+        Schema::dropIfExists('entries');
     }
 };

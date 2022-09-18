@@ -37,8 +37,8 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
         'name', 'description'
     ];
 
-    public function releases()
+    public function entries()
     {
-        return $this->hasMany(Release::class);
+        return $this->hasMany(Entry::class);
     }
 }

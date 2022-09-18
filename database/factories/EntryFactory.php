@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Release;
+use App\Models\Entry;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class ReleaseFactory extends Factory
+class EntryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Release::class;
+    protected $model = Entry::class;
 
     /**
      * Define the model's default state.

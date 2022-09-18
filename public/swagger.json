@@ -336,44 +336,14 @@
                 ]
             }
         },
-        "/api/v1/helpers/version": {
+        "/api/v1/entry": {
             "get": {
                 "tags": [
-                    "Helpers"
+                    "Entry"
                 ],
-                "summary": "get framework version",
-                "description": "get framework version",
-                "operationId": "4d42025e8715fa41eef8550946ab357e",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                }
-            }
-        },
-        "/api/v1/helpers/routes": {
-            "get": {
-                "tags": [
-                    "Helpers"
-                ],
-                "summary": "get all routes",
-                "description": "get all routes",
-                "operationId": "6ae45de70a45c80311e4591433beee5a",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                }
-            }
-        },
-        "/api/v1/release": {
-            "get": {
-                "tags": [
-                    "Release"
-                ],
-                "summary": "get all release",
-                "description": "get all release",
-                "operationId": "30c75eaa4ad8a0caa07b244e088073b3",
+                "summary": "get all entry",
+                "description": "get all entry",
+                "operationId": "8bab52b7c1cf0fdac84b0b2cbbb0b8be",
                 "responses": {
                     "200": {
                         "description": "An example resource"
@@ -387,11 +357,11 @@
             },
             "post": {
                 "tags": [
-                    "Release"
+                    "Entry"
                 ],
-                "summary": "register a new release",
-                "description": "register a new release",
-                "operationId": "565a83d739aefa4393fcf81a2304ba95",
+                "summary": "register a new entry",
+                "description": "register a new entry",
+                "operationId": "379869c82e0494652c8aa776d8f250a2",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -467,19 +437,19 @@
                 ]
             }
         },
-        "/api/v1/release/{release}": {
+        "/api/v1/entry/{entry}": {
             "put": {
                 "tags": [
-                    "Release"
+                    "Entry"
                 ],
-                "summary": "update a release by id",
-                "description": "update a release by id",
-                "operationId": "updateRelease",
+                "summary": "update a entry by id",
+                "description": "update a entry by id",
+                "operationId": "updateEntry",
                 "parameters": [
                     {
-                        "name": "release",
+                        "name": "entry",
                         "in": "path",
-                        "description": "release identification",
+                        "description": "entry identification",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -534,16 +504,16 @@
             },
             "delete": {
                 "tags": [
-                    "Release"
+                    "Entry"
                 ],
-                "summary": "delete a release by id",
-                "description": "delete a release by id",
-                "operationId": "deleteRelease",
+                "summary": "delete a entry by id",
+                "description": "delete a entry by id",
+                "operationId": "deleteEntry",
                 "parameters": [
                     {
-                        "name": "release",
+                        "name": "entry",
                         "in": "path",
-                        "description": "release identification",
+                        "description": "entry identification",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -560,6 +530,218 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/v1/entry-group": {
+            "get": {
+                "tags": [
+                    "EntryGroup"
+                ],
+                "summary": "get all entry group",
+                "description": "get all entry group",
+                "operationId": "73446cfc62d6fc97d003c7520aa4ba3d",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "EntryGroup"
+                ],
+                "summary": "register a new entry group",
+                "description": "register a new entry group",
+                "operationId": "45a73ca2074b31832c86d0316c8cc6a0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "status",
+                                        "type": "boolean"
+                                    },
+                                    "company_id": {
+                                        "description": "company_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "entry_id": {
+                                        "description": "entry_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/entry-group/{entryGroup}": {
+            "put": {
+                "tags": [
+                    "EntryGroup"
+                ],
+                "summary": "update a entry group by id",
+                "description": "update a entry group by id",
+                "operationId": "updateEntryGroup",
+                "parameters": [
+                    {
+                        "name": "entryGroup",
+                        "in": "path",
+                        "description": "entry group identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "status",
+                                        "type": "boolean"
+                                    },
+                                    "company_id": {
+                                        "description": "company_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "entry_id": {
+                                        "description": "entry_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/entry-group/{entryGroup}}": {
+            "delete": {
+                "tags": [
+                    "EntryGroup"
+                ],
+                "summary": "delete a entry group by id",
+                "description": "delete a entry group by id",
+                "operationId": "deleteEntryGroup",
+                "parameters": [
+                    {
+                        "name": "entryGroup",
+                        "in": "path",
+                        "description": "entry group identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/helpers/version": {
+            "get": {
+                "tags": [
+                    "Helpers"
+                ],
+                "summary": "get framework version",
+                "description": "get framework version",
+                "operationId": "4d42025e8715fa41eef8550946ab357e",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/api/v1/helpers/routes": {
+            "get": {
+                "tags": [
+                    "Helpers"
+                ],
+                "summary": "get all routes",
+                "description": "get all routes",
+                "operationId": "6ae45de70a45c80311e4591433beee5a",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
             }
         },
         "/api/v1/resource": {
@@ -1331,8 +1513,8 @@
                 },
                 "type": "object"
             },
-            "Release": {
-                "title": "Release",
+            "Entry": {
+                "title": "Entry",
                 "required": [
                     "description",
                     "value",
@@ -1342,7 +1524,7 @@
                 ],
                 "properties": {
                     "description": {
-                        "description": "Class Release",
+                        "description": "Class Entry",
                         "type": "string"
                     },
                     "value": {
@@ -1362,6 +1544,35 @@
                         "nullable": true
                     },
                     "category_id": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "EntryGroup": {
+                "title": "EntryGroup",
+                "required": [
+                    "name",
+                    "description",
+                    "status"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class EntryGroup",
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "entry_id": {
                         "type": "integer",
                         "nullable": true
                     }

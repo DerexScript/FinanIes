@@ -11,27 +11,25 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
- * Class Release
+ * Class EntryGroup
  * @property string $title
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Release",
+ *     schema="EntryGroup",
  *     type="object",
- *     title="Release",
- *     required={"description", "value", "date", "vouncher", "status"},
+ *     title="EntryGroup",
+ *     required={"name", "description", "status"},
  *     properties={
+ *         @OA\Property(property="name", type="string"),
  *         @OA\Property(property="description", type="string"),
- *         @OA\Property(property="value", type="string"),
- *         @OA\Property(property="date", type="string"),
- *         @OA\Property(property="vouncher", type="string"),
  *         @OA\Property(property="status", type="boolean"),
  *         @OA\Property(property="company_id", type="integer", nullable=true),
- *         @OA\Property(property="category_id", type="integer", nullable=true),
+ *         @OA\Property(property="entry_id", type="integer", nullable=true),
  *     },
  * )
  */
-class Release extends Model implements AuthenticatableContract, AuthorizableContract
+class EntryGroup extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
     /**
@@ -39,14 +37,9 @@ class Release extends Model implements AuthenticatableContract, AuthorizableCont
      *
      * @var string[]
      */
-    protected $fillable = [
-        'description', 'value', 'date', 'vouncher', 'status'
-    ];
+    protected $fillable = ['name', 'description', 'status'];
 
-    public function company()
-    {
-        return $this->hasOne(Company::class);
-    }
+    protected $table = 'entries_group';
 
     public function category()
     {
