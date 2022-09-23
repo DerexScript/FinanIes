@@ -49,5 +49,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Company::factory(10)->create();
         \App\Models\Category::factory(10)->create();
         \App\Models\Entry::factory(10)->create();
+        \App\Models\EntryGroup::factory(10)->create();
     }
 }
