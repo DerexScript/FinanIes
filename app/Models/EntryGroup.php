@@ -37,7 +37,7 @@ class EntryGroup extends Model implements AuthenticatableContract, AuthorizableC
      *
      * @var string[]
      */
-    protected $fillable = ['name', 'description', 'status'];
+    protected $fillable = ['name', 'description', 'status', 'entry_id', 'company_id'];
 
     protected $table = 'entries_group';
 
