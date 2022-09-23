@@ -43,6 +43,6 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
     }
     public function groupEntries()
     {
-        return $this->hasMany(EntryGroups::class);
+        return $this->hasMany(EntryGroup::class);
     }
 }

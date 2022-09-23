@@ -45,4 +45,8 @@ class EntryGroup extends Model implements AuthenticatableContract, AuthorizableC
     {
         return $this->hasOne(Category::class);
     }
+
+    public function company(){
+        return $this->hasOne(Company::class);
+    }
 }
