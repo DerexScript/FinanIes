@@ -37,7 +37,7 @@ class CompanyController extends Controller
     public function index()
     {
         return response(
-            array("success" => true, "data" => Company::all(), "erros" => array()),
+            array("success" => true, "data" => Company::with('groupEntries')->all(), "erros" => array()),
             200
         );
     }
