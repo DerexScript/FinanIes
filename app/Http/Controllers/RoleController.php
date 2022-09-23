@@ -44,6 +44,24 @@ class RoleController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *   tags={"Role"},
+     *   description="get role by id",
+     *   summary="get role by id",
+     *   path="/api/v1/role/{role}",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="An example resource")
+     * )
+     */
+    public function get($role)
+    {        
+        return response(
+            array("success" => true, "data" => Role::find($role), "erros" => array()),
+            200
+        );
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -1038,6 +1038,108 @@
                 ]
             }
         },
+        "/api/v1/role/{role}": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "get role by id",
+                "description": "get role by id",
+                "operationId": "3cdba7e0756116a4e99fc9f3ff70cec1",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "update a role by id",
+                "description": "update a role by id",
+                "operationId": "updateRole",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "description": "role",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "delete a role by id",
+                "description": "delete a role by id",
+                "operationId": "deleteRole",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "role identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/role/{role}/resource/attach": {
             "post": {
                 "tags": [
@@ -1120,90 +1222,6 @@
                         }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/role/{role}": {
-            "put": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "update a role by id",
-                "description": "update a role by id",
-                "operationId": "updateRole",
-                "parameters": [
-                    {
-                        "name": "role",
-                        "in": "path",
-                        "description": "role identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "name",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "role": {
-                                        "description": "role",
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "delete a role by id",
-                "description": "delete a role by id",
-                "operationId": "deleteRole",
-                "parameters": [
-                    {
-                        "name": "role",
-                        "in": "path",
-                        "description": "role identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "An example resource"

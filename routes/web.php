@@ -21,6 +21,7 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
     });
     $router->group(['prefix' => 'role', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
         $router->get('/', ['uses' => 'RoleController@index', 'as' => 'role.index']);
+        $router->get('/{role}', ['uses' => 'RoleController@get', 'as' => 'role.index']);
         $router->post('/', ['uses' => 'RoleController@store', 'as' => 'role.store']);
         $router->put('/{role}', ['uses' => 'RoleController@update', 'as' => 'role.update']);
         $router->delete('/{role}', ['uses' => 'RoleController@destroy', 'as' => 'role.destroy']);
