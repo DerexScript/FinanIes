@@ -38,7 +38,7 @@ class RoleController extends Controller
     public function index()
     {
         return response(
-            array("success" => true, "data" => Role::all(), "erros" => array()),
+            array("success" => true, "data" => Role::all(), "erros" => ""),
             200
         );
     }
@@ -56,7 +56,7 @@ class RoleController extends Controller
     public function get($role)
     {
         return response(
-            array("success" => true, "data" => Role::find($role), "erros" => array()),
+            array("success" => true, "data" => Role::find($role), "erros" => ""),
             200
         );
     }
@@ -122,7 +122,7 @@ class RoleController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
         if ($validator->fails()) {
             return response(
-                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                array("success" => false, "message" => "", "data" => array(), "erros" => array("message" => $validator->errors())),
                 400
             );
         }
@@ -131,7 +131,7 @@ class RoleController extends Controller
         $role->forceFill($fields);
         if ($role->save()) {
             return response(
-                array("success" => true, "response" => array("message" => "role successfully added", "data" => $role), "erros" => array()),
+                array("success" => true, "message" => "role successfully added", "data" => $role, "erros" => array()),
                 201
             );
         }
