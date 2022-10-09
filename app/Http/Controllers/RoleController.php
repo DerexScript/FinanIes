@@ -54,7 +54,7 @@ class RoleController extends Controller
      * )
      */
     public function get($role)
-    {        
+    {
         return response(
             array("success" => true, "data" => Role::find($role), "erros" => array()),
             200
@@ -131,7 +131,7 @@ class RoleController extends Controller
         $role->forceFill($fields);
         if ($role->save()) {
             return response(
-                array("success" => true, "data" => array("message" => "role successfully added"), "erros" => array()),
+                array("success" => true, "response" => array("message" => "role successfully added", "data" => $role), "erros" => array()),
                 201
             );
         }

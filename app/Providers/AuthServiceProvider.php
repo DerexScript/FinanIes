@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,11 +25,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $resources = \App\Models\Resource::all();
-        foreach ($resources as $key => $resource) {
-            Gate::define($resource->resource, function ($user) use ($resource) {
-                return $resource->roles->contains($user->role);
-            });
+        if(Schema::hasTable('resources')){
+            $resources = \App\Models\Resource::all();
+            foreach ($resources as $key => $resource) {
+                Gate::define($resource->resource, function ($user) use ($resource) {
+                    return $resource->roles->contains($user->role);
+                });
+            }
         }
         //dd(Gate::abilities());
         // Here you may define how you wish users to be authenticated for your Lumen
