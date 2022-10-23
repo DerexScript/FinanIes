@@ -103,13 +103,10 @@ class CategoryController extends Controller
         }
         $fields = $request->only(["name", "description"]);
         $category = new Category();
-        $category->forceFill([
-            "name" => $fields["name"],
-            "description" => $fields["description"],
-        ]);
+        $category->forceFill($fields);
         if ($category->save()) {
             return response(
-                array("success" => true, "data" => array("message" => "category successfully added"), "erros" => array()),
+                array("success" => true, "message" => "category successfully added", "data" => $category, "erros" => array()),
                 201
             );
         }
@@ -188,7 +185,7 @@ class CategoryController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'title' => 'required',
+            'description' => 'required',
         ];
         $messages = [];
         $customAttributes = [];
@@ -199,7 +196,7 @@ class CategoryController extends Controller
                 400
             );
         }
-        $fields = $request->only(['name', 'title']);
+        $fields = $request->only(['name', 'description']);
         $category = Category::find($category);
         if ($category && $category->update($fields)) {
             return response(
