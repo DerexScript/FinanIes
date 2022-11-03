@@ -21,7 +21,7 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
     });
     $router->group(['prefix' => 'role', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
         $router->get('/', ['uses' => 'RoleController@index', 'as' => 'role.index']);
-        $router->get('/{role}', ['uses' => 'RoleController@get', 'as' => 'role.index']);
+        $router->get('/{role}', ['uses' => 'RoleController@get', 'as' => 'role.get']);
         $router->post('/', ['uses' => 'RoleController@store', 'as' => 'role.store']);
         $router->put('/{role}', ['uses' => 'RoleController@update', 'as' => 'role.update']);
         $router->delete('/{role}', ['uses' => 'RoleController@destroy', 'as' => 'role.destroy']);
@@ -38,6 +38,7 @@ $router->group(['prefix' => '/api/v1/'], function () use ($router) {
     });
     $router->group(['prefix' => 'company', 'middleware' => ['auth:api', 'access.control.list']], function () use ($router) {
         $router->get('/', ['uses' => 'CompanyController@index', 'as' => 'company.index']);
+        $router->get('/{company}', ['uses' => 'CompanyController@get', 'as' => 'company.get']);
         $router->post('/', ['uses' => 'CompanyController@store', 'as' => 'company.store']);
         $router->put('/{company}', ['uses' => 'CompanyController@update', 'as' => 'company.update']);
         $router->delete('/{company}', ['uses' => 'CompanyController@destroy', 'as' => 'company.destroy']);

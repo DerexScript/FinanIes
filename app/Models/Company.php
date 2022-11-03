@@ -34,7 +34,7 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
      * @var string[]
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'image_name'
     ];
 
     public function entries()

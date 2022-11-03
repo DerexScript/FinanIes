@@ -50,7 +50,7 @@ class RoleController extends Controller
      *   summary="get role by id",
      *   path="/api/v1/role/{role}",
      *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource")
+     *   @OA\Response(response="200", description="Success")
      * )
      */
     public function get($role)

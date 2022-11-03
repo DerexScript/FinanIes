@@ -43,16 +43,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -68,8 +58,14 @@ class CompanyController extends Controller
      *   @OA\RequestBody(
      *     required=true,
      *     @OA\MediaType(
-     *       mediaType="application/json",
+     *       mediaType="multipart/form-data",
      *       @OA\Schema(
+     *         @OA\Property(
+     *           property="image",
+     *           description="image company yo upload",
+     *           type="string",
+     *           format="binary"
+     *         ),
      *         @OA\Property(
      *           property="name",
      *           description="name",
@@ -90,7 +86,7 @@ class CompanyController extends Controller
      *       ),
      *     ),
      *   ),
-     *   @OA\Response(response="200", description="An example resource")
+     *   @OA\Response(response="200", description="Success")
      * )
      */
     public function store(Request $request)
@@ -98,28 +94,71 @@ class CompanyController extends Controller
         $rules = [
             'name' => 'required',
             'description' => 'required',
+            'image' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048|required'
         ];
         $messages = [];
         $customAttributes = [];
         $validator = Validator::make($request->all(), $rules, $messages, $customAttributes);
         if ($validator->fails()) {
             return response(
-                array("success" => false, "data" => array(), "erros" => $validator->errors()),
+                array("success" => false, "message" => "Error validating fields", "data" => array(), "erros" => $validator->errors()),
                 400
             );
         }
-        $fields = $request->only(["name", "description", "user_id"]);
-        $companie = new Company();
-        $companie->forceFill($fields);
-        if ($companie->save()) {
+        $fileName = $request->file('image')->getClientOriginalName();
+        $format =  substr($fileName, (strripos($fileName, ".") + 1), (strlen($fileName) - 1));
+        $pathName = $request->file('image')->getPathname();
+        $fileContent = file_get_contents($pathName);
+        $FilheHash = sha1($fileContent);
+        // $upload = $request->file('image')->move(base_path().'/public/uploads', $FilheHash.'.'.$format);
+        $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
+        if ($upload) {
+            $fields = $request->only(["name", "description", "user_id"]);
+            $fields['image_name'] = base_path() . '/public/uploads/' . $FilheHash . '.' . $format;
+            $companie = new Company();
+            $companie->forceFill($fields);
+            if ($companie->save()) {
+                return response(
+                    array("success" => true, "message" => "company successfully added", "data" => $companie, "erros" => array()),
+                    201
+                );
+            }
+        }
+        return response(
+            array("success" => false, "message" => "error creating new company", "data" => array(), "erros" => array("message" => "error creating new company")),
+            500
+        );
+    }
+
+    /**
+     * @OA\Get(
+     *   tags={"Company"},
+     *   description="get company by id",
+     *   summary="get company by id",
+     *   path="/api/v1/company/{company}",
+     *   security={{"bearerAuth": {}}},
+     *   @OA\Response(response="200", description="Success"),
+     *    @OA\Parameter(
+     *       required=true,
+     *       name="company",
+     *       description="company identification",
+     *       in="path",
+     *       @OA\Schema(type="integer"),
+     *   ),
+     * )
+     */
+    public function get($company)
+    {
+        $company = Company::find($company);
+        if ($company) {
             return response(
-                array("success" => true, "data" => array("message" => "company successfully added"), "erros" => array()),
-                201
+                array("success" => true, "message" => "Company found", "data" => Company::find($company)[0], "erros" => ""),
+                200
             );
         }
         return response(
-            array("success" => false, "data" => array(), "erros" => array("message" => "error when entering company")),
-            500
+            array("success" => false, "message" => "Company not found", "data" => array(), "erros" => array("message" => "Company not found")),
+            404
         );
     }
 
@@ -131,7 +170,6 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
     }
 
     /**

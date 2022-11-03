@@ -221,9 +221,14 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "image": {
+                                        "description": "image company yo upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
                                     "name": {
                                         "description": "name",
                                         "type": "string"
@@ -246,7 +251,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "Success"
                     }
                 },
                 "security": [
@@ -257,6 +262,35 @@
             }
         },
         "/api/v1/company/{company}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "get company by id",
+                "description": "get company by id",
+                "operationId": "12129d85909c98d40bba2986b0997bc0",
+                "parameters": [
+                    {
+                        "name": "company",
+                        "in": "path",
+                        "description": "company identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "Company"
@@ -1048,7 +1082,7 @@
                 "operationId": "3cdba7e0756116a4e99fc9f3ff70cec1",
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "Success"
                     }
                 },
                 "security": [

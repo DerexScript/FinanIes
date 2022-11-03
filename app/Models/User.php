@@ -51,7 +51,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var string[]
      */
     protected $hidden = [
-        'password',
         'remember_token',
         'email_verified_at'
     ];

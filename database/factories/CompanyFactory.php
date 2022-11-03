@@ -24,7 +24,8 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->firstNameMale(),
-            'description' => $this->faker->text()
+            'description' => $this->faker->text(),
+            'image_name' => $this->faker->filePath()
         ];
     }
 }
