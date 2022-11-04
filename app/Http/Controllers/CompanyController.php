@@ -36,8 +36,14 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $companies = Company::with('groupEntries')->get()->toArray();
+        $companies = array_map(function ($company) {
+            $appURL = env('APP_URL', true);
+            $company['image_name'] = $appURL . $company['image_name'];
+            return $company;
+        }, $companies);
         return response(
-            array("success" => true, "data" => Company::with('groupEntries')->get(), "erros" => array()),
+            array("success" => true, "data" => $companies, "erros" => array()),
             200
         );
     }
@@ -114,7 +120,7 @@ class CompanyController extends Controller
         $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
         if ($upload) {
             $fields = $request->only(["name", "description", "user_id"]);
-            $fields['image_name'] = base_path() . '/public/uploads/' . $FilheHash . '.' . $format;
+            $fields['image_name'] = '/uploads/' . $FilheHash . '.' . $format;
             $companie = new Company();
             $companie->forceFill($fields);
             if ($companie->save()) {
@@ -151,8 +157,11 @@ class CompanyController extends Controller
     {
         $company = Company::find($company);
         if ($company) {
+            $appURL = env('APP_URL', true);
+            $company = Company::find($company)[0];
+            $company->image_name = $appURL . $company->image_name;
             return response(
-                array("success" => true, "message" => "Company found", "data" => Company::find($company)[0], "erros" => ""),
+                array("success" => true, "message" => "Company found", "data" => $company, "erros" => ""),
                 200
             );
         }
@@ -191,46 +200,60 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     /**
-     * @OA\Put(
-     *   tags={"Company"},
-     *   path="/api/v1/company/{company}",
-     *   description="update a company by id",
-     *   summary="update a company by id",
-     *   operationId="updateCompany",
-     *   security={{"bearerAuth": {}}},
-     *   @OA\Response(response="200", description="An example resource"),
-     *   @OA\Parameter(
-     *       required=true,
-     *       name="company",
-     *       description="company identification",
-     *       in="path",
-     *       @OA\Schema(type="integer"),
-     *   ),
-     *  @OA\RequestBody(
-     *     required=true,
-     *     @OA\MediaType(
-     *       mediaType="application/json",
-     *       @OA\Schema(
-     *         @OA\Property(
-     *           property="name",
-     *           description="name",
-     *           type="string"
-     *         ),
-     *         @OA\Property(
-     *           property="description",
-     *           description="description",
-     *           type="string"
-     *         ),
-     *       ),
+     *@OA\POST(
+     *    tags={"Company"},
+     *    path="/api/v1/company/{company}",
+     *    description="update a company by id",
+     *    summary="update a company by id",
+     *    operationId="updateCompany",
+     *    security={{"bearerAuth": {}}},
+     *    @OA\Response(response="200", description="An example resource"),
+     *    @OA\Parameter(
+     *        required=true,
+     *        name="company",
+     *        description="company identification",
+     *        in="path",
+     *        @OA\Schema(type="integer"),
      *    ),
-     *  ),
-     * ),
+     *    @OA\RequestBody(
+     *        required=true,
+     *        @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *                required={"name", "description", "_method"},
+     *                @OA\Property(
+     *                    property="image",
+     *                    description="image company yo upload",
+     *                    type="string",
+     *                    format="binary"
+     *                ),
+     *                @OA\Property(
+     *                    property="name",
+     *                    description="name",
+     *                    type="string"
+     *                ),
+     *                @OA\Property(
+     *                    property="description",
+     *                    description="description",
+     *                    type="string"
+     *                ),
+     *                @OA\Property(
+     *                    property="_method",
+     *                    description="metodo",
+     *                    type="string",
+     *                    default="PUT",
+     *                ),
+     *            ),
+     *        ),
+     *    ),
+     *),
      */
     public function update(Request $request, $company)
     {
         $rules = [
             'name' => 'required',
             'description' => 'required',
+            'image' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048'
         ];
         $messages = [];
         $customAttributes = [];
@@ -242,10 +265,25 @@ class CompanyController extends Controller
             );
         }
         $fields = $request->only(['name', 'description']);
+        if ($request->hasFile("image") && $request->file("image")->isValid()) {
+            $fileName = $request->file('image')->getClientOriginalName();
+            $format =  substr($fileName, (strripos($fileName, ".") + 1), (strlen($fileName) - 1));
+            $pathName = $request->file('image')->getPathname();
+            $fileContent = file_get_contents($pathName);
+            $FilheHash = sha1($fileContent);
+            $fields['image_name'] = '/uploads/' . $FilheHash . '.' . $format;
+            $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
+            if (!$upload) {
+                return response(
+                    array("success" => false, "message" => "error editing company information", "data" => array(), "erros" => array("message" => "error loading company image")),
+                    500
+                );
+            }
+        }
         $company = Company::find($company);
         if ($company && $company->update($fields)) {
             return response(
-                array("success" => true, "data" => array("message" => "company successfully updated"), "erros" => array()),
+                array("success" => true, "message" => "company successfully updated", "data" => $company, "erros" => array()),
                 200
             );
         }

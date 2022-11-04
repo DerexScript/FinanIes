@@ -291,7 +291,7 @@
                     }
                 ]
             },
-            "put": {
+            "post": {
                 "tags": [
                     "Company"
                 ],
@@ -312,9 +312,19 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "_method"
+                                ],
                                 "properties": {
+                                    "image": {
+                                        "description": "image company yo upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
                                     "name": {
                                         "description": "name",
                                         "type": "string"
@@ -322,6 +332,11 @@
                                     "description": {
                                         "description": "description",
                                         "type": "string"
+                                    },
+                                    "_method": {
+                                        "description": "metodo",
+                                        "type": "string",
+                                        "default": "PUT"
                                     }
                                 },
                                 "type": "object"
