@@ -158,7 +158,6 @@ class CompanyController extends Controller
         $company = Company::find($company);
         if ($company) {
             $appURL = env('APP_URL', true);
-            $company = Company::find($company)[0];
             $company->image_name = $appURL . $company->image_name;
             return response(
                 array("success" => true, "message" => "Company found", "data" => $company, "erros" => ""),
