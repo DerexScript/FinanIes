@@ -11,25 +11,25 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
- * Class EntryGroup
+ * Class ReleaseGroup
  * @property string $title
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="EntryGroup",
+ *     schema="ReleaseGroup",
  *     type="object",
- *     title="EntryGroup",
+ *     title="ReleaseGroup",
  *     required={"name", "description", "status"},
  *     properties={
  *         @OA\Property(property="name", type="string"),
  *         @OA\Property(property="description", type="string"),
  *         @OA\Property(property="status", type="boolean"),
  *         @OA\Property(property="company_id", type="integer", nullable=true),
- *         @OA\Property(property="entry_id", type="integer", nullable=true),
+ *         @OA\Property(property="release_id", type="integer", nullable=true),
  *     },
  * )
  */
-class EntryGroup extends Model implements AuthenticatableContract, AuthorizableContract
+class ReleaseGroup extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
     /**
@@ -37,9 +37,9 @@ class EntryGroup extends Model implements AuthenticatableContract, AuthorizableC
      *
      * @var string[]
      */
-    protected $fillable = ['name', 'description', 'status', 'entry_id', 'company_id'];
+    protected $fillable = ['name', 'description', 'status', 'company_id', 'expiration'];
 
-    protected $table = 'entries_group';
+    protected $table = 'releases_groups';
 
     public function category()
     {
@@ -48,5 +48,9 @@ class EntryGroup extends Model implements AuthenticatableContract, AuthorizableC
 
     public function company(){
         return $this->hasOne(Company::class);
+    }
+
+    public function releases(){
+        return $this->hasMany(Release::class);
     }
 }

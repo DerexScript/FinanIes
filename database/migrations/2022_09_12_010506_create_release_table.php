@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('entries', function (Blueprint $table) {
+        Schema::create('releases', function (Blueprint $table) {
             $table->id();
             $table->string("description");
             $table->string("value");
-            $table->date("date");
-            $table->binary("voucher");
-            $table->boolean("status");
+            $table->dateTimeTz("insert_date");
+            $table->string("voucher");
+            $table->boolean("status")->default(true);
             $table->unsignedBigInteger("category_id")->nullable();
+            $table->unsignedBigInteger("release_group_id")->nullable();
             $table->foreign("category_id")->references("id")->on("categories");
+            $table->foreign("release_group_id")->references("id")->on("releases_groups");
             $table->timestamps();
         });
     }
@@ -33,10 +35,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::create('entries', function (Blueprint $table) {
-            $table->dropForeign('entries_company_id_foreign');
-            $table->dropForeign('entries_category_id_foreign');
+        Schema::table('releases', function (Blueprint $table) {
+            $table->dropForeign('release_release_group_id_foreign');
+            $table->dropForeign('release_category_id_foreign');
         });
-        Schema::dropIfExists('entries');
+        Schema::dropIfExists('release');
     }
 };

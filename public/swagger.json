@@ -385,384 +385,6 @@
                 ]
             }
         },
-        "/api/v1/entry": {
-            "get": {
-                "tags": [
-                    "Entry"
-                ],
-                "summary": "get all entry",
-                "description": "get all entry",
-                "operationId": "8bab52b7c1cf0fdac84b0b2cbbb0b8be",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Entry"
-                ],
-                "summary": "register a new entry",
-                "description": "register a new entry",
-                "operationId": "379869c82e0494652c8aa776d8f250a2",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "description",
-                                    "value",
-                                    "date",
-                                    "status"
-                                ],
-                                "properties": {
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "value": {
-                                        "description": "value",
-                                        "type": "number",
-                                        "format": "float"
-                                    },
-                                    "date": {
-                                        "description": "date",
-                                        "type": "string",
-                                        "format": "date"
-                                    },
-                                    "status": {
-                                        "description": "status",
-                                        "type": "boolean"
-                                    },
-                                    "company_id": {
-                                        "description": "company_id",
-                                        "format": "int64",
-                                        "default": null,
-                                        "nullable": "true"
-                                    },
-                                    "category_id": {
-                                        "description": "category_id",
-                                        "format": "int64",
-                                        "default": null,
-                                        "nullable": "true"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "required": [
-                                    "voucher"
-                                ],
-                                "properties": {
-                                    "voucher": {
-                                        "description": "file image to upload",
-                                        "type": "string",
-                                        "format": "binary"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/entry/{entry}": {
-            "put": {
-                "tags": [
-                    "Entry"
-                ],
-                "summary": "update a entry by id",
-                "description": "update a entry by id",
-                "operationId": "updateEntry",
-                "parameters": [
-                    {
-                        "name": "entry",
-                        "in": "path",
-                        "description": "entry identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "value": {
-                                        "description": "value",
-                                        "type": "number",
-                                        "format": "float"
-                                    },
-                                    "date": {
-                                        "description": "date",
-                                        "type": "string",
-                                        "format": "date"
-                                    },
-                                    "voucher": {
-                                        "description": "The data block for encryption/decryption",
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "status": {
-                                        "description": "status",
-                                        "type": "boolean"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Entry"
-                ],
-                "summary": "delete a entry by id",
-                "description": "delete a entry by id",
-                "operationId": "deleteEntry",
-                "parameters": [
-                    {
-                        "name": "entry",
-                        "in": "path",
-                        "description": "entry identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/entry-group": {
-            "get": {
-                "tags": [
-                    "EntryGroup"
-                ],
-                "summary": "get all entry group",
-                "description": "get all entry group",
-                "operationId": "73446cfc62d6fc97d003c7520aa4ba3d",
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "EntryGroup"
-                ],
-                "summary": "register a new entry group",
-                "description": "register a new entry group",
-                "operationId": "45a73ca2074b31832c86d0316c8cc6a0",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "description",
-                                    "status"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "description": "name",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "description": "status",
-                                        "type": "boolean"
-                                    },
-                                    "company_id": {
-                                        "description": "company_id",
-                                        "format": "int64",
-                                        "default": null,
-                                        "nullable": "true"
-                                    },
-                                    "entry_id": {
-                                        "description": "entry_id",
-                                        "format": "int64",
-                                        "default": null,
-                                        "nullable": "true"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/entry-group/{entryGroup}": {
-            "put": {
-                "tags": [
-                    "EntryGroup"
-                ],
-                "summary": "update a entry group by id",
-                "description": "update a entry group by id",
-                "operationId": "updateEntryGroup",
-                "parameters": [
-                    {
-                        "name": "entryGroup",
-                        "in": "path",
-                        "description": "entry group identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "description",
-                                    "status"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "description": "name",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "description",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "description": "status",
-                                        "type": "boolean"
-                                    },
-                                    "company_id": {
-                                        "description": "company_id",
-                                        "format": "int64",
-                                        "default": null,
-                                        "nullable": "true"
-                                    },
-                                    "entry_id": {
-                                        "description": "entry_id",
-                                        "format": "int64",
-                                        "default": null,
-                                        "nullable": "true"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/entry-group/{entryGroup}}": {
-            "delete": {
-                "tags": [
-                    "EntryGroup"
-                ],
-                "summary": "delete a entry group by id",
-                "description": "delete a entry group by id",
-                "operationId": "deleteEntryGroup",
-                "parameters": [
-                    {
-                        "name": "entryGroup",
-                        "in": "path",
-                        "description": "entry group identification",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An example resource"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/v1/helpers/version": {
             "get": {
                 "tags": [
@@ -791,6 +413,457 @@
                         "description": "An example resource"
                     }
                 }
+            }
+        },
+        "/api/v1/release": {
+            "get": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "get all release",
+                "description": "get all release",
+                "operationId": "30c75eaa4ad8a0caa07b244e088073b3",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "register a new release",
+                "description": "register a new release",
+                "operationId": "565a83d739aefa4393fcf81a2304ba95",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "description",
+                                    "value",
+                                    "status",
+                                    "voucher",
+                                    "category_id",
+                                    "release_group_id"
+                                ],
+                                "properties": {
+                                    "release_group_id": {
+                                        "description": "input group id",
+                                        "format": "int64"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "description": "value",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "voucher": {
+                                        "description": "image proof",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "status": {
+                                        "description": "defines whether the posting is outgoing or incoming",
+                                        "type": "boolean"
+                                    },
+                                    "category_id": {
+                                        "description": "category_id",
+                                        "format": "int64"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release/{Release}": {
+            "get": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "get release by id",
+                "description": "get release by id",
+                "operationId": "39d420a261e5f6295f67c4c6453a9a82",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release/{release}": {
+            "post": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "update a release by id",
+                "description": "update a release by id",
+                "operationId": "updateRelease",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "description",
+                                    "value",
+                                    "status",
+                                    "voucher",
+                                    "category_id",
+                                    "release_group_id",
+                                    "_method"
+                                ],
+                                "properties": {
+                                    "release_group_id": {
+                                        "description": "input group id",
+                                        "type": "int64"
+                                    },
+                                    "description": {
+                                        "description": "launch description",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "value": {
+                                        "description": "value",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "voucher": {
+                                        "description": "image proof",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "status": {
+                                        "description": "defines whether the posting is outgoing or incoming",
+                                        "type": "boolean"
+                                    },
+                                    "category_id": {
+                                        "description": "category_id",
+                                        "format": "int64"
+                                    },
+                                    "_method": {
+                                        "description": "metodo",
+                                        "type": "string",
+                                        "default": "PUT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Release"
+                ],
+                "summary": "delete a release by id",
+                "description": "delete a release by id",
+                "operationId": "deleteRelease",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release-group": {
+            "get": {
+                "tags": [
+                    "ReleaseGroup"
+                ],
+                "summary": "get all release group",
+                "description": "get all release group",
+                "operationId": "4da76f40d753a4c8d648262828ecb81d",
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "ReleaseGroup"
+                ],
+                "summary": "register a new release group",
+                "description": "register a new release group",
+                "operationId": "f5c45ff583a54326edd69428725a5deb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "status",
+                                        "type": "boolean"
+                                    },
+                                    "expiration": {
+                                        "description": "expiration time of this release group",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "company_id": {
+                                        "description": "company_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "_method": {
+                                        "description": "metodo",
+                                        "type": "string",
+                                        "default": "PUT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release/{releaseGroup}": {
+            "get": {
+                "tags": [
+                    "ReleaseGroup"
+                ],
+                "summary": "get release group by id",
+                "description": "get release group by id",
+                "operationId": "4dbc3e022cc8a6b7aad8e25f392ad27d",
+                "parameters": [
+                    {
+                        "name": "release",
+                        "in": "path",
+                        "description": "release group identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release-group/{releaseGroup}": {
+            "post": {
+                "tags": [
+                    "ReleaseGroup"
+                ],
+                "summary": "update a release group by id",
+                "description": "update a release group by id",
+                "operationId": "updateReleaseGroup",
+                "parameters": [
+                    {
+                        "name": "releaseGroup",
+                        "in": "path",
+                        "description": "release group identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "name",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "description",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "status",
+                                        "type": "boolean"
+                                    },
+                                    "expiration": {
+                                        "description": "expiration time of this release group",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "company_id": {
+                                        "description": "company_id",
+                                        "format": "int64",
+                                        "default": null,
+                                        "nullable": "true"
+                                    },
+                                    "_method": {
+                                        "description": "metodo",
+                                        "type": "string",
+                                        "default": "PUT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/release-group/{releaseGroup}}": {
+            "delete": {
+                "tags": [
+                    "ReleaseGroup"
+                ],
+                "summary": "delete a release group by id",
+                "description": "delete a release group by id",
+                "operationId": "deleteReleaseGroup",
+                "parameters": [
+                    {
+                        "name": "releaseGroup",
+                        "in": "path",
+                        "description": "releaseGroup group identification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/resource": {
@@ -1580,8 +1653,8 @@
                 },
                 "type": "object"
             },
-            "Entry": {
-                "title": "Entry",
+            "Release": {
+                "title": "Release",
                 "required": [
                     "description",
                     "value",
@@ -1591,7 +1664,7 @@
                 ],
                 "properties": {
                     "description": {
-                        "description": "Class Entry",
+                        "description": "Class Release",
                         "type": "string"
                     },
                     "value": {
@@ -1617,8 +1690,8 @@
                 },
                 "type": "object"
             },
-            "EntryGroup": {
-                "title": "EntryGroup",
+            "ReleaseGroup": {
+                "title": "ReleaseGroup",
                 "required": [
                     "name",
                     "description",
@@ -1626,7 +1699,7 @@
                 ],
                 "properties": {
                     "name": {
-                        "description": "Class EntryGroup",
+                        "description": "Class ReleaseGroup",
                         "type": "string"
                     },
                     "description": {
@@ -1639,7 +1712,7 @@
                         "type": "integer",
                         "nullable": true
                     },
-                    "entry_id": {
+                    "release_id": {
                         "type": "integer",
                         "nullable": true
                     }

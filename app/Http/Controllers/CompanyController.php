@@ -189,7 +189,6 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
     }
 
     /**
@@ -271,7 +270,6 @@ class CompanyController extends Controller
             $pathName = $request->file('image')->getPathname();
             $fileContent = file_get_contents($pathName);
             $FilheHash = sha1($fileContent);
-            $fields['image_name'] = '/uploads/' . $FilheHash . '.' . $format;
             $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
             if (!$upload) {
                 return response(
@@ -279,6 +277,7 @@ class CompanyController extends Controller
                     500
                 );
             }
+            $fields['image_name'] = '/uploads/' . $FilheHash . '.' . $format;
         }
         $company = Company::find($company);
         if ($company && $company->update($fields)) {

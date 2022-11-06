@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Entry;
+use App\Models\Release;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class EntryFactory extends Factory
+class ReleaseFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Entry::class;
+    protected $model = Release::class;
 
     /**
      * Define the model's default state.
@@ -25,7 +25,7 @@ class EntryFactory extends Factory
         return [
             'description' => $this->faker->text(5),
             'value' => $this->faker->randomFloat(2),
-            "date" => $this->faker->date('Y-m-d', 'now'),
+            "insert_date" => $this->faker->date('Y-m-d', 'now'),
             "voucher" => $this->faker->Image(),
             "status" => $this->faker->boolean(50)
         ];

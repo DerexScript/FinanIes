@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Lumen\Auth\Authorizable;
 
 /**
- * Class Entry
+ * Class Release
  * @property string $title
  * @property string $body
  * @package App\Models
  * @OA\Schema(
- *     schema="Entry",
+ *     schema="Release",
  *     type="object",
- *     title="Entry",
+ *     title="Release",
  *     required={"description", "value", "date", "vouncher", "status"},
  *     properties={
  *         @OA\Property(property="description", type="string"),
@@ -31,7 +31,7 @@ use Laravel\Lumen\Auth\Authorizable;
  *     },
  * )
  */
-class Entry extends Model implements AuthenticatableContract, AuthorizableContract
+class Release extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
     /**
@@ -39,10 +39,15 @@ class Entry extends Model implements AuthenticatableContract, AuthorizableContra
      *
      * @var string[]
      */
-    protected $fillable = ['description', 'value', 'date', 'vouncher', 'status'];
+    protected $fillable = ['description', 'value', 'date', 'voucher', 'status', 'category_id', 'release_group_id'];
 
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function releaseGroup()
+    {
+        return $this->belongsTo(ReleaseGroup::class, 'id', 'release_group_id');
     }
 }

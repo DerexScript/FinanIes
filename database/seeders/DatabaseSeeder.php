@@ -47,8 +47,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Role::factory(10)->create();
         \App\Models\User::factory(10)->create();
         \App\Models\Company::factory(4)->create();
-        \App\Models\Category::factory(10)->create();
-        \App\Models\Entry::factory(10)->create();
-        \App\Models\EntryGroup::factory(10)->create();
+        // \App\Models\Category::factory(10)->create();
+        // \App\Models\Release::factory(10)->create();
+        // \App\Models\ReleaseGroup::factory(10)->create();
     }
 }

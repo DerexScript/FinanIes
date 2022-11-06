@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('entries_group', function (Blueprint $table) {
+        Schema::create('releases_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description');
             $table->boolean('status');
-            $table->unsignedBigInteger("entry_id")->nullable();
+            $table->date('expiration');
             $table->unsignedBigInteger("company_id")->nullable();
-            $table->foreign('entry_id')->references('id')->on('entries');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
@@ -33,6 +33,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entries_group');
+        Schema::table('releases_groups', function (Blueprint $table) {
+            $table->dropForeign('releases_groups_company_id_foreign');
+        });
+        Schema::dropIfExists('releases_groups');
     }
 };

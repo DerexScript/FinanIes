@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\EntryGroup;
+use App\Models\ReleaseGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class EntryGroupFactory extends Factory
+class ReleaseGroupFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = EntryGroup::class;
+    protected $model = ReleaseGroup::class;
 
     /**
      * Define the model's default state.
@@ -25,7 +25,8 @@ class EntryGroupFactory extends Factory
         return [
             'name' => $this->faker->text(5),
             'description' => $this->faker->text(15),
-            "status" => $this->faker->boolean(50)
+            "status" => $this->faker->boolean(50),
+            'expiration' => $this->faker->date('Y-m-d', 'now')
         ];
     }
 }
