@@ -727,17 +727,17 @@
                 ]
             }
         },
-        "/api/v1/release/{releaseGroup}": {
+        "/api/v1/release-group/{releaseGroup}": {
             "get": {
                 "tags": [
                     "ReleaseGroup"
                 ],
                 "summary": "get release group by id",
                 "description": "get release group by id",
-                "operationId": "4dbc3e022cc8a6b7aad8e25f392ad27d",
+                "operationId": "d826a7814838803ed810c74df5546807",
                 "parameters": [
                     {
-                        "name": "release",
+                        "name": "releaseGroup",
                         "in": "path",
                         "description": "release group identification",
                         "required": true,
@@ -756,9 +756,7 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/api/v1/release-group/{releaseGroup}": {
+            },
             "post": {
                 "tags": [
                     "ReleaseGroup"

@@ -80,7 +80,6 @@ class ReleaseController extends Controller
         $release = Release::find($release);
         if ($release) {
             $appURL = env('APP_URL', true);
-            $release = Release::find($release)[0];
             $release->voucher = $appURL . $release->voucher;
             return response(
                 array("success" => true, "message" => "release found", "data" => $release, "erros" => ""),

@@ -36,7 +36,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::with('groupEntries')->get()->toArray();
+        $companies = Company::with('releasesGroups')->get()->toArray();
         $companies = array_map(function ($company) {
             $appURL = env('APP_URL', true);
             $company['image_name'] = $appURL . $company['image_name'];
@@ -155,7 +155,7 @@ class CompanyController extends Controller
      */
     public function get($company)
     {
-        $company = Company::find($company);
+        $company = Company::with('releasesGroups')->get()->find($company);
         if ($company) {
             $appURL = env('APP_URL', true);
             $company->image_name = $appURL . $company->image_name;

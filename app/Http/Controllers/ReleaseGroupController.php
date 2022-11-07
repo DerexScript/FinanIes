@@ -47,12 +47,12 @@ class ReleaseGroupController extends Controller
      *   tags={"ReleaseGroup"},
      *   description="get release group by id",
      *   summary="get release group by id",
-     *   path="/api/v1/release/{releaseGroup}",
+     *   path="/api/v1/release-group/{releaseGroup}",
      *   security={{"bearerAuth": {}}},
      *   @OA\Response(response="200", description="Success"),
      *    @OA\Parameter(
      *       required=true,
-     *       name="release",
+     *       name="releaseGroup",
      *       description="release group identification",
      *       in="path",
      *       @OA\Schema(type="integer"),
@@ -63,6 +63,8 @@ class ReleaseGroupController extends Controller
     {
         $releaseGroup = ReleaseGroup::find($releaseGroup);
         if ($releaseGroup) {
+            // $appURL = env('APP_URL', true);
+            // $releaseGroup->company->image_name = $appURL . $releaseGroup->company->image_name;
             return response(
                 array("success" => true, "message" => "release group found", "data" => $releaseGroup, "erros" => array()),
                 200

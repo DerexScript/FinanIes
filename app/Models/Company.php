@@ -37,7 +37,9 @@ class Company extends Model implements AuthenticatableContract, AuthorizableCont
         'name', 'description', 'image_name'
     ];
 
-    public function groupEntries()
+
+
+    public function releasesGroups()
     {
         return $this->hasMany(ReleaseGroup::class);
     }
