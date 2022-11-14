@@ -27,7 +27,7 @@ class ReleaseFactory extends Factory
             'value' => $this->faker->randomFloat(2),
             "insert_date" => $this->faker->date('Y-m-d', 'now'),
             "voucher" => $this->faker->Image(),
-            "status" => $this->faker->boolean(50)
+            "type" => $this->faker->boolean(50)
         ];
     }
 }

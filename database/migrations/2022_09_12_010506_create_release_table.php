@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("value");
             $table->dateTimeTz("insert_date");
             $table->string("voucher");
-            $table->boolean("status")->default(true);
+            $table->boolean("type");
             $table->unsignedBigInteger("category_id")->nullable();
             $table->unsignedBigInteger("release_group_id")->nullable();
             $table->foreign("category_id")->references("id")->on("categories");

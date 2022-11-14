@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPSTORM_META\map;
+
 class ReleaseGroupController extends Controller
 {
     /**
@@ -61,12 +63,21 @@ class ReleaseGroupController extends Controller
      */
     public function get($releaseGroup)
     {
-        $releaseGroup = ReleaseGroup::find($releaseGroup);
-        if ($releaseGroup) {
+        $releasesGroups = ReleaseGroup::with('releases')->get()->find($releaseGroup);
+
+        if ($releasesGroups) {
+            $releasesGroups = array_map(function ($releaseGroup) {
+                $releaseGroup['releases'] = array_map(function ($release) {
+                    $appURL = env('APP_URL', true);
+                    $release['voucher'] = $appURL . $release['voucher'];
+                    return $release;
+                }, $releaseGroup['releases']);
+                return $releaseGroup;
+            }, [$releasesGroups->toArray()])[0];
             // $appURL = env('APP_URL', true);
             // $releaseGroup->company->image_name = $appURL . $releaseGroup->company->image_name;
             return response(
-                array("success" => true, "message" => "release group found", "data" => $releaseGroup, "erros" => array()),
+                array("success" => true, "message" => "release group found", "data" => $releasesGroups, "erros" => array()),
                 200
             );
         }

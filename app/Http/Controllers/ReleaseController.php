@@ -133,7 +133,7 @@ class ReleaseController extends Controller
      *                       format="binary"
      *                   ),
      *                   @OA\Property(
-     *                       property="status",
+     *                       property="type",
      *                       description="defines whether the posting is outgoing or incoming",
      *                       type="boolean",
      *                   ),
@@ -152,11 +152,12 @@ class ReleaseController extends Controller
     {
         $rules = [
             'description' => 'required',
-            'value' => 'required',
-            'voucher' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048|required',
-            'status' => 'required',
             'category_id' => 'required',
-            'release_group_id' => 'required'
+            'value' => 'required',
+            'type' => 'required',
+            'insert_date' => 'required',
+            'release_group_id' => 'required',
+            'voucher' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048|required'
         ];
         $messages = [];
         $customAttributes = [];
@@ -167,7 +168,7 @@ class ReleaseController extends Controller
                 400
             );
         }
-        $tzdate = Carbon::now('Europe/London');
+        // $tzdate = Carbon::now('Europe/London');
         $fileName = $request->file('voucher')->getClientOriginalName();
         $format =  substr($fileName, (strripos($fileName, ".") + 1), (strlen($fileName) - 1));
         $pathName = $request->file('voucher')->getPathname();
@@ -175,16 +176,16 @@ class ReleaseController extends Controller
         $FilheHash = sha1($fileContent);
         $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
         if ($upload) {
-            $fields = $request->only(["description", "value", "voucher", "status", "category_id", "release_group_id"]);
-            $fields['insert_date'] = $tzdate;
-            $fields['status'] = $fields['status'] === 'true';
+            $fields = $request->only(["description", "value", "voucher", "insert_date", "type", "category_id", "release_group_id"]);
+            // $fields['insert_date'] = $tzdate;
+            $fields['type'] = filter_var($fields['type'], FILTER_VALIDATE_BOOLEAN);
             $fields['voucher'] = '/uploads/' . $FilheHash . '.' . $format;
             $release = new Release();
             $release->forceFill($fields);
             $save = $release->save();
             if ($save) {
                 return response(
-                    array("success" => true, "message" => "release successfully added", "data" => $fields, "erros" => array()),
+                    array("success" => true, "message" => "release successfully added", "data" => $release, "erros" => array()),
                     201
                 );
             }
@@ -267,7 +268,7 @@ class ReleaseController extends Controller
      *           format="binary"
      *         ),
      *         @OA\Property(
-     *           property="status",
+     *           property="type",
      *           description="defines whether the posting is outgoing or incoming",
      *           type="boolean",
      *         ),
@@ -294,7 +295,7 @@ class ReleaseController extends Controller
             'description' => 'required',
             'value' => 'required',
             'voucher' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048',
-            'status' => 'required',
+            'type' => 'required',
             'category_id' => 'required',
             'release_group_id' => 'required'
         ];
@@ -307,8 +308,8 @@ class ReleaseController extends Controller
                 400
             );
         }
-        $fields = $request->only(["description", "value", "voucher", "status", "category_id", "release_group_id"]);
-        $fields['status'] = filter_var($fields['status'], FILTER_VALIDATE_BOOLEAN);
+        $fields = $request->only(["description", "value", "voucher", "type", "category_id", "release_group_id"]);
+        $fields['type'] = filter_var($fields['type'], FILTER_VALIDATE_BOOLEAN);
         if ($request->hasFile("voucher") && $request->file("voucher")->isValid()) {
             $fileName = $request->file('voucher')->getClientOriginalName();
             $format =  substr($fileName, (strripos($fileName, ".") + 1), (strlen($fileName) - 1));

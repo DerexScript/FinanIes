@@ -19,13 +19,13 @@ use Laravel\Lumen\Auth\Authorizable;
  *     schema="Release",
  *     type="object",
  *     title="Release",
- *     required={"description", "value", "date", "vouncher", "status"},
+ *     required={"description", "value", "date", "vouncher", "type"},
  *     properties={
  *         @OA\Property(property="description", type="string"),
  *         @OA\Property(property="value", type="string"),
  *         @OA\Property(property="date", type="string"),
  *         @OA\Property(property="vouncher", type="string"),
- *         @OA\Property(property="status", type="boolean"),
+ *         @OA\Property(property="type", type="boolean"),
  *         @OA\Property(property="company_id", type="integer", nullable=true),
  *         @OA\Property(property="category_id", type="integer", nullable=true),
  *     },
@@ -39,7 +39,7 @@ class Release extends Model implements AuthenticatableContract, AuthorizableCont
      *
      * @var string[]
      */
-    protected $fillable = ['description', 'value', 'date', 'voucher', 'status', 'category_id', 'release_group_id'];
+    protected $fillable = ['description', 'value', 'date', 'voucher', 'type', 'category_id', 'release_group_id'];
 
     public function category()
     {
