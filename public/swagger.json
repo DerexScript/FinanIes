@@ -473,9 +473,14 @@
                                         "type": "string",
                                         "format": "binary"
                                     },
-                                    "status": {
+                                    "type": {
                                         "description": "defines whether the posting is outgoing or incoming",
                                         "type": "boolean"
+                                    },
+                                    "insert_date": {
+                                        "description": "insert date of release",
+                                        "type": "string",
+                                        "format": "date-time"
                                     },
                                     "category_id": {
                                         "description": "category_id",
@@ -558,7 +563,6 @@
                                     "description",
                                     "value",
                                     "status",
-                                    "voucher",
                                     "category_id",
                                     "release_group_id",
                                     "_method"
@@ -583,9 +587,14 @@
                                         "type": "string",
                                         "format": "binary"
                                     },
-                                    "status": {
+                                    "type": {
                                         "description": "defines whether the posting is outgoing or incoming",
                                         "type": "boolean"
+                                    },
+                                    "insert_date": {
+                                        "description": "insert date of release",
+                                        "type": "string",
+                                        "format": "date-time"
                                     },
                                     "category_id": {
                                         "description": "category_id",
@@ -1658,7 +1667,7 @@
                     "value",
                     "date",
                     "vouncher",
-                    "status"
+                    "type"
                 ],
                 "properties": {
                     "description": {
@@ -1674,7 +1683,7 @@
                     "vouncher": {
                         "type": "string"
                     },
-                    "status": {
+                    "type": {
                         "type": "boolean"
                     },
                     "company_id": {

@@ -138,6 +138,11 @@ class ReleaseController extends Controller
      *                       type="boolean",
      *                   ),
      *                   @OA\Property(
+     *                       property="insert_date",
+     *                       description="insert date of release",
+     *                       type="datetime",
+     *                   ),
+     *                   @OA\Property(
      *                       property="category_id",
      *                       description="category_id",
      *                       format="int64",
@@ -245,7 +250,7 @@ class ReleaseController extends Controller
      *     @OA\MediaType(
      *       mediaType="multipart/form-data",
      *       @OA\Schema(
-     *         required={"description", "value", "status", "voucher", "category_id", "release_group_id", "_method"},
+     *         required={"description", "value", "status", "category_id", "release_group_id", "_method"},
      *         @OA\Property(
      *           property="release_group_id",
      *           description="input group id",
@@ -273,6 +278,11 @@ class ReleaseController extends Controller
      *           type="boolean",
      *         ),
      *         @OA\Property(
+     *            property="insert_date",
+     *            description="insert date of release",
+     *            type="datetime",
+     *         ),
+     *         @OA\Property(
      *           property="category_id",
      *           description="category_id",
      *           format="int64",
@@ -295,6 +305,7 @@ class ReleaseController extends Controller
             'description' => 'required',
             'value' => 'required',
             'voucher' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048',
+            'insert_date' => 'required',
             'type' => 'required',
             'category_id' => 'required',
             'release_group_id' => 'required'
