@@ -110,7 +110,7 @@ class ReleaseController extends Controller
      *           @OA\MediaType(
      *               mediaType="multipart/form-data",
      *               @OA\Schema(
-     *                   required={"description", "value", "status", "voucher", "category_id", "release_group_id"},
+     *                   required={"description", "value", "status", "category_id", "insert_date", "type", "release_group_id"},
      *                   @OA\Property(
      *                       property="release_group_id",
      *                       description="input group id",
@@ -156,13 +156,13 @@ class ReleaseController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'description' => 'required',
             'category_id' => 'required',
+            'description' => 'required',
             'value' => 'required',
             'type' => 'required',
             'insert_date' => 'required',
             'release_group_id' => 'required',
-            'voucher' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048|required'
+            'voucher' => 'mimes:jpg,jpeg,bmp,png,webp|max:2048'
         ];
         $messages = [];
         $customAttributes = [];
@@ -173,27 +173,27 @@ class ReleaseController extends Controller
                 400
             );
         }
-        // $tzdate = Carbon::now('Europe/London');
-        $fileName = $request->file('voucher')->getClientOriginalName();
-        $format =  substr($fileName, (strripos($fileName, ".") + 1), (strlen($fileName) - 1));
-        $pathName = $request->file('voucher')->getPathname();
-        $fileContent = file_get_contents($pathName);
-        $FilheHash = sha1($fileContent);
-        $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
-        if ($upload) {
-            $fields = $request->only(["description", "value", "voucher", "insert_date", "type", "category_id", "release_group_id"]);
-            // $fields['insert_date'] = $tzdate;
-            $fields['type'] = filter_var($fields['type'], FILTER_VALIDATE_BOOLEAN);
-            $fields['voucher'] = '/uploads/' . $FilheHash . '.' . $format;
-            $release = new Release();
-            $release->forceFill($fields);
-            $save = $release->save();
-            if ($save) {
-                return response(
-                    array("success" => true, "message" => "release successfully added", "data" => $release, "erros" => array()),
-                    201
-                );
+        $fields = $request->only(["category_id", "description", "value", "type", "insert_date", "voucher", "release_group_id"]);
+        $fields['type'] = filter_var($fields['type'], FILTER_VALIDATE_BOOLEAN);
+        if ($request->hasFile("voucher") && $request->file("voucher")->isValid()) {
+            $fileName = $request->file('voucher')->getClientOriginalName();
+            $format =  substr($fileName, (strripos($fileName, ".") + 1), (strlen($fileName) - 1));
+            $pathName = $request->file('voucher')->getPathname();
+            $fileContent = file_get_contents($pathName);
+            $FilheHash = sha1($fileContent);
+            $upload = move_uploaded_file($pathName, base_path() . '/public/uploads/' . $FilheHash . '.' . $format);
+            if ($upload) {
+                $fields['voucher'] = '/uploads/' . $FilheHash . '.' . $format;
             }
+        }
+        $release = new Release();
+        $release->forceFill($fields);
+        $save = $release->save();
+        if ($save) {
+            return response(
+                array("success" => true, "message" => "release successfully added", "data" => $release, "erros" => array()),
+                201
+            );
         }
         return response(
             array("success" => false, "data" => array(), "erros" => array("message" => "error when entering release")),
@@ -250,7 +250,7 @@ class ReleaseController extends Controller
      *     @OA\MediaType(
      *       mediaType="multipart/form-data",
      *       @OA\Schema(
-     *         required={"description", "value", "status", "category_id", "release_group_id", "_method"},
+     *         required={"description", "value", "status", "type", "insert_date", "category_id", "release_group_id", "_method"},
      *         @OA\Property(
      *           property="release_group_id",
      *           description="input group id",

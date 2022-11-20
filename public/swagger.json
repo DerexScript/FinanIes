@@ -450,8 +450,9 @@
                                     "description",
                                     "value",
                                     "status",
-                                    "voucher",
                                     "category_id",
+                                    "insert_date",
+                                    "type",
                                     "release_group_id"
                                 ],
                                 "properties": {
@@ -563,6 +564,8 @@
                                     "description",
                                     "value",
                                     "status",
+                                    "type",
+                                    "insert_date",
                                     "category_id",
                                     "release_group_id",
                                     "_method"
